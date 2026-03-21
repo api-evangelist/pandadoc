@@ -1,0 +1,228 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "pandadoc": "https://api.pandadoc.com/schemas/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Document": {
+      "@id": "pandadoc:Document",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "status": "pandadoc:documentStatus",
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "date_modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "expiration_date": {
+          "@id": "pandadoc:expirationDate",
+          "@type": "xsd:dateTime"
+        },
+        "version": "schema:version",
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "folder_uuid": {
+          "@id": "pandadoc:folder",
+          "@type": "@id"
+        },
+        "created_by": {
+          "@id": "dcterms:creator",
+          "@type": "@id"
+        },
+        "sent_by": {
+          "@id": "pandadoc:sentBy",
+          "@type": "@id"
+        },
+        "recipients": {
+          "@id": "pandadoc:hasRecipient",
+          "@container": "@set"
+        },
+        "template": {
+          "@id": "pandadoc:fromTemplate",
+          "@type": "@id"
+        },
+        "grand_total": "schema:totalPrice",
+        "metadata": "pandadoc:metadata",
+        "linked_objects": {
+          "@id": "pandadoc:linkedObject",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Recipient": {
+      "@id": "pandadoc:Recipient",
+      "@context": {
+        "id": "@id",
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "email": "schema:email",
+        "phone": "schema:telephone",
+        "recipient_type": "pandadoc:recipientType",
+        "role": "pandadoc:signerRole",
+        "signing_order": "pandadoc:signingOrder",
+        "has_completed": "pandadoc:hasCompleted",
+        "contact_id": {
+          "@id": "pandadoc:contact",
+          "@type": "@id"
+        },
+        "shared_link": {
+          "@id": "pandadoc:sharedSigningLink",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Template": {
+      "@id": "pandadoc:Template",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "date_modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "roles": {
+          "@id": "pandadoc:hasRole",
+          "@container": "@set"
+        },
+        "tokens": {
+          "@id": "pandadoc:hasToken",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Contact": {
+      "@id": "pandadoc:Contact",
+      "@context": {
+        "id": "@id",
+        "email": "schema:email",
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "company": "schema:worksFor",
+        "job_title": "schema:jobTitle",
+        "phone": "schema:telephone",
+        "street_address": "schema:streetAddress",
+        "city": "schema:addressLocality",
+        "state": "schema:addressRegion",
+        "postal_code": "schema:postalCode",
+        "country": "schema:addressCountry"
+      }
+    },
+
+    "Member": {
+      "@id": "pandadoc:Member",
+      "@context": {
+        "id": "@id",
+        "email": "schema:email",
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "role": "pandadoc:memberRole",
+        "status": "schema:status",
+        "user_id": {
+          "@id": "pandadoc:user",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "WebhookSubscription": {
+      "@id": "pandadoc:WebhookSubscription",
+      "@context": {
+        "uuid": "@id",
+        "name": "schema:name",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "status": "schema:status",
+        "active": "pandadoc:isActive",
+        "triggers": {
+          "@id": "pandadoc:eventTrigger",
+          "@container": "@set"
+        },
+        "payload": {
+          "@id": "pandadoc:payloadOption",
+          "@container": "@set"
+        },
+        "shared_key": "pandadoc:sharedKey",
+        "workspace_id": {
+          "@id": "pandadoc:workspace",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Folder": {
+      "@id": "pandadoc:Folder",
+      "@context": {
+        "uuid": "@id",
+        "name": "schema:name",
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "parent_uuid": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Workspace": {
+      "@id": "pandadoc:Workspace",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "owner": "schema:email",
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ContentLibraryItem": {
+      "@id": "pandadoc:ContentLibraryItem",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "status": "schema:status"
+      }
+    },
+
+    "PricingLineItem": {
+      "@id": "pandadoc:PricingLineItem",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "qty": "schema:orderQuantity",
+        "price": "schema:price",
+        "subtotal": "pandadoc:lineSubtotal"
+      }
+    }
+  }
+}

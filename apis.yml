@@ -1,0 +1,143 @@
+aid: pandadoc
+url: https://raw.githubusercontent.com/api-evangelist/pandadoc/refs/heads/main/apis.yml
+modified: '2026-03-21'
+apis:
+  - aid: pandadoc:rest-api
+    name: PandaDoc REST API
+    tags:
+      - Document Automation
+      - E-Signature
+      - Document Management
+      - REST
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.pandadoc.com/public/v1
+    humanURL: https://developers.pandadoc.com/reference/about
+    properties:
+      - url: https://developers.pandadoc.com/reference/about
+        type: Documentation
+      - url: openapi/pandadoc-rest-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The PandaDoc REST API provides programmatic access to PandaDoc's document
+      automation platform, enabling developers to create, send, track, and
+      manage documents within their own applications. The API supports the full
+      document lifecycle including generating documents from templates with
+      dynamic data, collecting e-signatures, managing recipients, and tracking
+      document status through webhooks. Authentication is handled via API keys,
+      and a free sandbox environment is available for testing integrations before
+      moving to production. An active Enterprise plan is required to access the
+      production API.
+
+  - aid: pandadoc:document-generation-api
+    name: PandaDoc Document Generation API
+    tags:
+      - Document Generation
+      - Templates
+      - Document Automation
+      - CRM Integration
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.pandadoc.com/public/v1
+    humanURL: https://developers.pandadoc.com/docs/getting-started
+    properties:
+      - url: https://developers.pandadoc.com/docs/getting-started
+        type: Documentation
+      - url: openapi/pandadoc-rest-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The PandaDoc Document Generation API allows developers to programmatically
+      create documents from templates by injecting dynamic data pulled from CRM
+      systems, databases, or other external sources. It supports branded document
+      creation with content placeholders, conditional sections, pricing tables,
+      and custom fields that are populated at runtime. Documents can be generated
+      from existing PandaDoc templates or uploaded PDFs, enabling consistent and
+      automated document production at scale. The API is commonly used in sales,
+      legal, and HR workflows to eliminate manual document preparation.
+
+  - aid: pandadoc:e-signature-api
+    name: PandaDoc E-Signature API
+    tags:
+      - E-Signature
+      - Electronic Signatures
+      - Document Signing
+      - Compliance
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.pandadoc.com/public/v1
+    humanURL: https://www.pandadoc.com/api/
+    properties:
+      - url: https://www.pandadoc.com/api/
+        type: Documentation
+      - url: openapi/pandadoc-rest-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The PandaDoc E-Signature API enables developers to embed legally binding
+      e-signature workflows directly within their applications using a white-label
+      signing experience. It supports sending signature requests via email or SMS,
+      configuring multiple recipients with defined roles and signing order, and
+      collecting signatures without signers needing a PandaDoc account. The API
+      provides real-time status tracking and generates audit trails and signed PDF
+      copies upon completion. It is designed for use cases in contract management,
+      sales, finance, and any workflow requiring legally compliant electronic
+      signatures.
+
+  - aid: pandadoc:embedded-editing-api
+    name: PandaDoc Embedded Editing API
+    tags:
+      - Embedded Editing
+      - Document Editor
+      - White Label
+      - Embedded
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.pandadoc.com/public/v1
+    humanURL: https://www.pandadoc.com/api/embedded-editing/
+    properties:
+      - url: https://www.pandadoc.com/api/embedded-editing/
+        type: Documentation
+      - url: openapi/pandadoc-rest-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The PandaDoc Embedded Editing API allows developers to embed PandaDoc's
+      document editor directly within their own platform, enabling end users to
+      prepare, customize, and finalize documents without leaving the host
+      application. Users can upload PDFs or select templates, place signature and
+      form fields, adjust content, and assign recipients through a drag-and-drop
+      interface embedded via token-based sessions. Once editing is complete,
+      documents can be sent for e-signature collection and the resulting signed
+      PDFs and audit trails can be retrieved via API. This enables a seamless,
+      branded document experience without requiring users to have separate PandaDoc
+      accounts.
+
+  - aid: pandadoc:webhooks-api
+    name: PandaDoc Webhooks API
+    tags:
+      - Webhooks
+      - Events
+      - Notifications
+      - Integration
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.pandadoc.com/public/v1
+    humanURL: https://developers.pandadoc.com/docs/webhooks-concepts
+    properties:
+      - url: https://developers.pandadoc.com/docs/webhooks-concepts
+        type: Documentation
+      - url: openapi/pandadoc-rest-api-openapi.yml
+        type: OpenAPI
+      - url: asyncapi/pandadoc-webhooks-asyncapi.yml
+        type: AsyncAPI
+    description: >-
+      The PandaDoc Webhooks API enables developers to subscribe to real-time
+      event notifications for document lifecycle events such as document sent,
+      viewed, signed, approved, declined, and completed. Webhooks can be
+      configured to trigger events both within PandaDoc and in connected external
+      systems, enabling automated workflows across a technology stack. Each event
+      payload includes document metadata and status information for processing
+      downstream actions like CRM updates, storage routing, or approval
+      notifications. Webhooks are configured through the PandaDoc dashboard and
+      are available to accounts with API access.
+
+common:
+  - url: json-ld/pandadoc-context.jsonld
+    type: JSON-LD
+  - url: json-schema/pandadoc-document-schema.json
+    type: JSONSchema
+  - url: json-schema/pandadoc-webhook-event-schema.json
+    type: JSONSchema

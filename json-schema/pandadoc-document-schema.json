@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pandadoc.com/schemas/pandadoc/document.json",
+  "title": "PandaDoc Document",
+  "description": "Schema representing a PandaDoc document throughout its lifecycle, from initial draft through sending, signing, and completion. Documents are the central entity in PandaDoc and can be created from templates, uploaded files, or remote URLs.",
+  "type": "object",
+  "required": ["id", "name", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier assigned to the document by PandaDoc.",
+      "example": "cKbJ7uay3cEGtsKuGPwYGX"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the document as shown in the PandaDoc workspace.",
+      "minLength": 1,
+      "maxLength": 255,
+      "example": "Service Agreement Q1 2026"
+    },
+    "status": {
+      "$ref": "#/$defs/DocumentStatus"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp indicating when the document was first created."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp indicating when the document was last modified."
+    },
+    "expiration_date": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp after which the document expires and can no longer be signed. Null if no expiration is set."
+    },
+    "version": {
+      "type": ["string", "null"],
+      "description": "Document version string, incremented when the document is resent or edited."
+    },
+    "uuid": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "UUID assigned to the document, used as an alternative identifier in some contexts."
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of string tags applied to the document for categorization and filtering.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "folder_uuid": {
+      "type": ["string", "null"],
+      "description": "Identifier of the folder where this document is stored.",
+      "example": "BhVzRcxH9Z2LgfPPGXFUBa"
+    },
+    "created_by": {
+      "$ref": "#/$defs/UserReference",
+      "description": "The PandaDoc user who created the document."
+    },
+    "sent_by": {
+      "oneOf": [
+        {"$ref": "#/$defs/UserReference"},
+        {"type": "null"}
+      ],
+      "description": "The PandaDoc user who sent the document for signature. Null if the document has not yet been sent."
+    },
+    "recipients": {
+      "type": "array",
+      "description": "List of recipients assigned to the document who may be required to sign, approve, or receive a copy.",
+      "items": {
+        "$ref": "#/$defs/Recipient"
+      }
+    },
+    "template": {
+      "oneOf": [
+        {"$ref": "#/$defs/TemplateReference"},
+        {"type": "null"}
+      ],
+      "description": "Reference to the PandaDoc template this document was generated from. Null if the document was created from a file upload."
+    },
+    "grand_total": {
+      "oneOf": [
+        {"$ref": "#/$defs/MonetaryAmount"},
+        {"type": "null"}
+      ],
+      "description": "Total monetary value of all pricing table line items in the document. Null if the document contains no pricing tables."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Arbitrary key-value pairs attached to the document by the integrating application. Useful for storing external system references such as CRM IDs.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "linked_objects": {
+      "type": "array",
+      "description": "List of CRM or external system objects linked to this document.",
+      "items": {
+        "$ref": "#/$defs/LinkedObject"
+      }
+    }
+  },
+  "$defs": {
+    "DocumentStatus": {
+      "type": "string",
+      "description": "Lifecycle status of a PandaDoc document. Documents progress through statuses as they move through the signing workflow.",
+      "enum": [
+        "document.draft",
+        "document.sent",
+        "document.completed",
+        "document.uploaded",
+        "document.error",
+        "document.viewed",
+        "document.waiting_approval",
+        "document.approved",
+        "document.rejected",
+        "document.waiting_pay",
+        "document.paid",
+        "document.voided",
+        "document.declined",
+        "document.external_review"
+      ],
+      "example": "document.draft"
+    },
+    "UserReference": {
+      "type": "object",
+      "description": "Reference to a PandaDoc user account.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the PandaDoc user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the user."
+        },
+        "first_name": {
+          "type": "string",
+          "description": "First name of the user."
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name of the user."
+        },
+        "avatar": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "URL of the user's profile avatar image."
+        },
+        "membership_id": {
+          "type": "string",
+          "description": "Workspace membership identifier for the user."
+        }
+      }
+    },
+    "Recipient": {
+      "type": "object",
+      "description": "A person assigned to a document who may be required to sign, approve, or receive a copy.",
+      "required": ["id", "recipient_type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Participant classification.",
+          "const": "recipient"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the recipient within the document."
+        },
+        "first_name": {
+          "type": "string",
+          "description": "First name of the recipient."
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name of the recipient."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the recipient."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the recipient."
+        },
+        "recipient_type": {
+          "type": "string",
+          "description": "Type of participation required from this recipient.",
+          "enum": ["SIGNER", "CC", "APPROVER"]
+        },
+        "role": {
+          "type": "string",
+          "description": "Role name that maps this recipient to signature and form fields in the document."
+        },
+        "roles": {
+          "type": "array",
+          "description": "All role names assigned to this recipient.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "signing_order": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Position in the sequential signing order. Null indicates no required order."
+        },
+        "has_completed": {
+          "type": "boolean",
+          "description": "Whether this recipient has completed all required signing actions."
+        },
+        "contact_id": {
+          "type": ["string", "null"],
+          "description": "Identifier of the linked contact record in the PandaDoc contacts directory."
+        },
+        "shared_link": {
+          "type": "string",
+          "format": "uri",
+          "description": "Unique public URL for this recipient to access and sign the document."
+        }
+      }
+    },
+    "TemplateReference": {
+      "type": "object",
+      "description": "Reference to the PandaDoc template used to generate a document.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the template."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the template."
+        }
+      }
+    },
+    "MonetaryAmount": {
+      "type": "object",
+      "description": "A monetary value with associated currency.",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Numeric string representation of the monetary value.",
+          "pattern": "^-?[0-9]+(\\.[0-9]+)?$",
+          "example": "1250.00"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 three-letter currency code.",
+          "pattern": "^[A-Z]{3}$",
+          "example": "USD"
+        }
+      }
+    },
+    "LinkedObject": {
+      "type": "object",
+      "description": "A link between a PandaDoc document and an external CRM or system entity.",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "Name of the external system or CRM provider.",
+          "example": "salesforce"
+        },
+        "entity_type": {
+          "type": "string",
+          "description": "Type of entity in the external system.",
+          "example": "opportunity"
+        },
+        "entity_id": {
+          "type": "string",
+          "description": "Unique identifier of the entity in the external system."
+        }
+      }
+    },
+    "DocumentField": {
+      "type": "object",
+      "description": "A fillable or signable field within a PandaDoc document.",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Field name as defined in the template or document."
+        },
+        "type": {
+          "type": "string",
+          "description": "Field type determining the kind of input or interaction required.",
+          "enum": [
+            "signature",
+            "initials",
+            "text",
+            "date",
+            "checkbox",
+            "radio",
+            "select",
+            "attachment",
+            "payment"
+          ]
+        },
+        "value": {
+          "description": "Current value of the field. Type varies by field type."
+        },
+        "role": {
+          "type": "string",
+          "description": "Recipient role name assigned to complete this field."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether this field must be filled before the document can be completed."
+        }
+      }
+    },
+    "DocumentToken": {
+      "type": "object",
+      "description": "A content placeholder token in a document or template.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Token placeholder name as defined in the template."
+        },
+        "value": {
+          "type": "string",
+          "description": "Substitution value injected into the document at the token location."
+        }
+      }
+    },
+    "PricingLineItem": {
+      "type": "object",
+      "description": "A single product or service line item in a document pricing table.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the line item within the pricing table."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the product or service."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the product or service."
+        },
+        "qty": {
+          "type": "number",
+          "description": "Quantity of the item.",
+          "minimum": 0
+        },
+        "price": {
+          "type": "number",
+          "description": "Unit price of the item.",
+          "minimum": 0
+        },
+        "discount": {
+          "type": "object",
+          "description": "Discount applied to this line item.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["percent", "absolute"],
+              "description": "Whether the discount is a percentage or a fixed amount."
+            },
+            "value": {
+              "type": "number",
+              "description": "Discount value.",
+              "minimum": 0
+            }
+          }
+        },
+        "tax_first": {
+          "type": "object",
+          "description": "First tax applied to the line item.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["percent", "absolute"],
+              "description": "Tax type."
+            },
+            "value": {
+              "type": "number",
+              "description": "Tax value.",
+              "minimum": 0
+            }
+          }
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "Calculated subtotal for this line item after discounts and before tax."
+        }
+      }
+    }
+  }
+}

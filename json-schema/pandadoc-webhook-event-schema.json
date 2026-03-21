@@ -1,0 +1,333 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pandadoc.com/schemas/pandadoc/webhook-event.json",
+  "title": "PandaDoc Webhook Event",
+  "description": "Schema for validating PandaDoc webhook event payloads delivered via HTTP POST to subscriber endpoints. Payloads are JSON arrays where each element is an event object containing the trigger type and data specific to the event. Events cover document lifecycle transitions, template changes, and content library updates.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "$ref": "#/$defs/WebhookEventEnvelope"
+  },
+  "$defs": {
+    "WebhookEventEnvelope": {
+      "type": "object",
+      "description": "A single webhook event envelope containing the trigger type and event-specific data.",
+      "required": ["event", "data"],
+      "properties": {
+        "event": {
+          "$ref": "#/$defs/WebhookEventTrigger"
+        },
+        "data": {
+          "description": "Event-specific payload data. Structure depends on the event type.",
+          "oneOf": [
+            {"$ref": "#/$defs/DocumentEventData"},
+            {"$ref": "#/$defs/TemplateEventData"},
+            {"$ref": "#/$defs/ContentLibraryItemEventData"}
+          ]
+        }
+      }
+    },
+    "WebhookEventTrigger": {
+      "type": "string",
+      "description": "The event trigger type that caused this webhook notification to be dispatched.",
+      "enum": [
+        "recipient_completed",
+        "document_updated",
+        "document_deleted",
+        "document_state_changed",
+        "document_creation_failed",
+        "document_completed_pdf_ready",
+        "document_section_added",
+        "quote_updated",
+        "template_created",
+        "template_updated",
+        "template_deleted",
+        "content_library_item_created",
+        "content_library_item_creation_failed"
+      ],
+      "example": "document_state_changed"
+    },
+    "DocumentStatus": {
+      "type": "string",
+      "description": "Lifecycle status value of a PandaDoc document.",
+      "enum": [
+        "document.draft",
+        "document.sent",
+        "document.completed",
+        "document.uploaded",
+        "document.error",
+        "document.viewed",
+        "document.waiting_approval",
+        "document.approved",
+        "document.rejected",
+        "document.waiting_pay",
+        "document.paid",
+        "document.voided",
+        "document.declined",
+        "document.external_review"
+      ]
+    },
+    "UserReference": {
+      "type": "object",
+      "description": "Reference to the PandaDoc user who performed an action.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the user."
+        },
+        "first_name": {
+          "type": "string",
+          "description": "First name of the user."
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name of the user."
+        },
+        "avatar": {
+          "type": ["string", "null"],
+          "description": "URL of the user's avatar image, or null if not set."
+        },
+        "membership_id": {
+          "type": "string",
+          "description": "Workspace membership identifier for the user."
+        }
+      }
+    },
+    "RecipientReference": {
+      "type": "object",
+      "description": "A document recipient referenced in an event payload with their completion status.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Participant classification.",
+          "example": "recipient"
+        },
+        "id": {
+          "type": "string",
+          "description": "Recipient identifier within the document."
+        },
+        "first_name": {
+          "type": "string",
+          "description": "First name of the recipient."
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name of the recipient."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the recipient."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the recipient."
+        },
+        "recipient_type": {
+          "type": "string",
+          "description": "Type of participation required from this recipient.",
+          "enum": ["SIGNER", "CC", "APPROVER"]
+        },
+        "has_completed": {
+          "type": "boolean",
+          "description": "Whether this recipient has completed all required signing actions."
+        },
+        "role": {
+          "type": "string",
+          "description": "Role name mapping this recipient to fields in the document."
+        },
+        "roles": {
+          "type": "array",
+          "description": "All role names assigned to this recipient.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "signing_order": {
+          "type": ["integer", "null"],
+          "description": "Position in the signing order, or null if no order is enforced."
+        },
+        "contact_id": {
+          "type": ["string", "null"],
+          "description": "Linked contact record identifier."
+        },
+        "shared_link": {
+          "type": "string",
+          "description": "Public signing link for this recipient."
+        }
+      }
+    },
+    "MonetaryAmount": {
+      "type": "object",
+      "description": "A monetary total with currency.",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Numeric string representation of the monetary total.",
+          "pattern": "^-?[0-9]+(\\.[0-9]+)?$"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 three-letter currency code.",
+          "pattern": "^[A-Z]{3}$"
+        }
+      }
+    },
+    "DocumentEventData": {
+      "type": "object",
+      "description": "Data payload for document lifecycle events including state changes, updates, completions, and deletions.",
+      "required": ["id", "name", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the document.",
+          "example": "aahcZhiB6pKRbjagoZrrrr"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the document."
+        },
+        "date_created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the document was created."
+        },
+        "date_modified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the document was last modified."
+        },
+        "expiration_date": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Expiration timestamp, or null if no expiration is set."
+        },
+        "status": {
+          "$ref": "#/$defs/DocumentStatus"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags applied to the document.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "created_by": {
+          "$ref": "#/$defs/UserReference"
+        },
+        "sent_by": {
+          "oneOf": [
+            {"$ref": "#/$defs/UserReference"},
+            {"type": "null"}
+          ],
+          "description": "The user who sent the document, or null if unsent."
+        },
+        "recipients": {
+          "type": "array",
+          "description": "Recipients assigned to the document.",
+          "items": {
+            "$ref": "#/$defs/RecipientReference"
+          }
+        },
+        "template": {
+          "type": ["object", "null"],
+          "description": "Template reference if the document was created from a template.",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Template identifier."
+            },
+            "name": {
+              "type": "string",
+              "description": "Template display name."
+            }
+          }
+        },
+        "grand_total": {
+          "oneOf": [
+            {"$ref": "#/$defs/MonetaryAmount"},
+            {"type": "null"}
+          ],
+          "description": "Total value of pricing tables in the document."
+        },
+        "version": {
+          "type": ["string", "null"],
+          "description": "Document version string."
+        },
+        "linked_objects": {
+          "type": "array",
+          "description": "CRM or external objects linked to this document.",
+          "items": {
+            "type": "object"
+          }
+        },
+        "autonumbering_sequence_name": {
+          "type": ["string", "null"],
+          "description": "Name of the autonumbering sequence applied to this document."
+        }
+      }
+    },
+    "TemplateEventData": {
+      "type": "object",
+      "description": "Data payload for template lifecycle events including creation, update, and deletion.",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the template."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the template."
+        },
+        "date_created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the template was created."
+        },
+        "date_modified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the template was last modified."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags applied to the template.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ContentLibraryItemEventData": {
+      "type": "object",
+      "description": "Data payload for content library item events including creation and failure.",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the content library item."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the content library item."
+        },
+        "date_created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the item was created."
+        },
+        "status": {
+          "type": "string",
+          "description": "Processing status of the content library item.",
+          "enum": ["pending", "processed", "error"]
+        }
+      }
+    }
+  }
+}

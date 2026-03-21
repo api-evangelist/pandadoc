@@ -1,0 +1,2657 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API
+  description: >-
+    The PandaDoc REST API provides programmatic access to PandaDoc's document
+    automation platform, enabling developers to create, send, track, and manage
+    documents within their own applications. The API supports the full document
+    lifecycle including generating documents from templates with dynamic data,
+    collecting e-signatures, managing recipients, and tracking document status.
+    Authentication is handled via API keys or OAuth 2.0, and a free sandbox
+    environment is available for testing integrations before moving to
+    production. An active Enterprise plan is required to access the production
+    API.
+  version: '7.18.0'
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about
+servers:
+  - url: https://api.pandadoc.com/public/v1
+    description: Production Server
+tags:
+  - name: Documents
+    description: >-
+      Operations for creating, retrieving, sending, and managing the full
+      lifecycle of documents including drafting, sending for signature,
+      downloading, and deleting.
+  - name: Document Recipients
+    description: >-
+      Operations for managing recipients within documents, including adding,
+      editing, reassigning, and deleting recipients.
+  - name: Document Fields
+    description: >-
+      Operations for retrieving and updating field values within a document,
+      such as text fields, checkboxes, signatures, and date fields.
+  - name: Document Attachments
+    description: >-
+      Operations for managing file attachments associated with a document,
+      including uploading and downloading attachment files.
+  - name: Document Reminders
+    description: >-
+      Operations for configuring automatic reminders sent to document recipients
+      who have not yet completed their actions.
+  - name: Document Link to CRM
+    description: >-
+      Operations for managing links between PandaDoc documents and external
+      CRM entities such as contacts, deals, or accounts.
+  - name: Templates
+    description: >-
+      Operations for managing document templates, including listing available
+      templates, retrieving template details, creating templates from file
+      upload, and deleting templates.
+  - name: Forms
+    description: >-
+      Operations for retrieving and managing forms, which are publicly shareable
+      document templates that can be filled and signed without a predefined
+      recipient list.
+  - name: Folders
+    description: >-
+      Operations for organizing documents and templates into folders, including
+      creating, renaming, and listing folder contents.
+  - name: Content Library Items
+    description: >-
+      Operations for managing reusable content library items that can be
+      appended to documents, including retrieval, status checking, and creation
+      via file upload.
+  - name: Contacts
+    description: >-
+      Operations for managing the PandaDoc contacts directory, including
+      creating, reading, updating, and deleting contact records.
+  - name: Members
+    description: >-
+      Operations for managing and retrieving details about workspace members,
+      including listing members and generating member API tokens.
+  - name: Webhook Subscriptions
+    description: >-
+      Operations for managing webhook subscriptions that deliver real-time event
+      notifications for document lifecycle and other platform events.
+  - name: Webhook Events
+    description: >-
+      Operations for querying the log of webhook events that have been
+      dispatched, including filtering by type and delivery status.
+  - name: API Logs
+    description: >-
+      Operations for retrieving API request logs useful for debugging and
+      auditing integration activity.
+  - name: Workspaces
+    description: >-
+      Operations for managing organization workspaces, including listing,
+      creating, and deactivating workspaces.
+  - name: Users
+    description: >-
+      Operations for managing users within the organization, including
+      creating and retrieving user records.
+  - name: Quotes
+    description: >-
+      Operations for updating pricing and quote data embedded within documents.
+  - name: Product Catalog
+    description: >-
+      Operations for managing the product catalog used in document pricing
+      tables, including creating and retrieving products.
+security:
+  - apiKey: []
+  - oauth2: []
+paths:
+  /documents:
+    get:
+      operationId: listDocuments
+      summary: List Documents
+      description: >-
+        Returns a paginated list of documents accessible to the authenticated
+        user. Supports filtering by template, form, folder, contact, status,
+        tag, owner, and date ranges. Results can be ordered by various fields.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/QueryCount'
+        - $ref: '#/components/parameters/QueryPage'
+        - name: template_id
+          in: query
+          description: Filter by the parent template identifier.
+          schema:
+            type: string
+        - name: form_id
+          in: query
+          description: Filter by the parent form identifier.
+          schema:
+            type: string
+        - name: folder_uuid
+          in: query
+          description: Filter by the folder where documents are stored.
+          schema:
+            type: string
+        - name: contact_id
+          in: query
+          description: Filter by recipient or approver contact identifier.
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by document status.
+          schema:
+            $ref: '#/components/schemas/DocumentStatus'
+        - name: tag
+          in: query
+          description: Filter by document tag (exact match).
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: Search by document name substring.
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Filter by a specific document identifier.
+          schema:
+            type: string
+        - name: owner_id
+          in: query
+          description: Filter by the document owner member identifier.
+          schema:
+            type: string
+        - name: order_by
+          in: query
+          description: Sort field for results.
+          schema:
+            type: string
+            enum:
+              - name
+              - date_created
+              - date_modified
+              - date_status_changed
+        - name: asc
+          in: query
+          description: Set to true for ascending order, false for descending.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Paginated list of documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createDocument
+      summary: Create Document
+      description: >-
+        Creates a new document from a template, an uploaded file, or a URL.
+        The document is created in draft status and can be customized with
+        recipient details, field values, pricing table data, and metadata
+        tokens before being sent for signature.
+      tags:
+        - Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentCreateRequest'
+      responses:
+        '201':
+          description: Document created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}:
+    get:
+      operationId: getDocumentDetails
+      summary: Get Document Details
+      description: >-
+        Retrieves comprehensive details for a specific document including its
+        status, recipients, fields, pricing tables, tokens, tags, and metadata.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDetailsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteDocument
+      summary: Delete Document
+      description: >-
+        Permanently deletes a specific document by its identifier. This action
+        is irreversible and removes the document and all associated data.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '204':
+          description: Document deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/status:
+    get:
+      operationId: getDocumentStatus
+      summary: Get Document Status
+      description: >-
+        Returns the current status of a document. Use this endpoint to poll
+        for status transitions after creating or sending a document.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentStatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/send:
+    post:
+      operationId: sendDocument
+      summary: Send Document
+      description: >-
+        Sends a document in draft status to its recipients for e-signature
+        collection or review. Optionally includes a subject line, custom
+        message, and controls whether email notifications are sent silently.
+        The document must be in document.draft status before it can be sent.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentSendRequest'
+      responses:
+        '200':
+          description: Document sent successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentSendResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/download:
+    get:
+      operationId: downloadDocument
+      summary: Download Document
+      description: >-
+        Downloads the signed PDF for a completed document. The document must
+        be in document.completed status. Returns the binary PDF file content
+        with appropriate Content-Disposition headers.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+        - name: watermark_color
+          in: query
+          description: Hex color code for watermark text applied to the downloaded PDF.
+          schema:
+            type: string
+        - name: watermark_font_size
+          in: query
+          description: Font size for watermark text in points.
+          schema:
+            type: integer
+        - name: watermark_opacity
+          in: query
+          description: Opacity of the watermark from 0.0 to 1.0.
+          schema:
+            type: number
+            format: float
+        - name: watermark_text
+          in: query
+          description: Text to render as a watermark on every page of the PDF.
+          schema:
+            type: string
+        - name: separate_files
+          in: query
+          description: >-
+            If true, returns a ZIP archive containing each document section
+            as a separate PDF file.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: PDF file content.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/session:
+    post:
+      operationId: createDocumentSession
+      summary: Create Document Session
+      description: >-
+        Creates a time-limited session token for embedded document viewing or
+        signing. The returned session ID is used to embed the PandaDoc document
+        viewer within an iframe in the host application. Session lifetime and
+        recipient scope are configurable.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentSessionCreateRequest'
+      responses:
+        '201':
+          description: Document session created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentSessionCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/recipients:
+    get:
+      operationId: listDocumentRecipients
+      summary: List Document Recipients
+      description: >-
+        Returns the list of recipients associated with a document, including
+        their roles, completion status, signing order, and contact information.
+      tags:
+        - Document Recipients
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: List of document recipients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentRecipientsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: addDocumentRecipient
+      summary: Add Document Recipient
+      description: >-
+        Adds a new recipient to a document that is in draft status. Recipients
+        can be assigned roles that map to signature and form fields within the
+        document. The recipient will receive signing instructions when the
+        document is sent.
+      tags:
+        - Document Recipients
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentRecipientCreateRequest'
+      responses:
+        '201':
+          description: Recipient added to document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentRecipient'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/recipients/{recipient_id}:
+    patch:
+      operationId: updateDocumentRecipient
+      summary: Update Document Recipient
+      description: >-
+        Updates the details of an existing recipient on a document, such as
+        their name, email, role, or signing order. The document must be in
+        an editable state.
+      tags:
+        - Document Recipients
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+        - $ref: '#/components/parameters/RecipientId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentRecipientUpdateRequest'
+      responses:
+        '200':
+          description: Recipient updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentRecipient'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteDocumentRecipient
+      summary: Delete Document Recipient
+      description: >-
+        Removes a recipient from a document. The document must not have been
+        sent yet. If the recipient has associated fields, those fields will
+        be unassigned.
+      tags:
+        - Document Recipients
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+        - $ref: '#/components/parameters/RecipientId'
+      responses:
+        '204':
+          description: Recipient removed from document.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/fields:
+    get:
+      operationId: listDocumentFields
+      summary: List Document Fields
+      description: >-
+        Returns all fields defined in a document, including their identifiers,
+        types, values, roles, and positions. Supports filtering by field type
+        and recipient role.
+      tags:
+        - Document Fields
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: List of document fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentFieldsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateDocumentFields
+      summary: Update Document Fields
+      description: >-
+        Updates the values of one or more fields in a document that is in
+        draft status. Supports updating text fields, checkboxes, dropdowns,
+        dates, and other field types by name.
+      tags:
+        - Document Fields
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentFieldsUpdateRequest'
+      responses:
+        '200':
+          description: Fields updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentFieldsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/attachments:
+    get:
+      operationId: listDocumentAttachments
+      summary: List Document Attachments
+      description: >-
+        Returns a list of all file attachments associated with a document.
+        Includes attachment metadata such as name, size, and upload date.
+      tags:
+        - Document Attachments
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: List of document attachments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentAttachmentsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/attachments/{attachment_id}/download:
+    get:
+      operationId: downloadDocumentAttachment
+      summary: Download Document Attachment
+      description: >-
+        Downloads a specific attachment file associated with a document.
+        Returns the binary file content with appropriate content type headers.
+      tags:
+        - Document Attachments
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+        - name: attachment_id
+          in: path
+          required: true
+          description: Unique identifier of the document attachment.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Attachment file content.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{document_id}/auto-reminders:
+    get:
+      operationId: getDocumentAutoReminders
+      summary: Get Document Auto-Reminders
+      description: >-
+        Retrieves the automatic reminder configuration for a specific document,
+        including the schedule and message used for outstanding recipient
+        notification emails.
+      tags:
+        - Document Reminders
+      parameters:
+        - $ref: '#/components/parameters/DocumentIdByDocumentId'
+      responses:
+        '200':
+          description: Auto-reminder configuration retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentAutoReminderResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/linked-objects:
+    get:
+      operationId: listLinkedObjects
+      summary: List Linked Objects
+      description: >-
+        Returns a list of documents that are linked to a specified CRM object.
+        Supports filtering by CRM provider, object type, and object identifier.
+      tags:
+        - Document Link to CRM
+      parameters:
+        - name: provider
+          in: query
+          required: true
+          description: CRM provider name (e.g., salesforce, hubspot).
+          schema:
+            type: string
+        - name: entity_type
+          in: query
+          required: true
+          description: CRM entity type (e.g., contact, deal, account).
+          schema:
+            type: string
+        - name: entity_id
+          in: query
+          required: true
+          description: Unique identifier of the CRM entity.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of documents linked to the CRM object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedObjectsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /templates:
+    get:
+      operationId: listTemplates
+      summary: List Templates
+      description: >-
+        Returns a paginated list of templates available in the authenticated
+        workspace. Supports filtering by tag, folder, and search query.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/QueryCount'
+        - $ref: '#/components/parameters/QueryPage'
+        - name: q
+          in: query
+          description: Search by template name substring.
+          schema:
+            type: string
+        - name: tag
+          in: query
+          description: Filter by template tag (exact match).
+          schema:
+            type: string
+        - name: folder_uuid
+          in: query
+          description: Filter by folder identifier.
+          schema:
+            type: string
+        - name: deleted
+          in: query
+          description: If true, include deleted templates in the results.
+          schema:
+            type: boolean
+        - name: id
+          in: query
+          description: Filter by specific template identifier.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Paginated list of templates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /templates/{id}/details:
+    get:
+      operationId: getTemplateDetails
+      summary: Get Template Details
+      description: >-
+        Retrieves detailed information about a specific template including its
+        roles, fields, tokens, pricing tables, and content configuration.
+        Use this information to determine the data needed when creating
+        documents from this template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '200':
+          description: Template details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateDetailsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /templates/{id}:
+    delete:
+      operationId: deleteTemplate
+      summary: Delete Template
+      description: >-
+        Permanently deletes a template by its identifier. This action cannot
+        be undone and will prevent creation of new documents from this template.
+        Existing documents created from this template are not affected.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '204':
+          description: Template deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /forms:
+    get:
+      operationId: listForms
+      summary: List Forms
+      description: >-
+        Returns a paginated list of forms in the authenticated workspace.
+        Forms are publicly shareable documents that allow recipients to fill
+        and sign without being pre-specified as named recipients.
+      tags:
+        - Forms
+      parameters:
+        - $ref: '#/components/parameters/QueryCount'
+        - $ref: '#/components/parameters/QueryPage'
+        - name: name
+          in: query
+          description: Filter forms by name substring.
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter forms by status.
+          schema:
+            type: string
+            enum:
+              - active
+              - disabled
+      responses:
+        '200':
+          description: Paginated list of forms.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/folders:
+    get:
+      operationId: listDocumentFolders
+      summary: List Document Folders
+      description: >-
+        Returns a list of folders used to organize documents in the workspace.
+        Supports filtering by parent folder and search by name.
+      tags:
+        - Folders
+      parameters:
+        - $ref: '#/components/parameters/QueryCount'
+        - $ref: '#/components/parameters/QueryPage'
+        - name: parent_uuid
+          in: query
+          description: >-
+            Filter by parent folder UUID to retrieve sub-folders. Omit to
+            retrieve root-level folders.
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Filter folders by name substring.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of document folders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createDocumentFolder
+      summary: Create Document Folder
+      description: >-
+        Creates a new folder for organizing documents. An optional parent UUID
+        may be specified to create a nested sub-folder within an existing folder.
+      tags:
+        - Folders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreateRequest'
+      responses:
+        '201':
+          description: Folder created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /contacts:
+    get:
+      operationId: listContacts
+      summary: List Contacts
+      description: >-
+        Returns a paginated list of contacts from the workspace contacts
+        directory. Supports search by name, email, or company. Contacts can
+        be used to pre-populate recipient data when creating documents.
+      tags:
+        - Contacts
+      parameters:
+        - $ref: '#/components/parameters/QueryCount'
+        - $ref: '#/components/parameters/QueryPage'
+        - name: q
+          in: query
+          description: Search contacts by name, email, or company substring.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Paginated list of contacts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createContact
+      summary: Create Contact
+      description: >-
+        Creates a new contact record in the workspace contacts directory.
+        The email field is optional. Contacts can be referenced when adding
+        recipients to documents.
+      tags:
+        - Contacts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCreateRequest'
+      responses:
+        '201':
+          description: Contact created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /contacts/{id}:
+    get:
+      operationId: getContact
+      summary: Get Contact
+      description: >-
+        Retrieves details of a specific contact by their unique identifier,
+        including name, email, phone, company, and job title.
+      tags:
+        - Contacts
+      parameters:
+        - $ref: '#/components/parameters/ContactId'
+      responses:
+        '200':
+          description: Contact details retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateContact
+      summary: Update Contact
+      description: >-
+        Updates the fields of an existing contact record. Only the provided
+        fields are updated; omitted fields retain their current values.
+      tags:
+        - Contacts
+      parameters:
+        - $ref: '#/components/parameters/ContactId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactUpdateRequest'
+      responses:
+        '200':
+          description: Contact updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteContact
+      summary: Delete Contact
+      description: >-
+        Permanently removes a contact from the workspace contacts directory.
+        Documents and templates that previously used this contact are not
+        affected.
+      tags:
+        - Contacts
+      parameters:
+        - $ref: '#/components/parameters/ContactId'
+      responses:
+        '204':
+          description: Contact deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /members:
+    get:
+      operationId: listMembers
+      summary: List Members
+      description: >-
+        Returns a list of all members in the current workspace, including their
+        user details, roles, and status. Useful for workspace administration
+        and for looking up member identifiers.
+      tags:
+        - Members
+      responses:
+        '200':
+          description: List of workspace members.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /members/current:
+    get:
+      operationId: getCurrentMember
+      summary: Get Current Member
+      description: >-
+        Returns the profile of the currently authenticated member, including
+        their identifier, email, name, role, and workspace association.
+      tags:
+        - Members
+      responses:
+        '200':
+          description: Current member details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /members/{id}:
+    get:
+      operationId: getMember
+      summary: Get Member
+      description: >-
+        Retrieves the details of a specific workspace member by their unique
+        identifier, including their name, email, role, and membership status.
+      tags:
+        - Members
+      parameters:
+        - $ref: '#/components/parameters/MemberId'
+      responses:
+        '200':
+          description: Member details retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-subscriptions:
+    get:
+      operationId: listWebhookSubscriptions
+      summary: List Webhook Subscriptions
+      description: >-
+        Returns a paginated list of all webhook subscriptions configured in
+        the workspace, including their trigger types, target URLs, payload
+        options, and current status.
+      tags:
+        - Webhook Subscriptions
+      responses:
+        '200':
+          description: List of webhook subscriptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscriptionListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createWebhookSubscription
+      summary: Create Webhook Subscription
+      description: >-
+        Creates a new webhook subscription that will deliver event
+        notifications to the specified URL. Specify the trigger event types
+        and optional payload extras (fields, products, metadata, tokens,
+        pricing) to include in each notification.
+      tags:
+        - Webhook Subscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionCreateRequest'
+      responses:
+        '201':
+          description: Webhook subscription created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-subscriptions/{id}:
+    get:
+      operationId: getWebhookSubscription
+      summary: Get Webhook Subscription
+      description: >-
+        Retrieves details of a specific webhook subscription by its UUID,
+        including its configuration, trigger list, payload options, shared
+        key, and status.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/WebhookSubscriptionId'
+      responses:
+        '200':
+          description: Webhook subscription details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateWebhookSubscription
+      summary: Update Webhook Subscription
+      description: >-
+        Updates the configuration of an existing webhook subscription,
+        including its name, target URL, active status, trigger types, and
+        payload options. Only provided fields are updated.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/WebhookSubscriptionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionUpdateRequest'
+      responses:
+        '200':
+          description: Webhook subscription updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteWebhookSubscription
+      summary: Delete Webhook Subscription
+      description: >-
+        Permanently deletes a webhook subscription. No further notifications
+        will be delivered to the associated URL after deletion.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/WebhookSubscriptionId'
+      responses:
+        '204':
+          description: Webhook subscription deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-subscriptions/{id}/shared-key:
+    patch:
+      operationId: updateWebhookSubscriptionSharedKey
+      summary: Regenerate Webhook Shared Key
+      description: >-
+        Regenerates the shared HMAC key for a webhook subscription. The new
+        shared key is used to sign outgoing webhook payloads for signature
+        verification. Update the key in your receiving endpoint before
+        rotating to avoid verification failures.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/WebhookSubscriptionId'
+      responses:
+        '200':
+          description: Shared key regenerated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSharedKeyResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-events:
+    get:
+      operationId: listWebhookEvents
+      summary: List Webhook Events
+      description: >-
+        Returns a paginated log of webhook events that have been dispatched.
+        Supports filtering by event type, delivery time range, HTTP status
+        code group, and error type. Use this endpoint to audit deliveries and
+        diagnose failures.
+      tags:
+        - Webhook Events
+      parameters:
+        - name: count
+          in: query
+          required: true
+          description: Number of results to return per page.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: page
+          in: query
+          required: true
+          description: Page number to retrieve.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: since
+          in: query
+          description: Return events created on or after this timestamp.
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          description: Return events created before this timestamp.
+          schema:
+            type: string
+            format: date-time
+        - name: type
+          in: query
+          description: Filter by event trigger type.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/WebhookEventTrigger'
+        - name: http_status_code
+          in: query
+          description: Filter by HTTP response status code group.
+          schema:
+            type: array
+            items:
+              type: integer
+              enum: [100, 200, 300, 400, 500]
+      responses:
+        '200':
+          description: Paginated list of webhook events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEventListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-events/{id}:
+    get:
+      operationId: getWebhookEvent
+      summary: Get Webhook Event Details
+      description: >-
+        Retrieves detailed information about a specific webhook event by its
+        UUID, including the full request body sent to the subscriber, the
+        response received, HTTP status code, delivery timestamp, and HMAC
+        signature used for verification.
+      tags:
+        - Webhook Events
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the webhook event.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Webhook event details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEventDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /logs:
+    get:
+      operationId: listApiLogs
+      summary: List API Logs
+      description: >-
+        Returns a paginated list of API request logs. Useful for debugging
+        integration issues and auditing API usage. Logs include request method,
+        path, status code, and timestamp.
+      tags:
+        - API Logs
+      parameters:
+        - $ref: '#/components/parameters/QueryCount'
+        - $ref: '#/components/parameters/QueryPage'
+      responses:
+        '200':
+          description: Paginated list of API logs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiLogListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List Workspaces
+      description: >-
+        Returns a paginated list of all active workspaces in the organization.
+        Requires organization administrator privileges.
+      tags:
+        - Workspaces
+      parameters:
+        - $ref: '#/components/parameters/QueryCount'
+        - $ref: '#/components/parameters/QueryPage'
+      responses:
+        '200':
+          description: List of workspaces.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createWorkspace
+      summary: Create Workspace
+      description: >-
+        Creates a new workspace in the organization. Requires organization
+        administrator privileges. The authenticated user is automatically
+        added as an administrator of the new workspace.
+      tags:
+        - Workspaces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceCreateRequest'
+      responses:
+        '201':
+          description: Workspace created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: >-
+        API Key authentication. Include the key in the Authorization header as
+        "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer
+        Dashboard.
+    oauth2:
+      type: oauth2
+      description: >-
+        OAuth 2.0 authentication. Use the authorization code flow to obtain
+        user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
+    DocumentIdByDocumentId:
+      name: document_id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
+    RecipientId:
+      name: recipient_id
+      in: path
+      required: true
+      description: Unique identifier of the document recipient.
+      schema:
+        type: string
+    TemplateId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the template.
+      schema:
+        type: string
+    ContactId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the contact.
+      schema:
+        type: string
+    MemberId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the workspace member.
+      schema:
+        type: string
+    WebhookSubscriptionId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the webhook subscription.
+      schema:
+        type: string
+        format: uuid
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission for this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    DocumentStatus:
+      type: string
+      description: >-
+        Current lifecycle status of a PandaDoc document. Documents progress
+        through statuses as they are drafted, sent, viewed, signed, and
+        completed.
+      enum:
+        - document.draft
+        - document.sent
+        - document.completed
+        - document.uploaded
+        - document.error
+        - document.viewed
+        - document.waiting_approval
+        - document.approved
+        - document.rejected
+        - document.waiting_pay
+        - document.paid
+        - document.voided
+        - document.declined
+        - document.external_review
+      example: document.draft
+    WebhookEventTrigger:
+      type: string
+      description: >-
+        Event type that triggers a webhook notification delivery to the
+        subscriber endpoint.
+      enum:
+        - recipient_completed
+        - document_updated
+        - document_deleted
+        - document_state_changed
+        - document_creation_failed
+        - document_completed_pdf_ready
+        - document_section_added
+        - quote_updated
+        - template_created
+        - template_updated
+        - template_deleted
+        - content_library_item_created
+        - content_library_item_creation_failed
+      example: document_state_changed
+    DocumentListItem:
+      type: object
+      description: Summary record for a document returned in list responses.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+          example: cKbJ7uay3cEGtsKuGPwYGX
+        name:
+          type: string
+          description: Display name of the document.
+          example: Service Agreement Q1 2026
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the document was last modified.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO 8601 timestamp after which the document expires.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+    DocumentListResponse:
+      type: object
+      description: Paginated list of document summary records.
+      properties:
+        results:
+          type: array
+          description: Array of document summary records for the current page.
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+    DocumentRecipient:
+      type: object
+      description: >-
+        A recipient assigned to a document who may be required to sign,
+        approve, or receive a copy of the document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the recipient within the document.
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        recipient_type:
+          type: string
+          description: Recipient participation type.
+          enum:
+            - SIGNER
+            - CC
+            - APPROVER
+        role:
+          type: string
+          description: Role name that maps the recipient to fields in the document.
+        signing_order:
+          type: integer
+          nullable: true
+          description: >-
+            Order in which this recipient must sign relative to other
+            recipients. Null if no signing order is enforced.
+        has_completed:
+          type: boolean
+          description: Whether this recipient has completed all required actions.
+        contact_id:
+          type: string
+          nullable: true
+          description: Identifier of the associated contact record if linked.
+        shared_link:
+          type: string
+          description: Public signing link for this recipient.
+    DocumentDetailsResponse:
+      type: object
+      description: Complete details of a PandaDoc document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+        name:
+          type: string
+          description: Display name of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp when the document was last modified.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp after which the document expires and can no longer be signed.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+        tags:
+          type: array
+          description: List of tags applied to the document.
+          items:
+            type: string
+        recipients:
+          type: array
+          description: List of recipients assigned to the document.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
+        template:
+          type: object
+          nullable: true
+          description: Reference to the template this document was created from, if any.
+          properties:
+            id:
+              type: string
+              description: Template identifier.
+            name:
+              type: string
+              description: Template display name.
+        grand_total:
+          type: object
+          nullable: true
+          description: Total monetary value from pricing tables in the document.
+          properties:
+            amount:
+              type: string
+              description: Numeric string representation of the total amount.
+            currency:
+              type: string
+              description: Three-letter ISO 4217 currency code.
+    DocumentStatusResponse:
+      type: object
+      description: Current status of a document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp of the most recent status change.
+    DocumentCreateRequest:
+      type: object
+      description: >-
+        Request body for creating a new document. A document can be created
+        from a PandaDoc template, a remote URL, or a content library item.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new document.
+          example: New Service Agreement
+        template_uuid:
+          type: string
+          description: >-
+            Identifier of the PandaDoc template to generate the document from.
+            Required when not providing a URL or file.
+          example: BhVzRcxH9Z2LgfPPGXFUBa
+        url:
+          type: string
+          format: uri
+          description: >-
+            Publicly accessible URL of a PDF or DOCX file to use as the
+            document source. Used when not creating from a template.
+        recipients:
+          type: array
+          description: List of recipients to assign to the document.
+          items:
+            $ref: '#/components/schemas/DocumentRecipientCreateRequest'
+        fields:
+          type: object
+          description: >-
+            Map of field name to field value for populating document fields.
+            Field names correspond to placeholders defined in the template.
+          additionalProperties:
+            type: object
+            properties:
+              value:
+                description: The value to assign to the field.
+              role:
+                type: string
+                description: Role name that owns this field.
+        tokens:
+          type: array
+          description: >-
+            List of token name-value pairs for substituting content
+            placeholders in the document.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Token placeholder name as defined in the template.
+              value:
+                type: string
+                description: Replacement value for the token.
+        metadata:
+          type: object
+          description: >-
+            Arbitrary key-value metadata to attach to the document for
+            reference by the integrating application.
+          additionalProperties:
+            type: string
+        tags:
+          type: array
+          description: List of tags to apply to the document.
+          items:
+            type: string
+        folder_uuid:
+          type: string
+          description: Identifier of the folder in which to store the document.
+    DocumentCreateResponse:
+      type: object
+      description: Response returned after successfully creating a document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier assigned to the new document.
+        name:
+          type: string
+          description: Display name of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp of the last modification.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: Expiration timestamp if configured.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+    DocumentSendRequest:
+      type: object
+      description: Request body for sending a document to its recipients for signature.
+      properties:
+        subject:
+          type: string
+          description: Email subject line sent to recipients.
+          example: Please sign your service agreement
+        message:
+          type: string
+          description: Body text of the email sent to recipients.
+          example: Hi, please review and sign the attached agreement at your earliest convenience.
+        silent:
+          type: boolean
+          description: >-
+            If true, suppresses email notification to recipients. The document
+            is marked as sent but recipients are not emailed.
+          default: false
+        sender:
+          type: object
+          description: Override sender details for the notification email.
+          properties:
+            email:
+              type: string
+              format: email
+              description: Sender email address.
+            name:
+              type: string
+              description: Sender display name.
+    DocumentSendResponse:
+      type: object
+      description: Confirmation of a document having been sent.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the sent document.
+        name:
+          type: string
+          description: Display name of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+    DocumentSessionCreateRequest:
+      type: object
+      description: Request body for creating an embedded document session.
+      required:
+        - recipient
+        - lifetime
+      properties:
+        recipient:
+          type: string
+          format: email
+          description: Email address of the recipient for whom the session is created.
+        lifetime:
+          type: integer
+          description: Session lifetime in seconds.
+          minimum: 60
+          maximum: 31536000
+          example: 3600
+        read_only:
+          type: boolean
+          description: >-
+            If true, the embedded viewer is in read-only mode. Recipients
+            cannot interact with fields.
+          default: false
+    DocumentSessionCreateResponse:
+      type: object
+      description: Session token for embedding a document in an iframe.
+      properties:
+        id:
+          type: string
+          description: >-
+            Session identifier used to construct the embedded document URL.
+            Embed at https://app.pandadoc.com/s/{id}.
+    DocumentRecipientsResponse:
+      type: object
+      description: List of recipients for a document.
+      properties:
+        recipients:
+          type: array
+          description: Array of recipient records.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
+    DocumentRecipientCreateRequest:
+      type: object
+      description: Details for a recipient to be added to a document.
+      required:
+        - first_name
+        - last_name
+      properties:
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        role:
+          type: string
+          description: >-
+            Role name mapping this recipient to fields in the document. Must
+            match a role defined in the template.
+        signing_order:
+          type: integer
+          description: >-
+            Signing order position for sequential signing workflows. Omit
+            to allow simultaneous signing.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        contact_id:
+          type: string
+          description: Optional contact identifier to link the recipient to a contact record.
+    DocumentRecipientUpdateRequest:
+      type: object
+      description: Fields to update on an existing document recipient.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        signing_order:
+          type: integer
+          description: Updated signing order position.
+    DocumentField:
+      type: object
+      description: A field within a document, such as a signature, text, or checkbox field.
+      properties:
+        name:
+          type: string
+          description: Field name as defined in the template.
+        type:
+          type: string
+          description: Field type identifier.
+          enum:
+            - signature
+            - initials
+            - text
+            - date
+            - checkbox
+            - radio
+            - select
+            - attachment
+            - payment
+        value:
+          description: Current value assigned to the field.
+        role:
+          type: string
+          description: Role name of the recipient assigned to complete this field.
+        required:
+          type: boolean
+          description: Whether the field must be completed before the document can be finalized.
+    DocumentFieldsResponse:
+      type: object
+      description: Fields contained in a document.
+      properties:
+        fields:
+          type: array
+          description: List of document fields.
+          items:
+            $ref: '#/components/schemas/DocumentField'
+    DocumentFieldsUpdateRequest:
+      type: object
+      description: Request to update field values within a document.
+      properties:
+        fields:
+          type: array
+          description: List of field name-value pairs to update.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Field name to update.
+              value:
+                description: New value to assign to the field.
+    DocumentAttachment:
+      type: object
+      description: A file attached to a document.
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier of the attachment.
+        name:
+          type: string
+          description: File name of the attachment.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the attachment was uploaded.
+    DocumentAttachmentsResponse:
+      type: object
+      description: Attachments associated with a document.
+      properties:
+        attachments:
+          type: array
+          description: List of attachment records.
+          items:
+            $ref: '#/components/schemas/DocumentAttachment'
+    DocumentAutoReminderResponse:
+      type: object
+      description: Auto-reminder settings for a document.
+      properties:
+        scheduled:
+          type: boolean
+          description: Whether automatic reminders are enabled for this document.
+        days:
+          type: integer
+          description: Number of days between reminder emails.
+    TemplateListItem:
+      type: object
+      description: Summary record for a template returned in list responses.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the template.
+        name:
+          type: string
+          description: Display name of the template.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last modified.
+        tags:
+          type: array
+          description: Tags applied to the template.
+          items:
+            type: string
+    TemplateListResponse:
+      type: object
+      description: Paginated list of templates.
+      properties:
+        results:
+          type: array
+          description: Array of template summary records.
+          items:
+            $ref: '#/components/schemas/TemplateListItem'
+    TemplateDetailsResponse:
+      type: object
+      description: Detailed information about a template.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the template.
+        name:
+          type: string
+          description: Display name of the template.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last modified.
+        roles:
+          type: array
+          description: Recipient roles defined in the template.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Role identifier.
+              name:
+                type: string
+                description: Role display name.
+        tokens:
+          type: array
+          description: Content placeholder tokens defined in the template.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Token name.
+              value:
+                type: string
+                description: Default token value.
+        tags:
+          type: array
+          description: Tags applied to the template.
+          items:
+            type: string
+    FormListItem:
+      type: object
+      description: Summary record for a form.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the form.
+        name:
+          type: string
+          description: Display name of the form.
+        status:
+          type: string
+          description: Current status of the form.
+          enum:
+            - active
+            - disabled
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the form was created.
+    FormListResponse:
+      type: object
+      description: Paginated list of forms.
+      properties:
+        results:
+          type: array
+          description: Array of form summary records.
+          items:
+            $ref: '#/components/schemas/FormListItem'
+    Folder:
+      type: object
+      description: A folder used to organize documents or templates.
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier of the folder.
+        name:
+          type: string
+          description: Display name of the folder.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the folder was created.
+        parent_uuid:
+          type: string
+          nullable: true
+          description: Identifier of the parent folder, if nested.
+    FolderListResponse:
+      type: object
+      description: List of document or template folders.
+      properties:
+        results:
+          type: array
+          description: Array of folder records.
+          items:
+            $ref: '#/components/schemas/Folder'
+    FolderCreateRequest:
+      type: object
+      description: Request body for creating a folder.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new folder.
+        parent_uuid:
+          type: string
+          description: >-
+            UUID of the parent folder. Omit to create a root-level folder.
+    Contact:
+      type: object
+      description: A contact record in the PandaDoc contacts directory.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the contact.
+        email:
+          type: string
+          format: email
+          nullable: true
+          description: Email address of the contact.
+        first_name:
+          type: string
+          description: First name of the contact.
+        last_name:
+          type: string
+          description: Last name of the contact.
+        company:
+          type: string
+          nullable: true
+          description: Company name of the contact.
+        job_title:
+          type: string
+          nullable: true
+          description: Job title of the contact.
+        phone:
+          type: string
+          nullable: true
+          description: Phone number of the contact.
+        state:
+          type: string
+          nullable: true
+          description: State or region of the contact.
+        street_address:
+          type: string
+          nullable: true
+          description: Street address of the contact.
+        city:
+          type: string
+          nullable: true
+          description: City of the contact.
+        postal_code:
+          type: string
+          nullable: true
+          description: Postal or ZIP code of the contact.
+        country:
+          type: string
+          nullable: true
+          description: ISO country code of the contact.
+    ContactListResponse:
+      type: object
+      description: Paginated list of contacts.
+      properties:
+        results:
+          type: array
+          description: Array of contact records.
+          items:
+            $ref: '#/components/schemas/Contact'
+    ContactCreateRequest:
+      type: object
+      description: Request body for creating a new contact.
+      required:
+        - first_name
+        - last_name
+      properties:
+        first_name:
+          type: string
+          description: First name of the contact.
+        last_name:
+          type: string
+          description: Last name of the contact.
+        email:
+          type: string
+          format: email
+          description: Email address of the contact. Optional.
+        company:
+          type: string
+          description: Company name of the contact.
+        job_title:
+          type: string
+          description: Job title of the contact.
+        phone:
+          type: string
+          description: Phone number of the contact.
+    ContactUpdateRequest:
+      type: object
+      description: Fields to update on an existing contact record.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        company:
+          type: string
+          description: Updated company name.
+        job_title:
+          type: string
+          description: Updated job title.
+        phone:
+          type: string
+          description: Updated phone number.
+    Member:
+      type: object
+      description: A workspace member representing a PandaDoc user within a workspace.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the member.
+        user_id:
+          type: string
+          description: User account identifier.
+        email:
+          type: string
+          format: email
+          description: Email address of the member.
+        first_name:
+          type: string
+          description: First name of the member.
+        last_name:
+          type: string
+          description: Last name of the member.
+        role:
+          type: string
+          description: Role of the member within the workspace.
+          enum:
+            - admin
+            - manager
+            - user
+        status:
+          type: string
+          description: Membership status.
+          enum:
+            - active
+            - inactive
+    MemberListResponse:
+      type: object
+      description: List of workspace members.
+      properties:
+        results:
+          type: array
+          description: Array of member records.
+          items:
+            $ref: '#/components/schemas/Member'
+    WebhookSubscription:
+      type: object
+      description: >-
+        A webhook subscription that delivers event notifications to a
+        subscriber endpoint URL.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook subscription.
+        name:
+          type: string
+          description: Display name of the webhook subscription.
+        url:
+          type: string
+          format: uri
+          description: Target URL that receives webhook POST requests.
+        status:
+          type: string
+          description: Current status of the subscription.
+          enum:
+            - ACTIVE
+            - INACTIVE
+        active:
+          type: boolean
+          description: Whether the subscription is actively delivering events.
+        triggers:
+          type: array
+          description: List of event types that trigger this subscription.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: >-
+            Optional additional data sections to include in each event payload.
+          items:
+            type: string
+            enum:
+              - fields
+              - products
+              - metadata
+              - tokens
+              - pricing
+        shared_key:
+          type: string
+          description: >-
+            HMAC shared key used to sign webhook payloads for signature
+            verification.
+        workspace_id:
+          type: string
+          description: Identifier of the workspace this subscription belongs to.
+    WebhookSubscriptionListResponse:
+      type: object
+      description: List of webhook subscriptions.
+      properties:
+        items:
+          type: array
+          description: Array of webhook subscription records.
+          items:
+            $ref: '#/components/schemas/WebhookSubscription'
+    WebhookSubscriptionCreateRequest:
+      type: object
+      description: Request body for creating a webhook subscription.
+      required:
+        - name
+        - url
+        - triggers
+      properties:
+        name:
+          type: string
+          description: Display name for the subscription.
+        url:
+          type: string
+          format: uri
+          description: Target URL to receive webhook notifications.
+        active:
+          type: boolean
+          description: Whether the subscription should be active immediately.
+          default: true
+        triggers:
+          type: array
+          description: Event types this subscription should receive.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Additional payload sections to include in notifications.
+          items:
+            type: string
+            enum:
+              - fields
+              - products
+              - metadata
+              - tokens
+              - pricing
+    WebhookSubscriptionUpdateRequest:
+      type: object
+      description: Fields to update on an existing webhook subscription.
+      properties:
+        name:
+          type: string
+          description: Updated display name.
+        url:
+          type: string
+          format: uri
+          description: Updated target URL.
+        active:
+          type: boolean
+          description: Updated active state.
+        triggers:
+          type: array
+          description: Updated list of event trigger types.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Updated list of additional payload sections.
+          items:
+            type: string
+    WebhookSharedKeyResponse:
+      type: object
+      description: Regenerated shared key for a webhook subscription.
+      properties:
+        shared_key:
+          type: string
+          description: New HMAC shared key for payload signature verification.
+    WebhookEventListItem:
+      type: object
+      description: Summary record for a webhook event delivery attempt.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook event.
+        name:
+          type: string
+          description: Name associated with the document or entity that triggered the event.
+        type:
+          $ref: '#/components/schemas/WebhookEventTrigger'
+        error:
+          type: string
+          nullable: true
+          description: Error code if delivery failed.
+        http_status_code:
+          type: integer
+          description: HTTP response status code received from the subscriber endpoint.
+        delivery_time:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was delivered.
+    WebhookEventListResponse:
+      type: object
+      description: Paginated list of webhook event delivery records.
+      properties:
+        items:
+          type: array
+          description: Array of webhook event summary records.
+          items:
+            $ref: '#/components/schemas/WebhookEventListItem'
+    WebhookEventDetails:
+      type: object
+      description: >-
+        Full details of a webhook event delivery including the request and
+        response bodies, signature, and delivery metadata.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook event.
+        name:
+          type: string
+          description: Name associated with the document or entity.
+        type:
+          $ref: '#/components/schemas/WebhookEventTrigger'
+        url:
+          type: string
+          format: uri
+          description: Subscriber endpoint URL the event was delivered to.
+        signature:
+          type: string
+          description: >-
+            HMAC-SHA256 signature of the request body computed with the
+            subscription shared key.
+        http_status_code:
+          type: integer
+          description: HTTP response status code from the subscriber.
+        delivery_time:
+          type: string
+          format: date-time
+          description: Timestamp when the event was delivered.
+        event_time:
+          type: string
+          format: date-time
+          description: Timestamp when the triggering event occurred.
+        request_body:
+          type: string
+          description: JSON-serialized request body sent to the subscriber endpoint.
+        response_body:
+          type: string
+          description: Response body received from the subscriber endpoint.
+        response_headers:
+          type: string
+          description: Response headers received from the subscriber endpoint.
+    LinkedObjectsResponse:
+      type: object
+      description: Documents linked to a CRM object.
+      properties:
+        items:
+          type: array
+          description: Array of linked document records.
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+    ApiLogListResponse:
+      type: object
+      description: Paginated list of API request log entries.
+      properties:
+        results:
+          type: array
+          description: Array of API log records.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of the log entry.
+              method:
+                type: string
+                description: HTTP method of the request.
+              path:
+                type: string
+                description: API path that was called.
+              status_code:
+                type: integer
+                description: HTTP response status code.
+              date_created:
+                type: string
+                format: date-time
+                description: Timestamp of the request.
+    Workspace:
+      type: object
+      description: A PandaDoc workspace belonging to an organization.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the workspace.
+        name:
+          type: string
+          description: Display name of the workspace.
+        owner:
+          type: string
+          format: email
+          description: Email address of the workspace owner.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the workspace was created.
+    WorkspaceListResponse:
+      type: object
+      description: Paginated list of workspaces.
+      properties:
+        results:
+          type: array
+          description: Array of workspace records.
+          items:
+            $ref: '#/components/schemas/Workspace'
+        total:
+          type: integer
+          description: Total number of workspaces matching the query.
+    WorkspaceCreateRequest:
+      type: object
+      description: Request body for creating a workspace.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new workspace.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
