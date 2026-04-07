@@ -24,85 +24,69 @@ servers:
   - url: https://api.pandadoc.com/public/v1
     description: Production Server
 tags:
+  - name: API Logs
+    description: >-
+      Operations for retrieving API request logs useful for debugging and
+      auditing integration activity.
+  - name: Contacts
+    description: >-
+      Operations for managing the PandaDoc contacts directory, including
+      creating, reading, updating, and deleting contact records.
+  - name: Document Attachments
+    description: >-
+      Operations for managing file attachments associated with a document,
+      including uploading and downloading attachment files.
+  - name: Document Fields
+    description: >-
+      Operations for retrieving and updating field values within a document,
+      such as text fields, checkboxes, signatures, and date fields.
+  - name: Document Link to CRM
+    description: >-
+      Operations for managing links between PandaDoc documents and external
+      CRM entities such as contacts, deals, or accounts.
+  - name: Document Recipients
+    description: >-
+      Operations for managing recipients within documents, including adding,
+      editing, reassigning, and deleting recipients.
+  - name: Document Reminders
+    description: >-
+      Operations for configuring automatic reminders sent to document recipients
+      who have not yet completed their actions.
   - name: Documents
     description: >-
       Operations for creating, retrieving, sending, and managing the full
       lifecycle of documents including drafting, sending for signature,
       downloading, and deleting.
-  - name: Document Recipients
+  - name: Folders
     description: >-
-      Operations for managing recipients within documents, including adding,
-      editing, reassigning, and deleting recipients.
-  - name: Document Fields
-    description: >-
-      Operations for retrieving and updating field values within a document,
-      such as text fields, checkboxes, signatures, and date fields.
-  - name: Document Attachments
-    description: >-
-      Operations for managing file attachments associated with a document,
-      including uploading and downloading attachment files.
-  - name: Document Reminders
-    description: >-
-      Operations for configuring automatic reminders sent to document recipients
-      who have not yet completed their actions.
-  - name: Document Link to CRM
-    description: >-
-      Operations for managing links between PandaDoc documents and external
-      CRM entities such as contacts, deals, or accounts.
-  - name: Templates
-    description: >-
-      Operations for managing document templates, including listing available
-      templates, retrieving template details, creating templates from file
-      upload, and deleting templates.
+      Operations for organizing documents and templates into folders, including
+      creating, renaming, and listing folder contents.
   - name: Forms
     description: >-
       Operations for retrieving and managing forms, which are publicly shareable
       document templates that can be filled and signed without a predefined
       recipient list.
-  - name: Folders
-    description: >-
-      Operations for organizing documents and templates into folders, including
-      creating, renaming, and listing folder contents.
-  - name: Content Library Items
-    description: >-
-      Operations for managing reusable content library items that can be
-      appended to documents, including retrieval, status checking, and creation
-      via file upload.
-  - name: Contacts
-    description: >-
-      Operations for managing the PandaDoc contacts directory, including
-      creating, reading, updating, and deleting contact records.
   - name: Members
     description: >-
       Operations for managing and retrieving details about workspace members,
       including listing members and generating member API tokens.
-  - name: Webhook Subscriptions
+  - name: Templates
     description: >-
-      Operations for managing webhook subscriptions that deliver real-time event
-      notifications for document lifecycle and other platform events.
+      Operations for managing document templates, including listing available
+      templates, retrieving template details, creating templates from file
+      upload, and deleting templates.
   - name: Webhook Events
     description: >-
       Operations for querying the log of webhook events that have been
       dispatched, including filtering by type and delivery status.
-  - name: API Logs
+  - name: Webhook Subscriptions
     description: >-
-      Operations for retrieving API request logs useful for debugging and
-      auditing integration activity.
+      Operations for managing webhook subscriptions that deliver real-time event
+      notifications for document lifecycle and other platform events.
   - name: Workspaces
     description: >-
       Operations for managing organization workspaces, including listing,
       creating, and deactivating workspaces.
-  - name: Users
-    description: >-
-      Operations for managing users within the organization, including
-      creating and retrieving user records.
-  - name: Quotes
-    description: >-
-      Operations for updating pricing and quote data embedded within documents.
-  - name: Product Catalog
-    description: >-
-      Operations for managing the product catalog used in document pricing
-      tables, including creating and retrieving products.
 security:
   - apiKey: []
   - oauth2: []
