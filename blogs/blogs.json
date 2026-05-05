@@ -1,0 +1,13 @@
+{
+  "repo": "pandadoc",
+  "feeds": [
+    {
+      "source": "https://www.pandadoc.com/blog/",
+      "feed_url": "https://www.pandadoc.com/blog/feed/",
+      "saved": 10,
+      "title": "Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:33:43Z"
+}
