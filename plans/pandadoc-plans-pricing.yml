@@ -1,0 +1,110 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: PandaDoc
+providerId: pandadoc
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - E-Signature
+  - Documents
+  - CPQ
+description: PandaDoc per-seat pricing across Free / Starter / Business / Enterprise.
+sources:
+  - https://www.pandadoc.com/pricing/
+plans:
+  - id: pandadoc-free
+    name: Free
+    type: freemium
+    description: 60 documents/year; unlimited seats.
+    entries:
+      - label: Documents/year
+        name: docs
+        type: quota
+        metric: document
+        limit: 60
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Unlimited seats
+      - name: Rich media drag-and-drop editor
+      - name: Real-time tracking and notifications
+  - id: pandadoc-starter
+    name: Starter
+    type: paid
+    description: $19/month annual; 110 documents/year, unlimited seats.
+    entries:
+      - label: Monthly
+        name: monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '19.00'
+        userMultiplied: false
+      - label: Documents/year
+        name: docs
+        type: quota
+        metric: document
+        limit: 110
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Unlimited seats
+      - name: Audit trail
+      - name: Bulk import
+      - name: In-line comments
+      - name: 24/7 email + chat support
+  - id: pandadoc-business
+    name: Business
+    type: paid
+    description: $49/seat/month annual.
+    entries:
+      - label: Per seat
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '49.00'
+        userMultiplied: true
+    elements:
+      - name: Unlimited documents
+      - name: Custom quotes + sales agreements
+      - name: CRM integrations
+      - name: Custom branding + content library
+      - name: Deal rooms
+      - name: Approval workflows
+  - id: pandadoc-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Custom pricing.
+    entries:
+      - label: Per seat (custom)
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: true
+    elements:
+      - name: CPQ (configure, price, quote)
+      - name: Workflow automation
+      - name: Smart content
+      - name: SSO
+      - name: Team workspaces
+      - name: API access
