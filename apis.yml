@@ -169,6 +169,20 @@ common:
     sources:
       - https://www.pandadoc.com/pricing/
     updated: '2026-05-04'
+  - type: Integrations
+    url: https://www.pandadoc.com/integrations/
+integrations:
+  - name: Partner Directory
+  - name: Payment
+  - name: HR Systems
+  - name: Integration platforms
+  - name: Design
+  - name: Newest
+  - name: For HR teams
+  - name: For sales teams
+  - name: For marketing teams
+  - name: For sales operations
+  - name: Premium
 maintainers:
   - FN: API Evangelist
     email: info@apievangelist.com
