@@ -4,7 +4,7 @@ description: PandaDoc is a document automation platform that enables businesses 
   and e-sign documents programmatically. Their developer platform provides REST APIs and embedded tools
   for integrating document generation, e-signature collection, and workflow automation directly into third-party
   applications.
-type: Contract
+kind: contract
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
