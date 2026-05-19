@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PandaDoc REST API — Members
+  description: 'PandaDoc REST API — Members. 3 operations. Lead operation: List Members. Self-contained Naftiko capability
+    covering one Pandadoc business surface.'
+  tags:
+  - Pandadoc
+  - Members
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PANDADOC_API_KEY: PANDADOC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-members
+    baseUri: https://api.pandadoc.com/public/v1
+    description: PandaDoc REST API — Members business capability. Self-contained, no shared references.
+    resources:
+    - name: members
+      path: /members
+      operations:
+      - name: listmembers
+        method: GET
+        description: List Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: members-current
+      path: /members/current
+      operations:
+      - name: getcurrentmember
+        method: GET
+        description: Get Current Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: members-id
+      path: /members/{id}
+      operations:
+      - name: getmember
+        method: GET
+        description: Get Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.PANDADOC_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-members-rest
+    port: 8080
+    description: REST adapter for PandaDoc REST API — Members. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/members
+      name: members
+      description: REST surface for members.
+      operations:
+      - method: GET
+        name: listmembers
+        description: List Members
+        call: rest-members.listmembers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/members/current
+      name: members-current
+      description: REST surface for members-current.
+      operations:
+      - method: GET
+        name: getcurrentmember
+        description: Get Current Member
+        call: rest-members.getcurrentmember
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/members/{id}
+      name: members-id
+      description: REST surface for members-id.
+      operations:
+      - method: GET
+        name: getmember
+        description: Get Member
+        call: rest-members.getmember
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-members-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PandaDoc REST API — Members. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-members
+      description: List Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-members.listmembers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-member
+      description: Get Current Member
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-members.getcurrentmember
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-member
+      description: Get Member
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-members.getmember
+      outputParameters:
+      - type: object
+        mapping: $.

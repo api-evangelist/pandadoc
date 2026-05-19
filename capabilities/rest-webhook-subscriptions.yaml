@@ -1,0 +1,229 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PandaDoc REST API — Webhook Subscriptions
+  description: 'PandaDoc REST API — Webhook Subscriptions. 6 operations. Lead operation: List Webhook Subscriptions. Self-contained
+    Naftiko capability covering one Pandadoc business surface.'
+  tags:
+  - Pandadoc
+  - Webhook Subscriptions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PANDADOC_API_KEY: PANDADOC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-webhook-subscriptions
+    baseUri: https://api.pandadoc.com/public/v1
+    description: PandaDoc REST API — Webhook Subscriptions business capability. Self-contained, no shared references.
+    resources:
+    - name: webhook-subscriptions
+      path: /webhook-subscriptions
+      operations:
+      - name: listwebhooksubscriptions
+        method: GET
+        description: List Webhook Subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createwebhooksubscription
+        method: POST
+        description: Create Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: webhook-subscriptions-id
+      path: /webhook-subscriptions/{id}
+      operations:
+      - name: getwebhooksubscription
+        method: GET
+        description: Get Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatewebhooksubscription
+        method: PATCH
+        description: Update Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewebhooksubscription
+        method: DELETE
+        description: Delete Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: webhook-subscriptions-id-shared-key
+      path: /webhook-subscriptions/{id}/shared-key
+      operations:
+      - name: updatewebhooksubscriptionsharedkey
+        method: PATCH
+        description: Regenerate Webhook Shared Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.PANDADOC_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-webhook-subscriptions-rest
+    port: 8080
+    description: REST adapter for PandaDoc REST API — Webhook Subscriptions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/webhook-subscriptions
+      name: webhook-subscriptions
+      description: REST surface for webhook-subscriptions.
+      operations:
+      - method: GET
+        name: listwebhooksubscriptions
+        description: List Webhook Subscriptions
+        call: rest-webhook-subscriptions.listwebhooksubscriptions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwebhooksubscription
+        description: Create Webhook Subscription
+        call: rest-webhook-subscriptions.createwebhooksubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhook-subscriptions/{id}
+      name: webhook-subscriptions-id
+      description: REST surface for webhook-subscriptions-id.
+      operations:
+      - method: GET
+        name: getwebhooksubscription
+        description: Get Webhook Subscription
+        call: rest-webhook-subscriptions.getwebhooksubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatewebhooksubscription
+        description: Update Webhook Subscription
+        call: rest-webhook-subscriptions.updatewebhooksubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewebhooksubscription
+        description: Delete Webhook Subscription
+        call: rest-webhook-subscriptions.deletewebhooksubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhook-subscriptions/{id}/shared-key
+      name: webhook-subscriptions-id-shared-key
+      description: REST surface for webhook-subscriptions-id-shared-key.
+      operations:
+      - method: PATCH
+        name: updatewebhooksubscriptionsharedkey
+        description: Regenerate Webhook Shared Key
+        call: rest-webhook-subscriptions.updatewebhooksubscriptionsharedkey
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-webhook-subscriptions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PandaDoc REST API — Webhook Subscriptions. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-webhook-subscriptions
+      description: List Webhook Subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-webhook-subscriptions.listwebhooksubscriptions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook-subscription
+      description: Create Webhook Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-webhook-subscriptions.createwebhooksubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-webhook-subscription
+      description: Get Webhook Subscription
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-webhook-subscriptions.getwebhooksubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook-subscription
+      description: Update Webhook Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-webhook-subscriptions.updatewebhooksubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-webhook-subscription
+      description: Delete Webhook Subscription
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-webhook-subscriptions.deletewebhooksubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: regenerate-webhook-shared-key
+      description: Regenerate Webhook Shared Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-webhook-subscriptions.updatewebhooksubscriptionsharedkey
+      outputParameters:
+      - type: object
+        mapping: $.

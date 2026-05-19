@@ -1,0 +1,85 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PandaDoc REST API — Forms
+  description: 'PandaDoc REST API — Forms. 1 operations. Lead operation: List Forms. Self-contained Naftiko capability covering
+    one Pandadoc business surface.'
+  tags:
+  - Pandadoc
+  - Forms
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PANDADOC_API_KEY: PANDADOC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-forms
+    baseUri: https://api.pandadoc.com/public/v1
+    description: PandaDoc REST API — Forms business capability. Self-contained, no shared references.
+    resources:
+    - name: forms
+      path: /forms
+      operations:
+      - name: listforms
+        method: GET
+        description: List Forms
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+          description: Filter forms by name substring.
+        - name: status
+          in: query
+          type: string
+          description: Filter forms by status.
+    authentication:
+      type: bearer
+      token: '{{env.PANDADOC_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-forms-rest
+    port: 8080
+    description: REST adapter for PandaDoc REST API — Forms. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/forms
+      name: forms
+      description: REST surface for forms.
+      operations:
+      - method: GET
+        name: listforms
+        description: List Forms
+        call: rest-forms.listforms
+        with:
+          name: rest.name
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-forms-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PandaDoc REST API — Forms. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-forms
+      description: List Forms
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-forms.listforms
+      with:
+        name: tools.name
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.

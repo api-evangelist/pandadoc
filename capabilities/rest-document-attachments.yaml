@@ -1,0 +1,112 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PandaDoc REST API — Document Attachments
+  description: 'PandaDoc REST API — Document Attachments. 2 operations. Lead operation: List Document Attachments. Self-contained
+    Naftiko capability covering one Pandadoc business surface.'
+  tags:
+  - Pandadoc
+  - Document Attachments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PANDADOC_API_KEY: PANDADOC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-document-attachments
+    baseUri: https://api.pandadoc.com/public/v1
+    description: PandaDoc REST API — Document Attachments business capability. Self-contained, no shared references.
+    resources:
+    - name: documents-id-attachments
+      path: /documents/{id}/attachments
+      operations:
+      - name: listdocumentattachments
+        method: GET
+        description: List Document Attachments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: documents-id-attachments-attachment_id-download
+      path: /documents/{id}/attachments/{attachment_id}/download
+      operations:
+      - name: downloaddocumentattachment
+        method: GET
+        description: Download Document Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: attachment_id
+          in: path
+          type: string
+          description: Unique identifier of the document attachment.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PANDADOC_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-document-attachments-rest
+    port: 8080
+    description: REST adapter for PandaDoc REST API — Document Attachments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/documents/{id}/attachments
+      name: documents-id-attachments
+      description: REST surface for documents-id-attachments.
+      operations:
+      - method: GET
+        name: listdocumentattachments
+        description: List Document Attachments
+        call: rest-document-attachments.listdocumentattachments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documents/{id}/attachments/{attachment-id}/download
+      name: documents-id-attachments-attachment-id-download
+      description: REST surface for documents-id-attachments-attachment_id-download.
+      operations:
+      - method: GET
+        name: downloaddocumentattachment
+        description: Download Document Attachment
+        call: rest-document-attachments.downloaddocumentattachment
+        with:
+          attachment_id: rest.attachment_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-document-attachments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PandaDoc REST API — Document Attachments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-document-attachments
+      description: List Document Attachments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-document-attachments.listdocumentattachments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: download-document-attachment
+      description: Download Document Attachment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-document-attachments.downloaddocumentattachment
+      with:
+        attachment_id: tools.attachment_id
+      outputParameters:
+      - type: object
+        mapping: $.

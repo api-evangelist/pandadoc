@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PandaDoc REST API — Folders
+  description: 'PandaDoc REST API — Folders. 2 operations. Lead operation: List Document Folders. Self-contained Naftiko capability
+    covering one Pandadoc business surface.'
+  tags:
+  - Pandadoc
+  - Folders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PANDADOC_API_KEY: PANDADOC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-folders
+    baseUri: https://api.pandadoc.com/public/v1
+    description: PandaDoc REST API — Folders business capability. Self-contained, no shared references.
+    resources:
+    - name: documents-folders
+      path: /documents/folders
+      operations:
+      - name: listdocumentfolders
+        method: GET
+        description: List Document Folders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: parent_uuid
+          in: query
+          type: string
+          description: Filter by parent folder UUID to retrieve sub-folders. Omit to retrieve root-level folders.
+        - name: name
+          in: query
+          type: string
+          description: Filter folders by name substring.
+      - name: createdocumentfolder
+        method: POST
+        description: Create Document Folder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PANDADOC_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-folders-rest
+    port: 8080
+    description: REST adapter for PandaDoc REST API — Folders. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/documents/folders
+      name: documents-folders
+      description: REST surface for documents-folders.
+      operations:
+      - method: GET
+        name: listdocumentfolders
+        description: List Document Folders
+        call: rest-folders.listdocumentfolders
+        with:
+          parent_uuid: rest.parent_uuid
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdocumentfolder
+        description: Create Document Folder
+        call: rest-folders.createdocumentfolder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-folders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PandaDoc REST API — Folders. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-document-folders
+      description: List Document Folders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-folders.listdocumentfolders
+      with:
+        parent_uuid: tools.parent_uuid
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-document-folder
+      description: Create Document Folder
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-folders.createdocumentfolder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

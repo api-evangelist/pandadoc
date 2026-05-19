@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PandaDoc REST API — Document Recipients
+  description: 'PandaDoc REST API — Document Recipients. 4 operations. Lead operation: List Document Recipients. Self-contained
+    Naftiko capability covering one Pandadoc business surface.'
+  tags:
+  - Pandadoc
+  - Document Recipients
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PANDADOC_API_KEY: PANDADOC_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-document-recipients
+    baseUri: https://api.pandadoc.com/public/v1
+    description: PandaDoc REST API — Document Recipients business capability. Self-contained, no shared references.
+    resources:
+    - name: documents-id-recipients
+      path: /documents/{id}/recipients
+      operations:
+      - name: listdocumentrecipients
+        method: GET
+        description: List Document Recipients
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: adddocumentrecipient
+        method: POST
+        description: Add Document Recipient
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: documents-id-recipients-recipient_id
+      path: /documents/{id}/recipients/{recipient_id}
+      operations:
+      - name: updatedocumentrecipient
+        method: PATCH
+        description: Update Document Recipient
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedocumentrecipient
+        method: DELETE
+        description: Delete Document Recipient
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.PANDADOC_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-document-recipients-rest
+    port: 8080
+    description: REST adapter for PandaDoc REST API — Document Recipients. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/documents/{id}/recipients
+      name: documents-id-recipients
+      description: REST surface for documents-id-recipients.
+      operations:
+      - method: GET
+        name: listdocumentrecipients
+        description: List Document Recipients
+        call: rest-document-recipients.listdocumentrecipients
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: adddocumentrecipient
+        description: Add Document Recipient
+        call: rest-document-recipients.adddocumentrecipient
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documents/{id}/recipients/{recipient-id}
+      name: documents-id-recipients-recipient-id
+      description: REST surface for documents-id-recipients-recipient_id.
+      operations:
+      - method: PATCH
+        name: updatedocumentrecipient
+        description: Update Document Recipient
+        call: rest-document-recipients.updatedocumentrecipient
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedocumentrecipient
+        description: Delete Document Recipient
+        call: rest-document-recipients.deletedocumentrecipient
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-document-recipients-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PandaDoc REST API — Document Recipients. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-document-recipients
+      description: List Document Recipients
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-document-recipients.listdocumentrecipients
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-document-recipient
+      description: Add Document Recipient
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-document-recipients.adddocumentrecipient
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-document-recipient
+      description: Update Document Recipient
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-document-recipients.updatedocumentrecipient
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-document-recipient
+      description: Delete Document Recipient
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-document-recipients.deletedocumentrecipient
+      outputParameters:
+      - type: object
+        mapping: $.
