@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentListResponse",
+  "title": "DocumentListResponse",
+  "type": "object",
+  "description": "Paginated list of document summary records.",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of document summary records for the current page.",
+      "items": {
+        "$ref": "#/components/schemas/DocumentListItem"
+      }
+    }
+  }
+}

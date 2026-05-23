@@ -1,0 +1,718 @@
+{
+  "provider": "PandaDoc",
+  "providerId": "pandadoc",
+  "kind": "json-structure",
+  "description": "Structural overview of the PandaDoc API surface; extracted from openapi/.",
+  "schemaCount": 50,
+  "operationCount": 43,
+  "schemas": [
+    {
+      "name": "DocumentStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "WebhookEventTrigger",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "DocumentListItem",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "DocumentListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DocumentRecipient",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "DocumentDetailsResponse",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "DocumentStatusResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "DocumentCreateRequest",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "DocumentCreateResponse",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "DocumentSendRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "DocumentSendResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "DocumentSessionCreateRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "recipient",
+        "lifetime"
+      ]
+    },
+    {
+      "name": "DocumentSessionCreateResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DocumentRecipientsResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DocumentRecipientCreateRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    {
+      "name": "DocumentRecipientUpdateRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "DocumentField",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "DocumentFieldsResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DocumentFieldsUpdateRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DocumentAttachment",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "DocumentAttachmentsResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "DocumentAutoReminderResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "TemplateListItem",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "TemplateListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "TemplateDetailsResponse",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "FormListItem",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "FormListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Folder",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "FolderListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "FolderCreateRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "Contact",
+      "type": "object",
+      "propertyCount": 12,
+      "required": []
+    },
+    {
+      "name": "ContactListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ContactCreateRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    {
+      "name": "ContactUpdateRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "Member",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "MemberListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "WebhookSubscription",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "WebhookSubscriptionListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "WebhookSubscriptionCreateRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name",
+        "url",
+        "triggers"
+      ]
+    },
+    {
+      "name": "WebhookSubscriptionUpdateRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "WebhookSharedKeyResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "WebhookEventListItem",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "WebhookEventListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "WebhookEventDetails",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "LinkedObjectsResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ApiLogListResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Workspace",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "WorkspaceListResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "WorkspaceCreateRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/documents",
+      "operationId": "listDocuments",
+      "summary": "List Documents",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/documents",
+      "operationId": "createDocument",
+      "summary": "Create Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{id}",
+      "operationId": "getDocumentDetails",
+      "summary": "Get Document Details",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/{id}",
+      "operationId": "deleteDocument",
+      "summary": "Delete Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{id}/status",
+      "operationId": "getDocumentStatus",
+      "summary": "Get Document Status",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/documents/{id}/send",
+      "operationId": "sendDocument",
+      "summary": "Send Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{id}/download",
+      "operationId": "downloadDocument",
+      "summary": "Download Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/documents/{id}/session",
+      "operationId": "createDocumentSession",
+      "summary": "Create Document Session",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{id}/recipients",
+      "operationId": "listDocumentRecipients",
+      "summary": "List Document Recipients",
+      "tags": [
+        "Document Recipients"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/documents/{id}/recipients",
+      "operationId": "addDocumentRecipient",
+      "summary": "Add Document Recipient",
+      "tags": [
+        "Document Recipients"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/{id}/recipients/{recipient_id}",
+      "operationId": "deleteDocumentRecipient",
+      "summary": "Delete Document Recipient",
+      "tags": [
+        "Document Recipients"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/{id}/recipients/{recipient_id}",
+      "operationId": "updateDocumentRecipient",
+      "summary": "Update Document Recipient",
+      "tags": [
+        "Document Recipients"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{id}/fields",
+      "operationId": "listDocumentFields",
+      "summary": "List Document Fields",
+      "tags": [
+        "Document Fields"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/{id}/fields",
+      "operationId": "updateDocumentFields",
+      "summary": "Update Document Fields",
+      "tags": [
+        "Document Fields"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{id}/attachments",
+      "operationId": "listDocumentAttachments",
+      "summary": "List Document Attachments",
+      "tags": [
+        "Document Attachments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{id}/attachments/{attachment_id}/download",
+      "operationId": "downloadDocumentAttachment",
+      "summary": "Download Document Attachment",
+      "tags": [
+        "Document Attachments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/{document_id}/auto-reminders",
+      "operationId": "getDocumentAutoReminders",
+      "summary": "Get Document Auto-Reminders",
+      "tags": [
+        "Document Reminders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/linked-objects",
+      "operationId": "listLinkedObjects",
+      "summary": "List Linked Objects",
+      "tags": [
+        "Document Link to CRM"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/templates",
+      "operationId": "listTemplates",
+      "summary": "List Templates",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/templates/{id}/details",
+      "operationId": "getTemplateDetails",
+      "summary": "Get Template Details",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/templates/{id}",
+      "operationId": "deleteTemplate",
+      "summary": "Delete Template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/forms",
+      "operationId": "listForms",
+      "summary": "List Forms",
+      "tags": [
+        "Forms"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/documents/folders",
+      "operationId": "listDocumentFolders",
+      "summary": "List Document Folders",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/documents/folders",
+      "operationId": "createDocumentFolder",
+      "summary": "Create Document Folder",
+      "tags": [
+        "Folders"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts",
+      "operationId": "listContacts",
+      "summary": "List Contacts",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contacts",
+      "operationId": "createContact",
+      "summary": "Create Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts/{id}",
+      "operationId": "getContact",
+      "summary": "Get Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/contacts/{id}",
+      "operationId": "deleteContact",
+      "summary": "Delete Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/contacts/{id}",
+      "operationId": "updateContact",
+      "summary": "Update Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/members",
+      "operationId": "listMembers",
+      "summary": "List Members",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/members/current",
+      "operationId": "getCurrentMember",
+      "summary": "Get Current Member",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/members/{id}",
+      "operationId": "getMember",
+      "summary": "Get Member",
+      "tags": [
+        "Members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhook-subscriptions",
+      "operationId": "listWebhookSubscriptions",
+      "summary": "List Webhook Subscriptions",
+      "tags": [
+        "Webhook Subscriptions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/webhook-subscriptions",
+      "operationId": "createWebhookSubscription",
+      "summary": "Create Webhook Subscription",
+      "tags": [
+        "Webhook Subscriptions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhook-subscriptions/{id}",
+      "operationId": "getWebhookSubscription",
+      "summary": "Get Webhook Subscription",
+      "tags": [
+        "Webhook Subscriptions"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhook-subscriptions/{id}",
+      "operationId": "deleteWebhookSubscription",
+      "summary": "Delete Webhook Subscription",
+      "tags": [
+        "Webhook Subscriptions"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/webhook-subscriptions/{id}",
+      "operationId": "updateWebhookSubscription",
+      "summary": "Update Webhook Subscription",
+      "tags": [
+        "Webhook Subscriptions"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/webhook-subscriptions/{id}/shared-key",
+      "operationId": "updateWebhookSubscriptionSharedKey",
+      "summary": "Regenerate Webhook Shared Key",
+      "tags": [
+        "Webhook Subscriptions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhook-events",
+      "operationId": "listWebhookEvents",
+      "summary": "List Webhook Events",
+      "tags": [
+        "Webhook Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhook-events/{id}",
+      "operationId": "getWebhookEvent",
+      "summary": "Get Webhook Event Details",
+      "tags": [
+        "Webhook Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/logs",
+      "operationId": "listApiLogs",
+      "summary": "List API Logs",
+      "tags": [
+        "API Logs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workspaces",
+      "operationId": "listWorkspaces",
+      "summary": "List Workspaces",
+      "tags": [
+        "Workspaces"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workspaces",
+      "operationId": "createWorkspace",
+      "summary": "Create Workspace",
+      "tags": [
+        "Workspaces"
+      ]
+    }
+  ]
+}

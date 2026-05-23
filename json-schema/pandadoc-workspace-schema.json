@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Workspace",
+  "title": "Workspace",
+  "type": "object",
+  "description": "A PandaDoc workspace belonging to an organization.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the workspace."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the workspace."
+    },
+    "owner": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the workspace owner."
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the workspace was created."
+    }
+  }
+}

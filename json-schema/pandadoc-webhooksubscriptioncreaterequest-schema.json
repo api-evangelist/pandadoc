@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookSubscriptionCreateRequest",
+  "title": "WebhookSubscriptionCreateRequest",
+  "type": "object",
+  "description": "Request body for creating a webhook subscription.",
+  "required": [
+    "name",
+    "url",
+    "triggers"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the subscription."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Target URL to receive webhook notifications."
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the subscription should be active immediately.",
+      "default": true
+    },
+    "triggers": {
+      "type": "array",
+      "description": "Event types this subscription should receive.",
+      "items": {
+        "$ref": "#/components/schemas/WebhookEventTrigger"
+      }
+    },
+    "payload": {
+      "type": "array",
+      "description": "Additional payload sections to include in notifications.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "fields",
+          "products",
+          "metadata",
+          "tokens",
+          "pricing"
+        ]
+      }
+    }
+  }
+}

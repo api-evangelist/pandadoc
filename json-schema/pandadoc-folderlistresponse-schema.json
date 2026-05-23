@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FolderListResponse",
+  "title": "FolderListResponse",
+  "type": "object",
+  "description": "List of document or template folders.",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of folder records.",
+      "items": {
+        "$ref": "#/components/schemas/Folder"
+      }
+    }
+  }
+}

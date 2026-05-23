@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookEventListResponse",
+  "title": "WebhookEventListResponse",
+  "type": "object",
+  "description": "Paginated list of webhook event delivery records.",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "Array of webhook event summary records.",
+      "items": {
+        "$ref": "#/components/schemas/WebhookEventListItem"
+      }
+    }
+  }
+}

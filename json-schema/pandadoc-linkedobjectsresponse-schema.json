@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LinkedObjectsResponse",
+  "title": "LinkedObjectsResponse",
+  "type": "object",
+  "description": "Documents linked to a CRM object.",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "Array of linked document records.",
+      "items": {
+        "$ref": "#/components/schemas/DocumentListItem"
+      }
+    }
+  }
+}

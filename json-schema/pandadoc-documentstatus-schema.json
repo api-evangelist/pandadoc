@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentStatus",
+  "title": "DocumentStatus",
+  "type": "string",
+  "description": "Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.",
+  "enum": [
+    "document.draft",
+    "document.sent",
+    "document.completed",
+    "document.uploaded",
+    "document.error",
+    "document.viewed",
+    "document.waiting_approval",
+    "document.approved",
+    "document.rejected",
+    "document.waiting_pay",
+    "document.paid",
+    "document.voided",
+    "document.declined",
+    "document.external_review"
+  ],
+  "example": "document.draft"
+}

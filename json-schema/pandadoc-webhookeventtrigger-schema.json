@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookEventTrigger",
+  "title": "WebhookEventTrigger",
+  "type": "string",
+  "description": "Event type that triggers a webhook notification delivery to the subscriber endpoint.",
+  "enum": [
+    "recipient_completed",
+    "document_updated",
+    "document_deleted",
+    "document_state_changed",
+    "document_creation_failed",
+    "document_completed_pdf_ready",
+    "document_section_added",
+    "quote_updated",
+    "template_created",
+    "template_updated",
+    "template_deleted",
+    "content_library_item_created",
+    "content_library_item_creation_failed"
+  ],
+  "example": "document_state_changed"
+}

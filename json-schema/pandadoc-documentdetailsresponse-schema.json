@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentDetailsResponse",
+  "title": "DocumentDetailsResponse",
+  "type": "object",
+  "description": "Complete details of a PandaDoc document.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the document."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the document."
+    },
+    "status": {
+      "$ref": "#/components/schemas/DocumentStatus"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the document was created."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the document was last modified."
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "Timestamp after which the document expires and can no longer be signed."
+    },
+    "version": {
+      "type": "string",
+      "nullable": true,
+      "description": "Document version string."
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of tags applied to the document.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recipients": {
+      "type": "array",
+      "description": "List of recipients assigned to the document.",
+      "items": {
+        "$ref": "#/components/schemas/DocumentRecipient"
+      }
+    },
+    "template": {
+      "type": "object",
+      "nullable": true,
+      "description": "Reference to the template this document was created from, if any.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Template identifier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Template display name."
+        }
+      }
+    },
+    "grand_total": {
+      "type": "object",
+      "nullable": true,
+      "description": "Total monetary value from pricing tables in the document.",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Numeric string representation of the total amount."
+        },
+        "currency": {
+          "type": "string",
+          "description": "Three-letter ISO 4217 currency code."
+        }
+      }
+    }
+  }
+}

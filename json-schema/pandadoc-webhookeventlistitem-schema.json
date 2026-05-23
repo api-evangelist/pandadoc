@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookEventListItem",
+  "title": "WebhookEventListItem",
+  "type": "object",
+  "description": "Summary record for a webhook event delivery attempt.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the webhook event."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name associated with the document or entity that triggered the event."
+    },
+    "type": {
+      "$ref": "#/components/schemas/WebhookEventTrigger"
+    },
+    "error": {
+      "type": "string",
+      "nullable": true,
+      "description": "Error code if delivery failed."
+    },
+    "http_status_code": {
+      "type": "integer",
+      "description": "HTTP response status code received from the subscriber endpoint."
+    },
+    "delivery_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the webhook was delivered."
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentField",
+  "title": "DocumentField",
+  "type": "object",
+  "description": "A field within a document, such as a signature, text, or checkbox field.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Field name as defined in the template."
+    },
+    "type": {
+      "type": "string",
+      "description": "Field type identifier.",
+      "enum": [
+        "signature",
+        "initials",
+        "text",
+        "date",
+        "checkbox",
+        "radio",
+        "select",
+        "attachment",
+        "payment"
+      ]
+    },
+    "value": {
+      "description": "Current value assigned to the field."
+    },
+    "role": {
+      "type": "string",
+      "description": "Role name of the recipient assigned to complete this field."
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Whether the field must be completed before the document can be finalized."
+    }
+  }
+}

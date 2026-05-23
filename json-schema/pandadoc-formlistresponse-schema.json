@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FormListResponse",
+  "title": "FormListResponse",
+  "type": "object",
+  "description": "Paginated list of forms.",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of form summary records.",
+      "items": {
+        "$ref": "#/components/schemas/FormListItem"
+      }
+    }
+  }
+}

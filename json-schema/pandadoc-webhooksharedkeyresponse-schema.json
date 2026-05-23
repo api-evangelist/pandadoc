@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookSharedKeyResponse",
+  "title": "WebhookSharedKeyResponse",
+  "type": "object",
+  "description": "Regenerated shared key for a webhook subscription.",
+  "properties": {
+    "shared_key": {
+      "type": "string",
+      "description": "New HMAC shared key for payload signature verification."
+    }
+  }
+}

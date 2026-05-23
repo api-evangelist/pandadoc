@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WorkspaceListResponse",
+  "title": "WorkspaceListResponse",
+  "type": "object",
+  "description": "Paginated list of workspaces.",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of workspace records.",
+      "items": {
+        "$ref": "#/components/schemas/Workspace"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of workspaces matching the query."
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentRecipient",
+  "title": "DocumentRecipient",
+  "type": "object",
+  "description": "A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the recipient within the document."
+    },
+    "first_name": {
+      "type": "string",
+      "description": "First name of the recipient."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name of the recipient."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the recipient."
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number of the recipient."
+    },
+    "recipient_type": {
+      "type": "string",
+      "description": "Recipient participation type.",
+      "enum": [
+        "SIGNER",
+        "CC",
+        "APPROVER"
+      ]
+    },
+    "role": {
+      "type": "string",
+      "description": "Role name that maps the recipient to fields in the document."
+    },
+    "signing_order": {
+      "type": "integer",
+      "nullable": true,
+      "description": "Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced."
+    },
+    "has_completed": {
+      "type": "boolean",
+      "description": "Whether this recipient has completed all required actions."
+    },
+    "contact_id": {
+      "type": "string",
+      "nullable": true,
+      "description": "Identifier of the associated contact record if linked."
+    },
+    "shared_link": {
+      "type": "string",
+      "description": "Public signing link for this recipient."
+    }
+  }
+}

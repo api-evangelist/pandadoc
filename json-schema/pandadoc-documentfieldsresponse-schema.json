@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentFieldsResponse",
+  "title": "DocumentFieldsResponse",
+  "type": "object",
+  "description": "Fields contained in a document.",
+  "properties": {
+    "fields": {
+      "type": "array",
+      "description": "List of document fields.",
+      "items": {
+        "$ref": "#/components/schemas/DocumentField"
+      }
+    }
+  }
+}

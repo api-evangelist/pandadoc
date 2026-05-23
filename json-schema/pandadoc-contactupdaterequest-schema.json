@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContactUpdateRequest",
+  "title": "ContactUpdateRequest",
+  "type": "object",
+  "description": "Fields to update on an existing contact record.",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "description": "Updated first name."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Updated last name."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Updated email address."
+    },
+    "company": {
+      "type": "string",
+      "description": "Updated company name."
+    },
+    "job_title": {
+      "type": "string",
+      "description": "Updated job title."
+    },
+    "phone": {
+      "type": "string",
+      "description": "Updated phone number."
+    }
+  }
+}

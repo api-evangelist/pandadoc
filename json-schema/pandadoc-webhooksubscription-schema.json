@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookSubscription",
+  "title": "WebhookSubscription",
+  "type": "object",
+  "description": "A webhook subscription that delivers event notifications to a subscriber endpoint URL.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the webhook subscription."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the webhook subscription."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Target URL that receives webhook POST requests."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the subscription.",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE"
+      ]
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the subscription is actively delivering events."
+    },
+    "triggers": {
+      "type": "array",
+      "description": "List of event types that trigger this subscription.",
+      "items": {
+        "$ref": "#/components/schemas/WebhookEventTrigger"
+      }
+    },
+    "payload": {
+      "type": "array",
+      "description": "Optional additional data sections to include in each event payload.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "fields",
+          "products",
+          "metadata",
+          "tokens",
+          "pricing"
+        ]
+      }
+    },
+    "shared_key": {
+      "type": "string",
+      "description": "HMAC shared key used to sign webhook payloads for signature verification."
+    },
+    "workspace_id": {
+      "type": "string",
+      "description": "Identifier of the workspace this subscription belongs to."
+    }
+  }
+}

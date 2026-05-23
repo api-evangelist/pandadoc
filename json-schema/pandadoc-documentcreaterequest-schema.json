@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentCreateRequest",
+  "title": "DocumentCreateRequest",
+  "type": "object",
+  "description": "Request body for creating a new document. A document can be created from a PandaDoc template, a remote URL, or a content library item.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new document.",
+      "example": "New Service Agreement"
+    },
+    "template_uuid": {
+      "type": "string",
+      "description": "Identifier of the PandaDoc template to generate the document from. Required when not providing a URL or file.",
+      "example": "BhVzRcxH9Z2LgfPPGXFUBa"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Publicly accessible URL of a PDF or DOCX file to use as the document source. Used when not creating from a template."
+    },
+    "recipients": {
+      "type": "array",
+      "description": "List of recipients to assign to the document.",
+      "items": {
+        "$ref": "#/components/schemas/DocumentRecipientCreateRequest"
+      }
+    },
+    "fields": {
+      "type": "object",
+      "description": "Map of field name to field value for populating document fields. Field names correspond to placeholders defined in the template.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "description": "The value to assign to the field."
+          },
+          "role": {
+            "type": "string",
+            "description": "Role name that owns this field."
+          }
+        }
+      }
+    },
+    "tokens": {
+      "type": "array",
+      "description": "List of token name-value pairs for substituting content placeholders in the document.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Token placeholder name as defined in the template."
+          },
+          "value": {
+            "type": "string",
+            "description": "Replacement value for the token."
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Arbitrary key-value metadata to attach to the document for reference by the integrating application.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of tags to apply to the document.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "folder_uuid": {
+      "type": "string",
+      "description": "Identifier of the folder in which to store the document."
+    }
+  }
+}

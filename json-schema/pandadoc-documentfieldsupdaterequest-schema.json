@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentFieldsUpdateRequest",
+  "title": "DocumentFieldsUpdateRequest",
+  "type": "object",
+  "description": "Request to update field values within a document.",
+  "properties": {
+    "fields": {
+      "type": "array",
+      "description": "List of field name-value pairs to update.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Field name to update."
+          },
+          "value": {
+            "description": "New value to assign to the field."
+          }
+        }
+      }
+    }
+  }
+}

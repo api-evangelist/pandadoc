@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentListItem",
+  "title": "DocumentListItem",
+  "type": "object",
+  "description": "Summary record for a document returned in list responses.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the document.",
+      "example": "cKbJ7uay3cEGtsKuGPwYGX"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the document.",
+      "example": "Service Agreement Q1 2026"
+    },
+    "status": {
+      "$ref": "#/components/schemas/DocumentStatus"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the document was created."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the document was last modified."
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "ISO 8601 timestamp after which the document expires."
+    },
+    "version": {
+      "type": "string",
+      "nullable": true,
+      "description": "Document version string."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MemberListResponse",
+  "title": "MemberListResponse",
+  "type": "object",
+  "description": "List of workspace members.",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of member records.",
+      "items": {
+        "$ref": "#/components/schemas/Member"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentSessionCreateRequest",
+  "title": "DocumentSessionCreateRequest",
+  "type": "object",
+  "description": "Request body for creating an embedded document session.",
+  "required": [
+    "recipient",
+    "lifetime"
+  ],
+  "properties": {
+    "recipient": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the recipient for whom the session is created."
+    },
+    "lifetime": {
+      "type": "integer",
+      "description": "Session lifetime in seconds.",
+      "minimum": 60,
+      "maximum": 31536000,
+      "example": 3600
+    },
+    "read_only": {
+      "type": "boolean",
+      "description": "If true, the embedded viewer is in read-only mode. Recipients cannot interact with fields.",
+      "default": false
+    }
+  }
+}

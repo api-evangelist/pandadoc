@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FolderCreateRequest",
+  "title": "FolderCreateRequest",
+  "type": "object",
+  "description": "Request body for creating a folder.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new folder."
+    },
+    "parent_uuid": {
+      "type": "string",
+      "description": "UUID of the parent folder. Omit to create a root-level folder."
+    }
+  }
+}

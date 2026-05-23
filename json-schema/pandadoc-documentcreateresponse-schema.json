@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentCreateResponse",
+  "title": "DocumentCreateResponse",
+  "type": "object",
+  "description": "Response returned after successfully creating a document.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier assigned to the new document."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the document."
+    },
+    "status": {
+      "$ref": "#/components/schemas/DocumentStatus"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the document was created."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last modification."
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "description": "Expiration timestamp if configured."
+    },
+    "version": {
+      "type": "string",
+      "nullable": true,
+      "description": "Document version string."
+    }
+  }
+}

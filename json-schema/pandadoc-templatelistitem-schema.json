@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TemplateListItem",
+  "title": "TemplateListItem",
+  "type": "object",
+  "description": "Summary record for a template returned in list responses.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the template."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the template."
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was created."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was last modified."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags applied to the template.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentAutoReminderResponse",
+  "title": "DocumentAutoReminderResponse",
+  "type": "object",
+  "description": "Auto-reminder settings for a document.",
+  "properties": {
+    "scheduled": {
+      "type": "boolean",
+      "description": "Whether automatic reminders are enabled for this document."
+    },
+    "days": {
+      "type": "integer",
+      "description": "Number of days between reminder emails."
+    }
+  }
+}

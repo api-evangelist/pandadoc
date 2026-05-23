@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookSubscriptionListResponse",
+  "title": "WebhookSubscriptionListResponse",
+  "type": "object",
+  "description": "List of webhook subscriptions.",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "Array of webhook subscription records.",
+      "items": {
+        "$ref": "#/components/schemas/WebhookSubscription"
+      }
+    }
+  }
+}

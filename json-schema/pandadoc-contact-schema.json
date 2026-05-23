@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Contact",
+  "title": "Contact",
+  "type": "object",
+  "description": "A contact record in the PandaDoc contacts directory.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the contact."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "nullable": true,
+      "description": "Email address of the contact."
+    },
+    "first_name": {
+      "type": "string",
+      "description": "First name of the contact."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name of the contact."
+    },
+    "company": {
+      "type": "string",
+      "nullable": true,
+      "description": "Company name of the contact."
+    },
+    "job_title": {
+      "type": "string",
+      "nullable": true,
+      "description": "Job title of the contact."
+    },
+    "phone": {
+      "type": "string",
+      "nullable": true,
+      "description": "Phone number of the contact."
+    },
+    "state": {
+      "type": "string",
+      "nullable": true,
+      "description": "State or region of the contact."
+    },
+    "street_address": {
+      "type": "string",
+      "nullable": true,
+      "description": "Street address of the contact."
+    },
+    "city": {
+      "type": "string",
+      "nullable": true,
+      "description": "City of the contact."
+    },
+    "postal_code": {
+      "type": "string",
+      "nullable": true,
+      "description": "Postal or ZIP code of the contact."
+    },
+    "country": {
+      "type": "string",
+      "nullable": true,
+      "description": "ISO country code of the contact."
+    }
+  }
+}

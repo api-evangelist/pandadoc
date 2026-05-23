@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookEventDetails",
+  "title": "WebhookEventDetails",
+  "type": "object",
+  "description": "Full details of a webhook event delivery including the request and response bodies, signature, and delivery metadata.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the webhook event."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name associated with the document or entity."
+    },
+    "type": {
+      "$ref": "#/components/schemas/WebhookEventTrigger"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Subscriber endpoint URL the event was delivered to."
+    },
+    "signature": {
+      "type": "string",
+      "description": "HMAC-SHA256 signature of the request body computed with the subscription shared key."
+    },
+    "http_status_code": {
+      "type": "integer",
+      "description": "HTTP response status code from the subscriber."
+    },
+    "delivery_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the event was delivered."
+    },
+    "event_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the triggering event occurred."
+    },
+    "request_body": {
+      "type": "string",
+      "description": "JSON-serialized request body sent to the subscriber endpoint."
+    },
+    "response_body": {
+      "type": "string",
+      "description": "Response body received from the subscriber endpoint."
+    },
+    "response_headers": {
+      "type": "string",
+      "description": "Response headers received from the subscriber endpoint."
+    }
+  }
+}

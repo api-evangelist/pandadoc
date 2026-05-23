@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentSendResponse",
+  "title": "DocumentSendResponse",
+  "type": "object",
+  "description": "Confirmation of a document having been sent.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the sent document."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the document."
+    },
+    "status": {
+      "$ref": "#/components/schemas/DocumentStatus"
+    }
+  }
+}

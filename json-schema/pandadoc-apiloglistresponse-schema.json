@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApiLogListResponse",
+  "title": "ApiLogListResponse",
+  "type": "object",
+  "description": "Paginated list of API request log entries.",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of API log records.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the log entry."
+          },
+          "method": {
+            "type": "string",
+            "description": "HTTP method of the request."
+          },
+          "path": {
+            "type": "string",
+            "description": "API path that was called."
+          },
+          "status_code": {
+            "type": "integer",
+            "description": "HTTP response status code."
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the request."
+          }
+        }
+      }
+    }
+  }
+}

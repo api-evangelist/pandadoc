@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentAttachmentsResponse",
+  "title": "DocumentAttachmentsResponse",
+  "type": "object",
+  "description": "Attachments associated with a document.",
+  "properties": {
+    "attachments": {
+      "type": "array",
+      "description": "List of attachment records.",
+      "items": {
+        "$ref": "#/components/schemas/DocumentAttachment"
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TemplateDetailsResponse",
+  "title": "TemplateDetailsResponse",
+  "type": "object",
+  "description": "Detailed information about a template.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the template."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the template."
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was created."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was last modified."
+    },
+    "roles": {
+      "type": "array",
+      "description": "Recipient roles defined in the template.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Role identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "Role display name."
+          }
+        }
+      }
+    },
+    "tokens": {
+      "type": "array",
+      "description": "Content placeholder tokens defined in the template.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Token name."
+          },
+          "value": {
+            "type": "string",
+            "description": "Default token value."
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags applied to the template.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

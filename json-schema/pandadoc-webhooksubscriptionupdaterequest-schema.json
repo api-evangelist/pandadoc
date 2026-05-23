@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookSubscriptionUpdateRequest",
+  "title": "WebhookSubscriptionUpdateRequest",
+  "type": "object",
+  "description": "Fields to update on an existing webhook subscription.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Updated display name."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Updated target URL."
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Updated active state."
+    },
+    "triggers": {
+      "type": "array",
+      "description": "Updated list of event trigger types.",
+      "items": {
+        "$ref": "#/components/schemas/WebhookEventTrigger"
+      }
+    },
+    "payload": {
+      "type": "array",
+      "description": "Updated list of additional payload sections.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

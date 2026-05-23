@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentSessionCreateResponse",
+  "title": "DocumentSessionCreateResponse",
+  "type": "object",
+  "description": "Session token for embedding a document in an iframe.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Session identifier used to construct the embedded document URL. Embed at https://app.pandadoc.com/s/{id}."
+    }
+  }
+}

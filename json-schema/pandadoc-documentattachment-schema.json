@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentAttachment",
+  "title": "DocumentAttachment",
+  "type": "object",
+  "description": "A file attached to a document.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "description": "Unique identifier of the attachment."
+    },
+    "name": {
+      "type": "string",
+      "description": "File name of the attachment."
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the attachment was uploaded."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TemplateListResponse",
+  "title": "TemplateListResponse",
+  "type": "object",
+  "description": "Paginated list of templates.",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of template summary records.",
+      "items": {
+        "$ref": "#/components/schemas/TemplateListItem"
+      }
+    }
+  }
+}

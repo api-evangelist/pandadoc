@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentStatusResponse",
+  "title": "DocumentStatusResponse",
+  "type": "object",
+  "description": "Current status of a document.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the document."
+    },
+    "status": {
+      "$ref": "#/components/schemas/DocumentStatus"
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the most recent status change."
+    }
+  }
+}

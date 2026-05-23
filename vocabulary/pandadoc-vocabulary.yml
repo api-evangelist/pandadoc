@@ -1,0 +1,47 @@
+name: PandaDoc Domain Vocabulary
+provider: PandaDoc
+providerId: pandadoc
+description: Tag-derived vocabulary for the PandaDoc API surface; sourced from openapi/ tags.
+terms:
+- term: API Logs
+  description: Operations for retrieving API request logs useful for debugging and auditing integration activity.
+- term: Contacts
+  description: Operations for managing the PandaDoc contacts directory, including creating, reading, updating, and deleting
+    contact records.
+- term: Document Attachments
+  description: Operations for managing file attachments associated with a document, including uploading and downloading attachment
+    files.
+- term: Document Fields
+  description: Operations for retrieving and updating field values within a document, such as text fields, checkboxes, signatures,
+    and date fields.
+- term: Document Link to CRM
+  description: Operations for managing links between PandaDoc documents and external CRM entities such as contacts, deals,
+    or accounts.
+- term: Document Recipients
+  description: Operations for managing recipients within documents, including adding, editing, reassigning, and deleting recipients.
+- term: Document Reminders
+  description: Operations for configuring automatic reminders sent to document recipients who have not yet completed their
+    actions.
+- term: Documents
+  description: Operations for creating, retrieving, sending, and managing the full lifecycle of documents including drafting,
+    sending for signature, downloading, and deleting.
+- term: Folders
+  description: Operations for organizing documents and templates into folders, including creating, renaming, and listing folder
+    contents.
+- term: Forms
+  description: Operations for retrieving and managing forms, which are publicly shareable document templates that can be filled
+    and signed without a predefined recipient list.
+- term: Members
+  description: Operations for managing and retrieving details about workspace members, including listing members and generating
+    member API tokens.
+- term: Templates
+  description: Operations for managing document templates, including listing available templates, retrieving template details,
+    creating templates from file upload, and deleting templates.
+- term: Webhook Events
+  description: Operations for querying the log of webhook events that have been dispatched, including filtering by type and
+    delivery status.
+- term: Webhook Subscriptions
+  description: Operations for managing webhook subscriptions that deliver real-time event notifications for document lifecycle
+    and other platform events.
+- term: Workspaces
+  description: Operations for managing organization workspaces, including listing, creating, and deactivating workspaces.

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FormListItem",
+  "title": "FormListItem",
+  "type": "object",
+  "description": "Summary record for a form.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the form."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the form."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the form.",
+      "enum": [
+        "active",
+        "disabled"
+      ]
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the form was created."
+    }
+  }
+}

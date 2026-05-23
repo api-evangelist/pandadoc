@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DocumentSendRequest",
+  "title": "DocumentSendRequest",
+  "type": "object",
+  "description": "Request body for sending a document to its recipients for signature.",
+  "properties": {
+    "subject": {
+      "type": "string",
+      "description": "Email subject line sent to recipients.",
+      "example": "Please sign your service agreement"
+    },
+    "message": {
+      "type": "string",
+      "description": "Body text of the email sent to recipients.",
+      "example": "Hi, please review and sign the attached agreement at your earliest convenience."
+    },
+    "silent": {
+      "type": "boolean",
+      "description": "If true, suppresses email notification to recipients. The document is marked as sent but recipients are not emailed.",
+      "default": false
+    },
+    "sender": {
+      "type": "object",
+      "description": "Override sender details for the notification email.",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Sender email address."
+        },
+        "name": {
+          "type": "string",
+          "description": "Sender display name."
+        }
+      }
+    }
+  }
+}
