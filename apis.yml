@@ -198,6 +198,8 @@ common:
     updated: '2026-05-04'
   - type: Integrations
     url: https://www.pandadoc.com/integrations/
+  - type: LLMsTxt
+    url: https://developers.pandadoc.com/llms.txt
 integrations:
   - name: Partner Directory
   - name: Payment
