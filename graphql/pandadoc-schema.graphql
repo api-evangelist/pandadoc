@@ -1,0 +1,877 @@
+"""
+PandaDoc GraphQL Schema
+Source: https://developers.pandadoc.com/reference
+Base URL: https://api.pandadoc.com/public/v1
+"""
+
+# ─── Scalars ────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ─── Enums ──────────────────────────────────────────────────────────────────
+
+"""Current lifecycle status of a document."""
+enum DocumentStatus {
+  DOCUMENT_DRAFT
+  DOCUMENT_SENT
+  DOCUMENT_VIEWED
+  DOCUMENT_WAITING_APPROVAL
+  DOCUMENT_APPROVED
+  DOCUMENT_REJECTED
+  DOCUMENT_WAITING_PAY
+  DOCUMENT_PAID
+  DOCUMENT_COMPLETED
+  DOCUMENT_VOIDED
+  DOCUMENT_DECLINED
+  DOCUMENT_EXPIRED
+}
+
+"""Type of a fillable or signable field in a document."""
+enum FieldType {
+  SIGNATURE
+  DATE
+  TEXT
+  INITIALS
+  CHECKBOX
+  RADIO
+  SELECT
+  ATTACHMENT
+  PAYMENT
+  TABLE
+}
+
+"""Role assigned to a recipient in a document workflow."""
+enum RecipientRole {
+  SIGNER
+  APPROVER
+  VIEWER
+  CC
+  EDITOR
+}
+
+"""Status of a signature request."""
+enum SignatureRequestStatus {
+  PENDING
+  SIGNED
+  DECLINED
+  EXPIRED
+  VOIDED
+}
+
+"""Delivery method for a document or signature request."""
+enum DeliveryMethod {
+  EMAIL
+  SMS
+  LINK
+  EMBEDDED
+}
+
+"""Visibility scope for a folder."""
+enum FolderScope {
+  PRIVATE
+  SHARED
+  WORKSPACE
+}
+
+"""Role of a workspace member."""
+enum MemberRole {
+  OWNER
+  ADMIN
+  MANAGER
+  MEMBER
+  GUEST
+}
+
+"""Event type for a webhook subscription."""
+enum WebhookEventType {
+  DOCUMENT_STATE_CHANGED
+  DOCUMENT_UPDATED
+  DOCUMENT_DELETED
+  RECIPIENT_COMPLETED
+  DOCUMENT_PAID
+  DOCUMENT_APPROVED
+  DOCUMENT_REJECTED
+}
+
+"""HTTP method used for webhook delivery."""
+enum WebhookMethod {
+  GET
+  POST
+  PUT
+}
+
+"""OAuth grant type."""
+enum OauthGrantType {
+  AUTHORIZATION_CODE
+  REFRESH_TOKEN
+  CLIENT_CREDENTIALS
+}
+
+"""Status of a form."""
+enum FormStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+"""Type of a price discount."""
+enum DiscountType {
+  PERCENT
+  ABSOLUTE
+}
+
+# ─── Document Types ──────────────────────────────────────────────────────────
+
+"""A PandaDoc document in its list/summary representation."""
+type Document {
+  id: ID!
+  name: String!
+  status: DocumentStatus!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  dateCompleted: DateTime
+  expirationDate: DateTime
+  auditTrailDownloadUrl: URL
+  downloadUrl: URL
+  uuid: String
+  metadata: Metadata
+  version: String
+  tags: [String!]
+  recipients: [Recipient!]
+  template: Template
+  owner: Member
+}
+
+"""Full details of a PandaDoc document including content and fields."""
+type DocumentDetails {
+  id: ID!
+  name: String!
+  status: DocumentStatus!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  dateCompleted: DateTime
+  expirationDate: DateTime
+  version: String
+  auditTrailDownloadUrl: URL
+  downloadUrl: URL
+  uuid: String
+  metadata: Metadata
+  tags: [String!]
+  recipients: [RecipientDetails!]
+  fields: [FieldDetails!]
+  tokens: [DocumentToken!]
+  variables: [Variable!]
+  pricing: PriceDetails
+  theme: DocumentTheme
+  template: TemplateDetails
+  owner: Member
+  linkedObjects: [JSON]
+  grandTotal: Price
+}
+
+"""Session object used for embedded document viewing or editing."""
+type DocumentSession {
+  id: ID!
+  documentId: ID!
+  expiresAt: DateTime!
+  url: URL!
+  lifetime: Int
+}
+
+"""Token used for embedded document interactions."""
+type DocumentToken {
+  id: ID!
+  name: String!
+  value: String
+  type: String
+}
+
+"""Visual theme configuration applied to a document."""
+type DocumentTheme {
+  id: ID!
+  name: String!
+  colors: JSON
+  fonts: JSON
+  logoUrl: URL
+  headerFooter: JSON
+}
+
+# ─── Template Types ──────────────────────────────────────────────────────────
+
+"""A PandaDoc template in its list/summary representation."""
+type Template {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  version: String
+  tags: [String!]
+  shared: Boolean
+  owner: Member
+}
+
+"""Full details of a PandaDoc template."""
+type TemplateDetails {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  version: String
+  tags: [String!]
+  shared: Boolean
+  fields: TemplateFields
+  content: TemplateContent
+  tokens: [DocumentToken!]
+  variables: [Variable!]
+  roles: [RecipientRole!]
+  pricing: PriceDetails
+  owner: Member
+}
+
+"""Fields available in a template for population at document creation."""
+type TemplateFields {
+  required: [Field!]
+  optional: [Field!]
+  pricing: [TableField!]
+}
+
+"""The content blocks that make up a template."""
+type TemplateContent {
+  blocks: [JSON]
+  placeholders: [String!]
+  conditions: [JSON]
+}
+
+# ─── Content Library Types ───────────────────────────────────────────────────
+
+"""A reusable content item from the PandaDoc content library."""
+type ContentLibraryItem {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  type: String
+  tags: [String!]
+  shared: Boolean
+  owner: Member
+}
+
+"""Full details of a content library item."""
+type ContentLibraryDetails {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  type: String
+  tags: [String!]
+  shared: Boolean
+  content: JSON
+  fields: [Field!]
+  variables: [Variable!]
+  tokens: [DocumentToken!]
+  owner: Member
+}
+
+# ─── Recipient Types ─────────────────────────────────────────────────────────
+
+"""A recipient assigned to a document."""
+type Recipient {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  role: RecipientRole!
+  signingOrder: Int
+  hasCompleted: Boolean
+  deliveryMethod: DeliveryMethod
+}
+
+"""Full details of a recipient including access and activity."""
+type RecipientDetails {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  company: String
+  jobTitle: String
+  phone: String
+  role: RecipientRole!
+  signingOrder: Int
+  hasCompleted: Boolean
+  completedAt: DateTime
+  viewedAt: DateTime
+  deliveryMethod: DeliveryMethod
+  accessCode: RecipientAccessCode
+  reassignedFrom: String
+  sharedLink: URL
+}
+
+"""Access code configuration for a protected document recipient."""
+type RecipientAccessCode {
+  enabled: Boolean!
+  hint: String
+}
+
+# ─── Signer Types ────────────────────────────────────────────────────────────
+
+"""A signer on a document."""
+type Signer {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  signingOrder: Int
+  status: SignatureRequestStatus!
+}
+
+"""Full details of a signer including audit trail."""
+type SignerDetails {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  company: String
+  jobTitle: String
+  phone: String
+  signingOrder: Int
+  status: SignatureRequestStatus!
+  signedAt: DateTime
+  ipAddress: String
+  userAgent: String
+  auditTrail: [JSON]
+}
+
+"""A signature request sent to one or more signers."""
+type SignatureRequest {
+  id: ID!
+  documentId: ID!
+  subject: String
+  message: String
+  status: SignatureRequestStatus!
+  createdAt: DateTime!
+  expiresAt: DateTime
+  signers: [Signer!]
+  redirectUri: URL
+}
+
+# ─── Field Types ─────────────────────────────────────────────────────────────
+
+"""A fillable or signable field in a document."""
+type Field {
+  id: ID!
+  name: String!
+  type: FieldType!
+  required: Boolean
+  recipientId: ID
+  placeholder: String
+}
+
+"""Full details of a document field including value and metadata."""
+type FieldDetails {
+  id: ID!
+  name: String!
+  type: FieldType!
+  required: Boolean
+  recipientId: ID
+  placeholder: String
+  value: FieldValue
+  dateCreated: DateTime
+  dateModified: DateTime
+  page: Int
+  x: Float
+  y: Float
+  width: Float
+  height: Float
+}
+
+"""The current or filled value of a document field."""
+type FieldValue {
+  value: String
+  checked: Boolean
+  selectedOption: String
+  date: DateTime
+  rows: [TableRow!]
+}
+
+"""A pricing table field within a document."""
+type TableField {
+  id: ID!
+  name: String!
+  columns: [String!]
+  rows: [TableRow!]
+  totals: JSON
+}
+
+"""A row in a pricing or data table."""
+type TableRow {
+  id: ID!
+  columns: [TableCell!]!
+  options: JSON
+}
+
+"""A single cell in a table row."""
+type TableCell {
+  id: ID!
+  key: String!
+  value: String
+  numericValue: Float
+  style: JSON
+}
+
+# ─── Price Types ─────────────────────────────────────────────────────────────
+
+"""A price entry for a line item in a pricing table."""
+type Price {
+  amount: Float!
+  currency: String!
+}
+
+"""Full pricing details for a document, including totals and discounts."""
+type PriceDetails {
+  currency: String!
+  subtotal: Float
+  total: Float
+  discount: PriceDiscount
+  tax: Float
+  shipping: Float
+  items: [Product!]
+}
+
+"""A pricing catalog containing reusable product definitions."""
+type PriceCatalog {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  items: [Product!]
+  currency: String
+}
+
+"""A pricing variant (e.g., monthly vs. annual billing option)."""
+type PriceVariant {
+  id: ID!
+  name: String!
+  sku: String
+  price: Float!
+  currency: String!
+  description: String
+  customFields: JSON
+}
+
+"""A discount applied to a document's pricing table."""
+type PriceDiscount {
+  type: DiscountType!
+  value: Float!
+  name: String
+}
+
+# ─── Product Types ───────────────────────────────────────────────────────────
+
+"""A product or service item in a pricing table."""
+type Product {
+  id: ID!
+  name: String!
+  sku: String
+  description: String
+  price: Float!
+  quantity: Float
+  discount: PriceDiscount
+  taxRate: Float
+  currency: String
+}
+
+"""Full product details including variants and custom fields."""
+type ProductDetails {
+  id: ID!
+  name: String!
+  sku: String
+  description: String
+  price: Float!
+  currency: String
+  quantity: Float
+  discount: PriceDiscount
+  taxRate: Float
+  unit: String
+  variants: [PriceVariant!]
+  customFields: JSON
+  dateCreated: DateTime
+  dateModified: DateTime
+}
+
+# ─── Form Types ──────────────────────────────────────────────────────────────
+
+"""A standalone PandaDoc form for data collection."""
+type Form {
+  id: ID!
+  name: String!
+  status: FormStatus!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  url: URL
+  responseCount: Int
+}
+
+"""Full details of a PandaDoc form including fields and settings."""
+type FormDetails {
+  id: ID!
+  name: String!
+  status: FormStatus!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  url: URL
+  responseCount: Int
+  fields: [FormField!]
+  settings: JSON
+  notifyEmails: [String!]
+  redirectUrl: URL
+}
+
+"""A field within a PandaDoc form."""
+type FormField {
+  id: ID!
+  name: String!
+  type: FieldType!
+  required: Boolean
+  label: String
+  placeholder: String
+  options: [String!]
+  order: Int
+}
+
+"""A submitted response to a PandaDoc form."""
+type FormResponse {
+  id: ID!
+  formId: ID!
+  submittedAt: DateTime!
+  values: JSON
+  respondentEmail: String
+  documentId: ID
+}
+
+# ─── Folder Types ────────────────────────────────────────────────────────────
+
+"""A folder for organizing documents and templates."""
+type Folder {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  parentId: ID
+  scope: FolderScope
+  itemCount: Int
+}
+
+"""Full details of a folder including its contents."""
+type FolderDetails {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  parentId: ID
+  scope: FolderScope
+  items: [FolderItem!]
+  owner: Member
+}
+
+"""An item (document or template) within a folder."""
+type FolderItem {
+  id: ID!
+  name: String!
+  type: String!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  status: String
+}
+
+# ─── Member and Workspace Types ──────────────────────────────────────────────
+
+"""A member of a PandaDoc workspace."""
+type Member {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  role: MemberRole!
+  isActive: Boolean
+}
+
+"""Full details of a workspace member."""
+type MemberDetails {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  role: MemberRole!
+  isActive: Boolean
+  dateAdded: DateTime
+  lastLogin: DateTime
+  avatarUrl: URL
+  jobTitle: String
+  workspace: Workspace
+}
+
+"""A PandaDoc workspace (organization-level container)."""
+type Workspace {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  plan: String
+  membersCount: Int
+}
+
+"""Full details of a PandaDoc workspace."""
+type WorkspaceDetails {
+  id: ID!
+  name: String!
+  dateCreated: DateTime!
+  plan: String
+  membersCount: Int
+  members: [Member!]
+  settings: JSON
+  logoUrl: URL
+  customDomain: String
+  rateLimits: JSON
+}
+
+# ─── Webhook Types ───────────────────────────────────────────────────────────
+
+"""An event payload delivered by a PandaDoc webhook."""
+type WebhookEvent {
+  id: ID!
+  type: WebhookEventType!
+  documentId: ID
+  workspaceId: ID
+  createdAt: DateTime!
+  data: JSON
+}
+
+"""A configured webhook endpoint."""
+type Webhook {
+  id: ID!
+  url: URL!
+  method: WebhookMethod
+  isActive: Boolean!
+  dateCreated: DateTime!
+  events: [WebhookEventType!]
+  headers: JSON
+}
+
+"""A webhook subscription configuration."""
+type WebhookSubscription {
+  id: ID!
+  name: String
+  url: URL!
+  isActive: Boolean!
+  events: [WebhookEventType!]!
+  dateCreated: DateTime!
+  dateModified: DateTime!
+  secret: String
+  deliveryAttempts: Int
+  lastTriggeredAt: DateTime
+}
+
+# ─── Auth Types ──────────────────────────────────────────────────────────────
+
+"""A PandaDoc API key credential."""
+type APIKey {
+  id: ID!
+  name: String!
+  key: String
+  dateCreated: DateTime!
+  lastUsedAt: DateTime
+  isActive: Boolean!
+  workspaceId: ID!
+}
+
+"""An OAuth 2.0 access token."""
+type OauthToken {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int
+  refreshToken: String
+  scope: String
+  workspaceId: ID
+}
+
+"""An OAuth 2.0 application registered with PandaDoc."""
+type OauthApp {
+  id: ID!
+  name: String!
+  clientId: String!
+  redirectUris: [URL!]
+  scopes: [String!]
+  dateCreated: DateTime!
+  isActive: Boolean!
+  grantTypes: [OauthGrantType!]
+}
+
+# ─── Metadata and Variable Types ─────────────────────────────────────────────
+
+"""Arbitrary key-value metadata attached to a document."""
+type Metadata {
+  entries: [MetadataEntry!]
+}
+
+"""A single metadata key-value pair."""
+type MetadataEntry {
+  key: String!
+  value: String
+}
+
+"""A dynamic variable used in template and document token substitution."""
+type Variable {
+  name: String!
+  value: String
+  type: String
+  required: Boolean
+}
+
+"""Payload returned when generating a session token for embedded editing."""
+type TokenPayload {
+  token: String!
+  expiresAt: DateTime!
+  documentId: ID!
+  sessionId: ID
+  lifetime: Int
+}
+
+# ─── Query ───────────────────────────────────────────────────────────────────
+
+type Query {
+  """List all documents with optional status filter."""
+  documents(status: DocumentStatus, count: Int, page: Int): [Document!]!
+
+  """Get full details for a specific document."""
+  document(id: ID!): DocumentDetails
+
+  """List all templates."""
+  templates(count: Int, page: Int): [Template!]!
+
+  """Get full details for a specific template."""
+  template(id: ID!): TemplateDetails
+
+  """List content library items."""
+  contentLibraryItems(count: Int, page: Int): [ContentLibraryItem!]!
+
+  """Get a specific content library item."""
+  contentLibraryItem(id: ID!): ContentLibraryDetails
+
+  """List forms."""
+  forms(status: FormStatus): [Form!]!
+
+  """Get a specific form."""
+  form(id: ID!): FormDetails
+
+  """List form responses."""
+  formResponses(formId: ID!): [FormResponse!]!
+
+  """List folders."""
+  folders(parentId: ID): [Folder!]!
+
+  """Get a specific folder with its contents."""
+  folder(id: ID!): FolderDetails
+
+  """List workspace members."""
+  members: [Member!]!
+
+  """Get a specific workspace member."""
+  member(id: ID!): MemberDetails
+
+  """Get current workspace details."""
+  workspace: WorkspaceDetails
+
+  """List webhooks."""
+  webhooks: [Webhook!]!
+
+  """Get a specific webhook."""
+  webhook(id: ID!): Webhook
+
+  """List API keys."""
+  apiKeys: [APIKey!]!
+
+  """List products in the pricing catalog."""
+  products(count: Int, page: Int): [ProductDetails!]!
+
+  """Get a specific product."""
+  product(id: ID!): ProductDetails
+}
+
+# ─── Mutation ────────────────────────────────────────────────────────────────
+
+type Mutation {
+  """Create a new document from a template or uploaded PDF."""
+  createDocument(
+    name: String!
+    templateId: ID
+    recipients: [RecipientInput!]
+    tokens: [TokenInput!]
+    metadata: JSON
+    tags: [String!]
+    folderId: ID
+  ): DocumentDetails
+
+  """Send a document for signing."""
+  sendDocument(
+    id: ID!
+    subject: String
+    message: String
+    silent: Boolean
+  ): Document
+
+  """Create a session token for embedded document editing or viewing."""
+  createDocumentSession(
+    documentId: ID!
+    recipientEmail: String!
+    lifetime: Int
+  ): TokenPayload
+
+  """Create a new webhook subscription."""
+  createWebhook(
+    url: URL!
+    events: [WebhookEventType!]!
+    name: String
+    secret: String
+    headers: JSON
+  ): WebhookSubscription
+
+  """Update an existing webhook."""
+  updateWebhook(
+    id: ID!
+    url: URL
+    events: [WebhookEventType!]
+    isActive: Boolean
+  ): WebhookSubscription
+
+  """Delete a webhook."""
+  deleteWebhook(id: ID!): Boolean
+
+  """Create a folder."""
+  createFolder(name: String!, parentId: ID, scope: FolderScope): Folder
+
+  """Void a document."""
+  voidDocument(id: ID!, message: String): Document
+
+  """Delete a document."""
+  deleteDocument(id: ID!): Boolean
+}
+
+# ─── Input Types ─────────────────────────────────────────────────────────────
+
+"""Input for creating or assigning a document recipient."""
+input RecipientInput {
+  email: String!
+  firstName: String
+  lastName: String
+  role: RecipientRole!
+  signingOrder: Int
+  deliveryMethod: DeliveryMethod
+  accessCode: String
+}
+
+"""Input for a document token (variable substitution)."""
+input TokenInput {
+  name: String!
+  value: String!
+}
