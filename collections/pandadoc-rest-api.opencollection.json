@@ -1,0 +1,1197 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the parent template identifier."
+              },
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the parent form identifier."
+              },
+              {
+                "name": "folder_uuid",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the folder where documents are stored."
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by recipient or approver contact identifier."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by document status."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by document tag (exact match)."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search by document name substring."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific document identifier."
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the document owner member identifier."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort field for results."
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for ascending order, false for descending."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of documents accessible to the authenticated user. Supports filtering by template, form, folder, contact, status, tag, owner, and date ranges. Results can be ordered by various fields."
+        },
+        {
+          "info": {
+            "name": "Create Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new document from a template, an uploaded file, or a URL. The document is created in draft status and can be customized with recipient details, field values, pricing table data, and metadata tokens before being sent for signature."
+        },
+        {
+          "info": {
+            "name": "Get Document Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Retrieves comprehensive details for a specific document including its status, recipients, fields, pricing tables, tokens, tags, and metadata."
+        },
+        {
+          "info": {
+            "name": "Delete Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a specific document by its identifier. This action is irreversible and removes the document and all associated data."
+        },
+        {
+          "info": {
+            "name": "Get Document Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/status",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Returns the current status of a document. Use this endpoint to poll for status transitions after creating or sending a document."
+        },
+        {
+          "info": {
+            "name": "Send Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/send",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a document in draft status to its recipients for e-signature collection or review. Optionally includes a subject line, custom message, and controls whether email notifications are sent silently. The document must be in document.draft status before it can be sent."
+        },
+        {
+          "info": {
+            "name": "Download Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/download",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "watermark_color",
+                "value": "",
+                "type": "query",
+                "description": "Hex color code for watermark text applied to the downloaded PDF."
+              },
+              {
+                "name": "watermark_font_size",
+                "value": "",
+                "type": "query",
+                "description": "Font size for watermark text in points."
+              },
+              {
+                "name": "watermark_opacity",
+                "value": "",
+                "type": "query",
+                "description": "Opacity of the watermark from 0.0 to 1.0."
+              },
+              {
+                "name": "watermark_text",
+                "value": "",
+                "type": "query",
+                "description": "Text to render as a watermark on every page of the PDF."
+              },
+              {
+                "name": "separate_files",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns a ZIP archive containing each document section as a separate PDF file."
+              }
+            ]
+          },
+          "docs": "Downloads the signed PDF for a completed document. The document must be in document.completed status. Returns the binary PDF file content with appropriate Content-Disposition headers."
+        },
+        {
+          "info": {
+            "name": "Create Document Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/session",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a time-limited session token for embedded document viewing or signing. The returned session ID is used to embed the PandaDoc document viewer within an iframe in the host application. Session lifetime and recipient scope are configurable."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document Recipients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Returns the list of recipients associated with a document, including their roles, completion status, signing order, and contact information."
+        },
+        {
+          "info": {
+            "name": "Add Document Recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new recipient to a document that is in draft status. Recipients can be assigned roles that map to signature and form fields within the document. The recipient will receive signing instructions when the document is sent."
+        },
+        {
+          "info": {
+            "name": "Update Document Recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients/:recipient_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document recipient."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing recipient on a document, such as their name, email, role, or signing order. The document must be in an editable state."
+        },
+        {
+          "info": {
+            "name": "Delete Document Recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients/:recipient_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document recipient."
+              }
+            ]
+          },
+          "docs": "Removes a recipient from a document. The document must not have been sent yet. If the recipient has associated fields, those fields will be unassigned."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/fields",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Returns all fields defined in a document, including their identifiers, types, values, roles, and positions. Supports filtering by field type and recipient role."
+        },
+        {
+          "info": {
+            "name": "Update Document Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/fields",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the values of one or more fields in a document that is in draft status. Supports updating text fields, checkboxes, dropdowns, dates, and other field types by name."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/attachments",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Returns a list of all file attachments associated with a document. Includes attachment metadata such as name, size, and upload date."
+        },
+        {
+          "info": {
+            "name": "Download Document Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/attachments/:attachment_id/download",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document attachment."
+              }
+            ]
+          },
+          "docs": "Downloads a specific attachment file associated with a document. Returns the binary file content with appropriate content type headers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document Reminders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Document Auto-Reminders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:document_id/auto-reminders",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Retrieves the automatic reminder configuration for a specific document, including the schedule and message used for outstanding recipient notification emails."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document Link to CRM",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Linked Objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/linked-objects",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "CRM provider name (e.g., salesforce, hubspot)."
+              },
+              {
+                "name": "entity_type",
+                "value": "",
+                "type": "query",
+                "description": "CRM entity type (e.g., contact, deal, account)."
+              },
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of the CRM entity."
+              }
+            ]
+          },
+          "docs": "Returns a list of documents that are linked to a specified CRM object. Supports filtering by CRM provider, object type, and object identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/templates",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search by template name substring."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by template tag (exact match)."
+              },
+              {
+                "name": "folder_uuid",
+                "value": "",
+                "type": "query",
+                "description": "Filter by folder identifier."
+              },
+              {
+                "name": "deleted",
+                "value": "",
+                "type": "query",
+                "description": "If true, include deleted templates in the results."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific template identifier."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of templates available in the authenticated workspace. Supports filtering by tag, folder, and search query."
+        },
+        {
+          "info": {
+            "name": "Get Template Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/templates/:id/details",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific template including its roles, fields, tokens, pricing tables, and content configuration. Use this information to determine the data needed when creating documents from this template."
+        },
+        {
+          "info": {
+            "name": "Delete Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a template by its identifier. This action cannot be undone and will prevent creation of new documents from this template. Existing documents created from this template are not affected."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Forms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Forms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/forms",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter forms by name substring."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter forms by status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of forms in the authenticated workspace. Forms are publicly shareable documents that allow recipients to fill and sign without being pre-specified as named recipients."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/folders",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "parent_uuid",
+                "value": "",
+                "type": "query",
+                "description": "Filter by parent folder UUID to retrieve sub-folders. Omit to retrieve root-level folders."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter folders by name substring."
+              }
+            ]
+          },
+          "docs": "Returns a list of folders used to organize documents in the workspace. Supports filtering by parent folder and search by name."
+        },
+        {
+          "info": {
+            "name": "Create Document Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/folders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new folder for organizing documents. An optional parent UUID may be specified to create a nested sub-folder within an existing folder."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/contacts",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search contacts by name, email, or company substring."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of contacts from the workspace contacts directory. Supports search by name, email, or company. Contacts can be used to pre-populate recipient data when creating documents."
+        },
+        {
+          "info": {
+            "name": "Create Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/contacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new contact record in the workspace contacts directory. The email field is optional. Contacts can be referenced when adding recipients to documents."
+        },
+        {
+          "info": {
+            "name": "Get Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the contact."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific contact by their unique identifier, including name, email, phone, company, and job title."
+        },
+        {
+          "info": {
+            "name": "Update Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the contact."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the fields of an existing contact record. Only the provided fields are updated; omitted fields retain their current values."
+        },
+        {
+          "info": {
+            "name": "Delete Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the contact."
+              }
+            ]
+          },
+          "docs": "Permanently removes a contact from the workspace contacts directory. Documents and templates that previously used this contact are not affected."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/members"
+          },
+          "docs": "Returns a list of all members in the current workspace, including their user details, roles, and status. Useful for workspace administration and for looking up member identifiers."
+        },
+        {
+          "info": {
+            "name": "Get Current Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/members/current"
+          },
+          "docs": "Returns the profile of the currently authenticated member, including their identifier, email, name, role, and workspace association."
+        },
+        {
+          "info": {
+            "name": "Get Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the workspace member."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific workspace member by their unique identifier, including their name, email, role, and membership status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhook Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhook Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions"
+          },
+          "docs": "Returns a paginated list of all webhook subscriptions configured in the workspace, including their trigger types, target URLs, payload options, and current status."
+        },
+        {
+          "info": {
+            "name": "Create Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook subscription that will deliver event notifications to the specified URL. Specify the trigger event types and optional payload extras (fields, products, metadata, tokens, pricing) to include in each notification."
+        },
+        {
+          "info": {
+            "name": "Get Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific webhook subscription by its UUID, including its configuration, trigger list, payload options, shared key, and status."
+        },
+        {
+          "info": {
+            "name": "Update Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing webhook subscription, including its name, target URL, active status, trigger types, and payload options. Only provided fields are updated."
+        },
+        {
+          "info": {
+            "name": "Delete Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a webhook subscription. No further notifications will be delivered to the associated URL after deletion."
+        },
+        {
+          "info": {
+            "name": "Regenerate Webhook Shared Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id/shared-key",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Regenerates the shared HMAC key for a webhook subscription. The new shared key is used to sign outgoing webhook payloads for signature verification. Update the key in your receiving endpoint before rotating to avoid verification failures."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhook Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhook Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-events",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve."
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Return events created on or after this timestamp."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Return events created before this timestamp."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event trigger type."
+              },
+              {
+                "name": "http_status_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter by HTTP response status code group."
+              }
+            ]
+          },
+          "docs": "Returns a paginated log of webhook events that have been dispatched. Supports filtering by event type, delivery time range, HTTP status code group, and error type. Use this endpoint to audit deliveries and diagnose failures."
+        },
+        {
+          "info": {
+            "name": "Get Webhook Event Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook event."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific webhook event by its UUID, including the full request body sent to the subscriber, the response received, HTTP status code, delivery timestamp, and HMAC signature used for verification."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "API Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List API Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/logs",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of API request logs. Useful for debugging integration issues and auditing API usage. Logs include request method, path, status code, and timestamp."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/workspaces",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all active workspaces in the organization. Requires organization administrator privileges."
+        },
+        {
+          "info": {
+            "name": "Create Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workspace in the organization. Requires organization administrator privileges. The authenticated user is automatically added as an administrator of the new workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
