@@ -2,20 +2,13 @@
   "repo": "pandadoc",
   "feeds": [
     {
-      "source": "https://www.pandadoc.com/blog/feed/",
-      "feed_url": "https://www.pandadoc.com/blog/feed/",
-      "title": "",
+      "source": "https://www.pandadoc.com/blog/",
+      "feed_url": "",
       "saved": 0,
-      "method": "feed"
-    },
-    {
-      "source": "https://www.pandadoc.com/",
-      "feed_url": "https://www.pandadoc.com/feed/",
-      "title": "",
-      "saved": 0,
-      "method": "discovered"
+      "method": "agent-scrape"
     }
   ],
   "post_count": 26,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:59:43Z",
+  "agent_pulled": "2026-06-27"
 }
