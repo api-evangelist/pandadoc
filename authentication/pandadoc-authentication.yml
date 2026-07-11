@@ -1,0 +1,31 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/pandadoc-rest-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: API Key authentication. Include the key in the Authorization header as "API-Key
+    YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+  sources:
+  - openapi/pandadoc-rest-api-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+    tokenUrl: https://api.pandadoc.com/oauth2/access_token
+    scopes: 2
+  description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped
+    access tokens. Tokens expire after approximately one year.
+  sources:
+  - openapi/pandadoc-rest-api-openapi.yml

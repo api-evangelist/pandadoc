@@ -135,6 +135,10 @@ apis:
   - type: AsyncAPI
     url: asyncapi/pandadoc-webhooks-asyncapi.yml
 common:
+- type: DomainSecurity
+  url: security/pandadoc-domain-security.yml
+- type: Authentication
+  url: authentication/pandadoc-authentication.yml
 - type: OAuthScopes
   url: scopes/pandadoc-scopes.yml
 - type: GitHubOrganization
