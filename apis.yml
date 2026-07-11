@@ -135,6 +135,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/pandadoc-webhooks-asyncapi.yml
 common:
+- type: OAuthScopes
+  url: scopes/pandadoc-scopes.yml
 - type: GitHubOrganization
   url: https://github.com/PandaDoc
 - type: LinkedIn

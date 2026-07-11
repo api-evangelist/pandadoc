@@ -1,0 +1,25 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/pandadoc-rest-api-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/pandadoc-rest-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+    tokenUrl: https://api.pandadoc.com/oauth2/access_token
+  description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped
+    access tokens. Tokens expire after approximately one year.
+scopes:
+- scope: read
+  description: Read access to documents, templates, contacts, and workspace data.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/pandadoc-rest-api-openapi.yml
+- scope: write
+  description: Write access to create and modify documents, templates, and contacts.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/pandadoc-rest-api-openapi.yml
