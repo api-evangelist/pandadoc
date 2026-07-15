@@ -135,6 +135,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/pandadoc-webhooks-asyncapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/pandadoc-agentic-access.yml
 - type: DomainSecurity
   url: security/pandadoc-domain-security.yml
 - type: Authentication
