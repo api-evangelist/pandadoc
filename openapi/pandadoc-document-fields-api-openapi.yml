@@ -1,0 +1,187 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Document Fields API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Document Fields
+  description: Operations for retrieving and updating field values within a document, such as text fields, checkboxes, signatures, and date fields.
+paths:
+  /documents/{id}/fields:
+    get:
+      operationId: listDocumentFields
+      summary: List Document Fields
+      description: Returns all fields defined in a document, including their identifiers, types, values, roles, and positions. Supports filtering by field type and recipient role.
+      tags:
+      - Document Fields
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: List of document fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentFieldsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateDocumentFields
+      summary: Update Document Fields
+      description: Updates the values of one or more fields in a document that is in draft status. Supports updating text fields, checkboxes, dropdowns, dates, and other field types by name.
+      tags:
+      - Document Fields
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentFieldsUpdateRequest'
+      responses:
+        '200':
+          description: Fields updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentFieldsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    DocumentFieldsResponse:
+      type: object
+      description: Fields contained in a document.
+      properties:
+        fields:
+          type: array
+          description: List of document fields.
+          items:
+            $ref: '#/components/schemas/DocumentField'
+    DocumentFieldsUpdateRequest:
+      type: object
+      description: Request to update field values within a document.
+      properties:
+        fields:
+          type: array
+          description: List of field name-value pairs to update.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Field name to update.
+              value:
+                description: New value to assign to the field.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    DocumentField:
+      type: object
+      description: A field within a document, such as a signature, text, or checkbox field.
+      properties:
+        name:
+          type: string
+          description: Field name as defined in the template.
+        type:
+          type: string
+          description: Field type identifier.
+          enum:
+          - signature
+          - initials
+          - text
+          - date
+          - checkbox
+          - radio
+          - select
+          - attachment
+          - payment
+        value:
+          description: Current value assigned to the field.
+        role:
+          type: string
+          description: Role name of the recipient assigned to complete this field.
+        required:
+          type: boolean
+          description: Whether the field must be completed before the document can be finalized.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

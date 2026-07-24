@@ -1,0 +1,270 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Templates API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Templates
+  description: Operations for managing document templates, including listing available templates, retrieving template details, creating templates from file upload, and deleting templates.
+paths:
+  /templates:
+    get:
+      operationId: listTemplates
+      summary: List Templates
+      description: Returns a paginated list of templates available in the authenticated workspace. Supports filtering by tag, folder, and search query.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/QueryCount'
+      - $ref: '#/components/parameters/QueryPage'
+      - name: q
+        in: query
+        description: Search by template name substring.
+        schema:
+          type: string
+      - name: tag
+        in: query
+        description: Filter by template tag (exact match).
+        schema:
+          type: string
+      - name: folder_uuid
+        in: query
+        description: Filter by folder identifier.
+        schema:
+          type: string
+      - name: deleted
+        in: query
+        description: If true, include deleted templates in the results.
+        schema:
+          type: boolean
+      - name: id
+        in: query
+        description: Filter by specific template identifier.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated list of templates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /templates/{id}/details:
+    get:
+      operationId: getTemplateDetails
+      summary: Get Template Details
+      description: Retrieves detailed information about a specific template including its roles, fields, tokens, pricing tables, and content configuration. Use this information to determine the data needed when creating documents from this template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '200':
+          description: Template details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateDetailsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /templates/{id}:
+    delete:
+      operationId: deleteTemplate
+      summary: Delete Template
+      description: Permanently deletes a template by its identifier. This action cannot be undone and will prevent creation of new documents from this template. Existing documents created from this template are not affected.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '204':
+          description: Template deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    TemplateListItem:
+      type: object
+      description: Summary record for a template returned in list responses.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the template.
+        name:
+          type: string
+          description: Display name of the template.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last modified.
+        tags:
+          type: array
+          description: Tags applied to the template.
+          items:
+            type: string
+    TemplateDetailsResponse:
+      type: object
+      description: Detailed information about a template.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the template.
+        name:
+          type: string
+          description: Display name of the template.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last modified.
+        roles:
+          type: array
+          description: Recipient roles defined in the template.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Role identifier.
+              name:
+                type: string
+                description: Role display name.
+        tokens:
+          type: array
+          description: Content placeholder tokens defined in the template.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Token name.
+              value:
+                type: string
+                description: Default token value.
+        tags:
+          type: array
+          description: Tags applied to the template.
+          items:
+            type: string
+    TemplateListResponse:
+      type: object
+      description: Paginated list of templates.
+      properties:
+        results:
+          type: array
+          description: Array of template summary records.
+          items:
+            $ref: '#/components/schemas/TemplateListItem'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+  parameters:
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    TemplateId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the template.
+      schema:
+        type: string
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission for this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

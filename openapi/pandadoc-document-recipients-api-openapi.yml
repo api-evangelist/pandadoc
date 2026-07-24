@@ -1,0 +1,290 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Document Recipients API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Document Recipients
+  description: Operations for managing recipients within documents, including adding, editing, reassigning, and deleting recipients.
+paths:
+  /documents/{id}/recipients:
+    get:
+      operationId: listDocumentRecipients
+      summary: List Document Recipients
+      description: Returns the list of recipients associated with a document, including their roles, completion status, signing order, and contact information.
+      tags:
+      - Document Recipients
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: List of document recipients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentRecipientsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: addDocumentRecipient
+      summary: Add Document Recipient
+      description: Adds a new recipient to a document that is in draft status. Recipients can be assigned roles that map to signature and form fields within the document. The recipient will receive signing instructions when the document is sent.
+      tags:
+      - Document Recipients
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentRecipientCreateRequest'
+      responses:
+        '201':
+          description: Recipient added to document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentRecipient'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/recipients/{recipient_id}:
+    patch:
+      operationId: updateDocumentRecipient
+      summary: Update Document Recipient
+      description: Updates the details of an existing recipient on a document, such as their name, email, role, or signing order. The document must be in an editable state.
+      tags:
+      - Document Recipients
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/RecipientId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentRecipientUpdateRequest'
+      responses:
+        '200':
+          description: Recipient updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentRecipient'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteDocumentRecipient
+      summary: Delete Document Recipient
+      description: Removes a recipient from a document. The document must not have been sent yet. If the recipient has associated fields, those fields will be unassigned.
+      tags:
+      - Document Recipients
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/RecipientId'
+      responses:
+        '204':
+          description: Recipient removed from document.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    DocumentRecipientUpdateRequest:
+      type: object
+      description: Fields to update on an existing document recipient.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        signing_order:
+          type: integer
+          description: Updated signing order position.
+    DocumentRecipientsResponse:
+      type: object
+      description: List of recipients for a document.
+      properties:
+        recipients:
+          type: array
+          description: Array of recipient records.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    DocumentRecipient:
+      type: object
+      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the recipient within the document.
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        recipient_type:
+          type: string
+          description: Recipient participation type.
+          enum:
+          - SIGNER
+          - CC
+          - APPROVER
+        role:
+          type: string
+          description: Role name that maps the recipient to fields in the document.
+        signing_order:
+          type: integer
+          nullable: true
+          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
+        has_completed:
+          type: boolean
+          description: Whether this recipient has completed all required actions.
+        contact_id:
+          type: string
+          nullable: true
+          description: Identifier of the associated contact record if linked.
+        shared_link:
+          type: string
+          description: Public signing link for this recipient.
+    DocumentRecipientCreateRequest:
+      type: object
+      description: Details for a recipient to be added to a document.
+      required:
+      - first_name
+      - last_name
+      properties:
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        role:
+          type: string
+          description: Role name mapping this recipient to fields in the document. Must match a role defined in the template.
+        signing_order:
+          type: integer
+          description: Signing order position for sequential signing workflows. Omit to allow simultaneous signing.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        contact_id:
+          type: string
+          description: Optional contact identifier to link the recipient to a contact record.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    RecipientId:
+      name: recipient_id
+      in: path
+      required: true
+      description: Unique identifier of the document recipient.
+      schema:
+        type: string
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

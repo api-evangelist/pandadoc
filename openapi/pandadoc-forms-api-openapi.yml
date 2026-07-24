@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Forms API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Forms
+  description: Operations for retrieving and managing forms, which are publicly shareable document templates that can be filled and signed without a predefined recipient list.
+paths:
+  /forms:
+    get:
+      operationId: listForms
+      summary: List Forms
+      description: Returns a paginated list of forms in the authenticated workspace. Forms are publicly shareable documents that allow recipients to fill and sign without being pre-specified as named recipients.
+      tags:
+      - Forms
+      parameters:
+      - $ref: '#/components/parameters/QueryCount'
+      - $ref: '#/components/parameters/QueryPage'
+      - name: name
+        in: query
+        description: Filter forms by name substring.
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter forms by status.
+        schema:
+          type: string
+          enum:
+          - active
+          - disabled
+      responses:
+        '200':
+          description: Paginated list of forms.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    FormListResponse:
+      type: object
+      description: Paginated list of forms.
+      properties:
+        results:
+          type: array
+          description: Array of form summary records.
+          items:
+            $ref: '#/components/schemas/FormListItem'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    FormListItem:
+      type: object
+      description: Summary record for a form.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the form.
+        name:
+          type: string
+          description: Display name of the form.
+        status:
+          type: string
+          description: Current status of the form.
+          enum:
+          - active
+          - disabled
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the form was created.
+  parameters:
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

@@ -1,0 +1,110 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Document Reminders API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Document Reminders
+  description: Operations for configuring automatic reminders sent to document recipients who have not yet completed their actions.
+paths:
+  /documents/{document_id}/auto-reminders:
+    get:
+      operationId: getDocumentAutoReminders
+      summary: Get Document Auto-Reminders
+      description: Retrieves the automatic reminder configuration for a specific document, including the schedule and message used for outstanding recipient notification emails.
+      tags:
+      - Document Reminders
+      parameters:
+      - $ref: '#/components/parameters/DocumentIdByDocumentId'
+      responses:
+        '200':
+          description: Auto-reminder configuration retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentAutoReminderResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    DocumentAutoReminderResponse:
+      type: object
+      description: Auto-reminder settings for a document.
+      properties:
+        scheduled:
+          type: boolean
+          description: Whether automatic reminders are enabled for this document.
+        days:
+          type: integer
+          description: Number of days between reminder emails.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DocumentIdByDocumentId:
+      name: document_id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

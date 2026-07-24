@@ -1,0 +1,248 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Webhook Events API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Webhook Events
+  description: Operations for querying the log of webhook events that have been dispatched, including filtering by type and delivery status.
+paths:
+  /webhook-events:
+    get:
+      operationId: listWebhookEvents
+      summary: List Webhook Events
+      description: Returns a paginated log of webhook events that have been dispatched. Supports filtering by event type, delivery time range, HTTP status code group, and error type. Use this endpoint to audit deliveries and diagnose failures.
+      tags:
+      - Webhook Events
+      parameters:
+      - name: count
+        in: query
+        required: true
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+      - name: page
+        in: query
+        required: true
+        description: Page number to retrieve.
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+      - name: since
+        in: query
+        description: Return events created on or after this timestamp.
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        description: Return events created before this timestamp.
+        schema:
+          type: string
+          format: date-time
+      - name: type
+        in: query
+        description: Filter by event trigger type.
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+      - name: http_status_code
+        in: query
+        description: Filter by HTTP response status code group.
+        schema:
+          type: array
+          items:
+            type: integer
+            enum:
+            - 100
+            - 200
+            - 300
+            - 400
+            - 500
+      responses:
+        '200':
+          description: Paginated list of webhook events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEventListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-events/{id}:
+    get:
+      operationId: getWebhookEvent
+      summary: Get Webhook Event Details
+      description: Retrieves detailed information about a specific webhook event by its UUID, including the full request body sent to the subscriber, the response received, HTTP status code, delivery timestamp, and HMAC signature used for verification.
+      tags:
+      - Webhook Events
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier of the webhook event.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Webhook event details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEventDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    WebhookEventListResponse:
+      type: object
+      description: Paginated list of webhook event delivery records.
+      properties:
+        items:
+          type: array
+          description: Array of webhook event summary records.
+          items:
+            $ref: '#/components/schemas/WebhookEventListItem'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    WebhookEventDetails:
+      type: object
+      description: Full details of a webhook event delivery including the request and response bodies, signature, and delivery metadata.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook event.
+        name:
+          type: string
+          description: Name associated with the document or entity.
+        type:
+          $ref: '#/components/schemas/WebhookEventTrigger'
+        url:
+          type: string
+          format: uri
+          description: Subscriber endpoint URL the event was delivered to.
+        signature:
+          type: string
+          description: HMAC-SHA256 signature of the request body computed with the subscription shared key.
+        http_status_code:
+          type: integer
+          description: HTTP response status code from the subscriber.
+        delivery_time:
+          type: string
+          format: date-time
+          description: Timestamp when the event was delivered.
+        event_time:
+          type: string
+          format: date-time
+          description: Timestamp when the triggering event occurred.
+        request_body:
+          type: string
+          description: JSON-serialized request body sent to the subscriber endpoint.
+        response_body:
+          type: string
+          description: Response body received from the subscriber endpoint.
+        response_headers:
+          type: string
+          description: Response headers received from the subscriber endpoint.
+    WebhookEventListItem:
+      type: object
+      description: Summary record for a webhook event delivery attempt.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook event.
+        name:
+          type: string
+          description: Name associated with the document or entity that triggered the event.
+        type:
+          $ref: '#/components/schemas/WebhookEventTrigger'
+        error:
+          type: string
+          nullable: true
+          description: Error code if delivery failed.
+        http_status_code:
+          type: integer
+          description: HTTP response status code received from the subscriber endpoint.
+        delivery_time:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was delivered.
+    WebhookEventTrigger:
+      type: string
+      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
+      enum:
+      - recipient_completed
+      - document_updated
+      - document_deleted
+      - document_state_changed
+      - document_creation_failed
+      - document_completed_pdf_ready
+      - document_section_added
+      - quote_updated
+      - template_created
+      - template_updated
+      - template_deleted
+      - content_library_item_created
+      - content_library_item_creation_failed
+      example: document_state_changed
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

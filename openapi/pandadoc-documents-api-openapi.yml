@@ -1,0 +1,754 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Documents API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Documents
+  description: Operations for creating, retrieving, sending, and managing the full lifecycle of documents including drafting, sending for signature, downloading, and deleting.
+paths:
+  /documents:
+    get:
+      operationId: listDocuments
+      summary: List Documents
+      description: Returns a paginated list of documents accessible to the authenticated user. Supports filtering by template, form, folder, contact, status, tag, owner, and date ranges. Results can be ordered by various fields.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/QueryCount'
+      - $ref: '#/components/parameters/QueryPage'
+      - name: template_id
+        in: query
+        description: Filter by the parent template identifier.
+        schema:
+          type: string
+      - name: form_id
+        in: query
+        description: Filter by the parent form identifier.
+        schema:
+          type: string
+      - name: folder_uuid
+        in: query
+        description: Filter by the folder where documents are stored.
+        schema:
+          type: string
+      - name: contact_id
+        in: query
+        description: Filter by recipient or approver contact identifier.
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by document status.
+        schema:
+          $ref: '#/components/schemas/DocumentStatus'
+      - name: tag
+        in: query
+        description: Filter by document tag (exact match).
+        schema:
+          type: string
+      - name: q
+        in: query
+        description: Search by document name substring.
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: Filter by a specific document identifier.
+        schema:
+          type: string
+      - name: owner_id
+        in: query
+        description: Filter by the document owner member identifier.
+        schema:
+          type: string
+      - name: order_by
+        in: query
+        description: Sort field for results.
+        schema:
+          type: string
+          enum:
+          - name
+          - date_created
+          - date_modified
+          - date_status_changed
+      - name: asc
+        in: query
+        description: Set to true for ascending order, false for descending.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Paginated list of documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createDocument
+      summary: Create Document
+      description: Creates a new document from a template, an uploaded file, or a URL. The document is created in draft status and can be customized with recipient details, field values, pricing table data, and metadata tokens before being sent for signature.
+      tags:
+      - Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentCreateRequest'
+      responses:
+        '201':
+          description: Document created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}:
+    get:
+      operationId: getDocumentDetails
+      summary: Get Document Details
+      description: Retrieves comprehensive details for a specific document including its status, recipients, fields, pricing tables, tokens, tags, and metadata.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDetailsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteDocument
+      summary: Delete Document
+      description: Permanently deletes a specific document by its identifier. This action is irreversible and removes the document and all associated data.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '204':
+          description: Document deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/status:
+    get:
+      operationId: getDocumentStatus
+      summary: Get Document Status
+      description: Returns the current status of a document. Use this endpoint to poll for status transitions after creating or sending a document.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentStatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/send:
+    post:
+      operationId: sendDocument
+      summary: Send Document
+      description: Sends a document in draft status to its recipients for e-signature collection or review. Optionally includes a subject line, custom message, and controls whether email notifications are sent silently. The document must be in document.draft status before it can be sent.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentSendRequest'
+      responses:
+        '200':
+          description: Document sent successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentSendResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/download:
+    get:
+      operationId: downloadDocument
+      summary: Download Document
+      description: Downloads the signed PDF for a completed document. The document must be in document.completed status. Returns the binary PDF file content with appropriate Content-Disposition headers.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - name: watermark_color
+        in: query
+        description: Hex color code for watermark text applied to the downloaded PDF.
+        schema:
+          type: string
+      - name: watermark_font_size
+        in: query
+        description: Font size for watermark text in points.
+        schema:
+          type: integer
+      - name: watermark_opacity
+        in: query
+        description: Opacity of the watermark from 0.0 to 1.0.
+        schema:
+          type: number
+          format: float
+      - name: watermark_text
+        in: query
+        description: Text to render as a watermark on every page of the PDF.
+        schema:
+          type: string
+      - name: separate_files
+        in: query
+        description: If true, returns a ZIP archive containing each document section as a separate PDF file.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: PDF file content.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /documents/{id}/session:
+    post:
+      operationId: createDocumentSession
+      summary: Create Document Session
+      description: Creates a time-limited session token for embedded document viewing or signing. The returned session ID is used to embed the PandaDoc document viewer within an iframe in the host application. Session lifetime and recipient scope are configurable.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentSessionCreateRequest'
+      responses:
+        '201':
+          description: Document session created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentSessionCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    DocumentCreateResponse:
+      type: object
+      description: Response returned after successfully creating a document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier assigned to the new document.
+        name:
+          type: string
+          description: Display name of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp of the last modification.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: Expiration timestamp if configured.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+    DocumentRecipientCreateRequest:
+      type: object
+      description: Details for a recipient to be added to a document.
+      required:
+      - first_name
+      - last_name
+      properties:
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        role:
+          type: string
+          description: Role name mapping this recipient to fields in the document. Must match a role defined in the template.
+        signing_order:
+          type: integer
+          description: Signing order position for sequential signing workflows. Omit to allow simultaneous signing.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        contact_id:
+          type: string
+          description: Optional contact identifier to link the recipient to a contact record.
+    DocumentRecipient:
+      type: object
+      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the recipient within the document.
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        recipient_type:
+          type: string
+          description: Recipient participation type.
+          enum:
+          - SIGNER
+          - CC
+          - APPROVER
+        role:
+          type: string
+          description: Role name that maps the recipient to fields in the document.
+        signing_order:
+          type: integer
+          nullable: true
+          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
+        has_completed:
+          type: boolean
+          description: Whether this recipient has completed all required actions.
+        contact_id:
+          type: string
+          nullable: true
+          description: Identifier of the associated contact record if linked.
+        shared_link:
+          type: string
+          description: Public signing link for this recipient.
+    DocumentCreateRequest:
+      type: object
+      description: Request body for creating a new document. A document can be created from a PandaDoc template, a remote URL, or a content library item.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new document.
+          example: New Service Agreement
+        template_uuid:
+          type: string
+          description: Identifier of the PandaDoc template to generate the document from. Required when not providing a URL or file.
+          example: BhVzRcxH9Z2LgfPPGXFUBa
+        url:
+          type: string
+          format: uri
+          description: Publicly accessible URL of a PDF or DOCX file to use as the document source. Used when not creating from a template.
+        recipients:
+          type: array
+          description: List of recipients to assign to the document.
+          items:
+            $ref: '#/components/schemas/DocumentRecipientCreateRequest'
+        fields:
+          type: object
+          description: Map of field name to field value for populating document fields. Field names correspond to placeholders defined in the template.
+          additionalProperties:
+            type: object
+            properties:
+              value:
+                description: The value to assign to the field.
+              role:
+                type: string
+                description: Role name that owns this field.
+        tokens:
+          type: array
+          description: List of token name-value pairs for substituting content placeholders in the document.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Token placeholder name as defined in the template.
+              value:
+                type: string
+                description: Replacement value for the token.
+        metadata:
+          type: object
+          description: Arbitrary key-value metadata to attach to the document for reference by the integrating application.
+          additionalProperties:
+            type: string
+        tags:
+          type: array
+          description: List of tags to apply to the document.
+          items:
+            type: string
+        folder_uuid:
+          type: string
+          description: Identifier of the folder in which to store the document.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    DocumentSessionCreateRequest:
+      type: object
+      description: Request body for creating an embedded document session.
+      required:
+      - recipient
+      - lifetime
+      properties:
+        recipient:
+          type: string
+          format: email
+          description: Email address of the recipient for whom the session is created.
+        lifetime:
+          type: integer
+          description: Session lifetime in seconds.
+          minimum: 60
+          maximum: 31536000
+          example: 3600
+        read_only:
+          type: boolean
+          description: If true, the embedded viewer is in read-only mode. Recipients cannot interact with fields.
+          default: false
+    DocumentListItem:
+      type: object
+      description: Summary record for a document returned in list responses.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+          example: cKbJ7uay3cEGtsKuGPwYGX
+        name:
+          type: string
+          description: Display name of the document.
+          example: Service Agreement Q1 2026
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the document was last modified.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO 8601 timestamp after which the document expires.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+    DocumentDetailsResponse:
+      type: object
+      description: Complete details of a PandaDoc document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+        name:
+          type: string
+          description: Display name of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp when the document was last modified.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp after which the document expires and can no longer be signed.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+        tags:
+          type: array
+          description: List of tags applied to the document.
+          items:
+            type: string
+        recipients:
+          type: array
+          description: List of recipients assigned to the document.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
+        template:
+          type: object
+          nullable: true
+          description: Reference to the template this document was created from, if any.
+          properties:
+            id:
+              type: string
+              description: Template identifier.
+            name:
+              type: string
+              description: Template display name.
+        grand_total:
+          type: object
+          nullable: true
+          description: Total monetary value from pricing tables in the document.
+          properties:
+            amount:
+              type: string
+              description: Numeric string representation of the total amount.
+            currency:
+              type: string
+              description: Three-letter ISO 4217 currency code.
+    DocumentStatus:
+      type: string
+      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
+      enum:
+      - document.draft
+      - document.sent
+      - document.completed
+      - document.uploaded
+      - document.error
+      - document.viewed
+      - document.waiting_approval
+      - document.approved
+      - document.rejected
+      - document.waiting_pay
+      - document.paid
+      - document.voided
+      - document.declined
+      - document.external_review
+      example: document.draft
+    DocumentSendRequest:
+      type: object
+      description: Request body for sending a document to its recipients for signature.
+      properties:
+        subject:
+          type: string
+          description: Email subject line sent to recipients.
+          example: Please sign your service agreement
+        message:
+          type: string
+          description: Body text of the email sent to recipients.
+          example: Hi, please review and sign the attached agreement at your earliest convenience.
+        silent:
+          type: boolean
+          description: If true, suppresses email notification to recipients. The document is marked as sent but recipients are not emailed.
+          default: false
+        sender:
+          type: object
+          description: Override sender details for the notification email.
+          properties:
+            email:
+              type: string
+              format: email
+              description: Sender email address.
+            name:
+              type: string
+              description: Sender display name.
+    DocumentSendResponse:
+      type: object
+      description: Confirmation of a document having been sent.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the sent document.
+        name:
+          type: string
+          description: Display name of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+    DocumentStatusResponse:
+      type: object
+      description: Current status of a document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp of the most recent status change.
+    DocumentSessionCreateResponse:
+      type: object
+      description: Session token for embedding a document in an iframe.
+      properties:
+        id:
+          type: string
+          description: Session identifier used to construct the embedded document URL. Embed at https://app.pandadoc.com/s/{id}.
+    DocumentListResponse:
+      type: object
+      description: Paginated list of document summary records.
+      properties:
+        results:
+          type: array
+          description: Array of document summary records for the current page.
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission for this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

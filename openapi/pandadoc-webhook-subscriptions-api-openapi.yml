@@ -1,0 +1,357 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Webhook Subscriptions API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Webhook Subscriptions
+  description: Operations for managing webhook subscriptions that deliver real-time event notifications for document lifecycle and other platform events.
+paths:
+  /webhook-subscriptions:
+    get:
+      operationId: listWebhookSubscriptions
+      summary: List Webhook Subscriptions
+      description: Returns a paginated list of all webhook subscriptions configured in the workspace, including their trigger types, target URLs, payload options, and current status.
+      tags:
+      - Webhook Subscriptions
+      responses:
+        '200':
+          description: List of webhook subscriptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscriptionListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createWebhookSubscription
+      summary: Create Webhook Subscription
+      description: Creates a new webhook subscription that will deliver event notifications to the specified URL. Specify the trigger event types and optional payload extras (fields, products, metadata, tokens, pricing) to include in each notification.
+      tags:
+      - Webhook Subscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionCreateRequest'
+      responses:
+        '201':
+          description: Webhook subscription created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-subscriptions/{id}:
+    get:
+      operationId: getWebhookSubscription
+      summary: Get Webhook Subscription
+      description: Retrieves details of a specific webhook subscription by its UUID, including its configuration, trigger list, payload options, shared key, and status.
+      tags:
+      - Webhook Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/WebhookSubscriptionId'
+      responses:
+        '200':
+          description: Webhook subscription details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateWebhookSubscription
+      summary: Update Webhook Subscription
+      description: Updates the configuration of an existing webhook subscription, including its name, target URL, active status, trigger types, and payload options. Only provided fields are updated.
+      tags:
+      - Webhook Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/WebhookSubscriptionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionUpdateRequest'
+      responses:
+        '200':
+          description: Webhook subscription updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteWebhookSubscription
+      summary: Delete Webhook Subscription
+      description: Permanently deletes a webhook subscription. No further notifications will be delivered to the associated URL after deletion.
+      tags:
+      - Webhook Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/WebhookSubscriptionId'
+      responses:
+        '204':
+          description: Webhook subscription deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook-subscriptions/{id}/shared-key:
+    patch:
+      operationId: updateWebhookSubscriptionSharedKey
+      summary: Regenerate Webhook Shared Key
+      description: Regenerates the shared HMAC key for a webhook subscription. The new shared key is used to sign outgoing webhook payloads for signature verification. Update the key in your receiving endpoint before rotating to avoid verification failures.
+      tags:
+      - Webhook Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/WebhookSubscriptionId'
+      responses:
+        '200':
+          description: Shared key regenerated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSharedKeyResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    WebhookEventTrigger:
+      type: string
+      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
+      enum:
+      - recipient_completed
+      - document_updated
+      - document_deleted
+      - document_state_changed
+      - document_creation_failed
+      - document_completed_pdf_ready
+      - document_section_added
+      - quote_updated
+      - template_created
+      - template_updated
+      - template_deleted
+      - content_library_item_created
+      - content_library_item_creation_failed
+      example: document_state_changed
+    WebhookSubscriptionCreateRequest:
+      type: object
+      description: Request body for creating a webhook subscription.
+      required:
+      - name
+      - url
+      - triggers
+      properties:
+        name:
+          type: string
+          description: Display name for the subscription.
+        url:
+          type: string
+          format: uri
+          description: Target URL to receive webhook notifications.
+        active:
+          type: boolean
+          description: Whether the subscription should be active immediately.
+          default: true
+        triggers:
+          type: array
+          description: Event types this subscription should receive.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Additional payload sections to include in notifications.
+          items:
+            type: string
+            enum:
+            - fields
+            - products
+            - metadata
+            - tokens
+            - pricing
+    WebhookSubscriptionListResponse:
+      type: object
+      description: List of webhook subscriptions.
+      properties:
+        items:
+          type: array
+          description: Array of webhook subscription records.
+          items:
+            $ref: '#/components/schemas/WebhookSubscription'
+    WebhookSharedKeyResponse:
+      type: object
+      description: Regenerated shared key for a webhook subscription.
+      properties:
+        shared_key:
+          type: string
+          description: New HMAC shared key for payload signature verification.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    WebhookSubscriptionUpdateRequest:
+      type: object
+      description: Fields to update on an existing webhook subscription.
+      properties:
+        name:
+          type: string
+          description: Updated display name.
+        url:
+          type: string
+          format: uri
+          description: Updated target URL.
+        active:
+          type: boolean
+          description: Updated active state.
+        triggers:
+          type: array
+          description: Updated list of event trigger types.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Updated list of additional payload sections.
+          items:
+            type: string
+    WebhookSubscription:
+      type: object
+      description: A webhook subscription that delivers event notifications to a subscriber endpoint URL.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook subscription.
+        name:
+          type: string
+          description: Display name of the webhook subscription.
+        url:
+          type: string
+          format: uri
+          description: Target URL that receives webhook POST requests.
+        status:
+          type: string
+          description: Current status of the subscription.
+          enum:
+          - ACTIVE
+          - INACTIVE
+        active:
+          type: boolean
+          description: Whether the subscription is actively delivering events.
+        triggers:
+          type: array
+          description: List of event types that trigger this subscription.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Optional additional data sections to include in each event payload.
+          items:
+            type: string
+            enum:
+            - fields
+            - products
+            - metadata
+            - tokens
+            - pricing
+        shared_key:
+          type: string
+          description: HMAC shared key used to sign webhook payloads for signature verification.
+        workspace_id:
+          type: string
+          description: Identifier of the workspace this subscription belongs to.
+  parameters:
+    WebhookSubscriptionId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the webhook subscription.
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

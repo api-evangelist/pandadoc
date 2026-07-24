@@ -1,0 +1,330 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Contacts API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Contacts
+  description: Operations for managing the PandaDoc contacts directory, including creating, reading, updating, and deleting contact records.
+paths:
+  /contacts:
+    get:
+      operationId: listContacts
+      summary: List Contacts
+      description: Returns a paginated list of contacts from the workspace contacts directory. Supports search by name, email, or company. Contacts can be used to pre-populate recipient data when creating documents.
+      tags:
+      - Contacts
+      parameters:
+      - $ref: '#/components/parameters/QueryCount'
+      - $ref: '#/components/parameters/QueryPage'
+      - name: q
+        in: query
+        description: Search contacts by name, email, or company substring.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated list of contacts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createContact
+      summary: Create Contact
+      description: Creates a new contact record in the workspace contacts directory. The email field is optional. Contacts can be referenced when adding recipients to documents.
+      tags:
+      - Contacts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCreateRequest'
+      responses:
+        '201':
+          description: Contact created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /contacts/{id}:
+    get:
+      operationId: getContact
+      summary: Get Contact
+      description: Retrieves details of a specific contact by their unique identifier, including name, email, phone, company, and job title.
+      tags:
+      - Contacts
+      parameters:
+      - $ref: '#/components/parameters/ContactId'
+      responses:
+        '200':
+          description: Contact details retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateContact
+      summary: Update Contact
+      description: Updates the fields of an existing contact record. Only the provided fields are updated; omitted fields retain their current values.
+      tags:
+      - Contacts
+      parameters:
+      - $ref: '#/components/parameters/ContactId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactUpdateRequest'
+      responses:
+        '200':
+          description: Contact updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteContact
+      summary: Delete Contact
+      description: Permanently removes a contact from the workspace contacts directory. Documents and templates that previously used this contact are not affected.
+      tags:
+      - Contacts
+      parameters:
+      - $ref: '#/components/parameters/ContactId'
+      responses:
+        '204':
+          description: Contact deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  parameters:
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    ContactId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the contact.
+      schema:
+        type: string
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+  schemas:
+    ContactUpdateRequest:
+      type: object
+      description: Fields to update on an existing contact record.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        company:
+          type: string
+          description: Updated company name.
+        job_title:
+          type: string
+          description: Updated job title.
+        phone:
+          type: string
+          description: Updated phone number.
+    ContactCreateRequest:
+      type: object
+      description: Request body for creating a new contact.
+      required:
+      - first_name
+      - last_name
+      properties:
+        first_name:
+          type: string
+          description: First name of the contact.
+        last_name:
+          type: string
+          description: Last name of the contact.
+        email:
+          type: string
+          format: email
+          description: Email address of the contact. Optional.
+        company:
+          type: string
+          description: Company name of the contact.
+        job_title:
+          type: string
+          description: Job title of the contact.
+        phone:
+          type: string
+          description: Phone number of the contact.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    Contact:
+      type: object
+      description: A contact record in the PandaDoc contacts directory.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the contact.
+        email:
+          type: string
+          format: email
+          nullable: true
+          description: Email address of the contact.
+        first_name:
+          type: string
+          description: First name of the contact.
+        last_name:
+          type: string
+          description: Last name of the contact.
+        company:
+          type: string
+          nullable: true
+          description: Company name of the contact.
+        job_title:
+          type: string
+          nullable: true
+          description: Job title of the contact.
+        phone:
+          type: string
+          nullable: true
+          description: Phone number of the contact.
+        state:
+          type: string
+          nullable: true
+          description: State or region of the contact.
+        street_address:
+          type: string
+          nullable: true
+          description: Street address of the contact.
+        city:
+          type: string
+          nullable: true
+          description: City of the contact.
+        postal_code:
+          type: string
+          nullable: true
+          description: Postal or ZIP code of the contact.
+        country:
+          type: string
+          nullable: true
+          description: ISO country code of the contact.
+    ContactListResponse:
+      type: object
+      description: Paginated list of contacts.
+      properties:
+        results:
+          type: array
+          description: Array of contact records.
+          items:
+            $ref: '#/components/schemas/Contact'
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

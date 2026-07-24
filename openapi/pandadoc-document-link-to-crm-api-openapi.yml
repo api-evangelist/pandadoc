@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Document Link to CRM API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Document Link to CRM
+  description: Operations for managing links between PandaDoc documents and external CRM entities such as contacts, deals, or accounts.
+paths:
+  /documents/linked-objects:
+    get:
+      operationId: listLinkedObjects
+      summary: List Linked Objects
+      description: Returns a list of documents that are linked to a specified CRM object. Supports filtering by CRM provider, object type, and object identifier.
+      tags:
+      - Document Link to CRM
+      parameters:
+      - name: provider
+        in: query
+        required: true
+        description: CRM provider name (e.g., salesforce, hubspot).
+        schema:
+          type: string
+      - name: entity_type
+        in: query
+        required: true
+        description: CRM entity type (e.g., contact, deal, account).
+        schema:
+          type: string
+      - name: entity_id
+        in: query
+        required: true
+        description: Unique identifier of the CRM entity.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of documents linked to the CRM object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedObjectsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    DocumentStatus:
+      type: string
+      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
+      enum:
+      - document.draft
+      - document.sent
+      - document.completed
+      - document.uploaded
+      - document.error
+      - document.viewed
+      - document.waiting_approval
+      - document.approved
+      - document.rejected
+      - document.waiting_pay
+      - document.paid
+      - document.voided
+      - document.declined
+      - document.external_review
+      example: document.draft
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    DocumentListItem:
+      type: object
+      description: Summary record for a document returned in list responses.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the document.
+          example: cKbJ7uay3cEGtsKuGPwYGX
+        name:
+          type: string
+          description: Display name of the document.
+          example: Service Agreement Q1 2026
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the document was last modified.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO 8601 timestamp after which the document expires.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+    LinkedObjectsResponse:
+      type: object
+      description: Documents linked to a CRM object.
+      properties:
+        items:
+          type: array
+          description: Array of linked document records.
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

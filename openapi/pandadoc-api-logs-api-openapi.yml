@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: API Logs
+  description: Operations for retrieving API request logs useful for debugging and auditing integration activity.
+paths:
+  /logs:
+    get:
+      operationId: listApiLogs
+      summary: List API Logs
+      description: Returns a paginated list of API request logs. Useful for debugging integration issues and auditing API usage. Logs include request method, path, status code, and timestamp.
+      tags:
+      - API Logs
+      parameters:
+      - $ref: '#/components/parameters/QueryCount'
+      - $ref: '#/components/parameters/QueryPage'
+      responses:
+        '200':
+          description: Paginated list of API logs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiLogListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  parameters:
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    ApiLogListResponse:
+      type: object
+      description: Paginated list of API request log entries.
+      properties:
+        results:
+          type: array
+          description: Array of API log records.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of the log entry.
+              method:
+                type: string
+                description: HTTP method of the request.
+              path:
+                type: string
+                description: API path that was called.
+              status_code:
+                type: integer
+                description: HTTP response status code.
+              date_created:
+                type: string
+                format: date-time
+                description: Timestamp of the request.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about

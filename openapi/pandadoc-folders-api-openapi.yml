@@ -1,0 +1,185 @@
+openapi: 3.1.0
+info:
+  title: PandaDoc REST API Logs Folders API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  version: 7.18.0
+  contact:
+    name: PandaDoc API Support
+    url: https://developers.pandadoc.com/
+    email: api-track@pandadoc.com
+  termsOfService: https://www.pandadoc.com/master-services-agreement/
+servers:
+- url: https://api.pandadoc.com/public/v1
+  description: Production Server
+security:
+- apiKey: []
+- oauth2: []
+tags:
+- name: Folders
+  description: Operations for organizing documents and templates into folders, including creating, renaming, and listing folder contents.
+paths:
+  /documents/folders:
+    get:
+      operationId: listDocumentFolders
+      summary: List Document Folders
+      description: Returns a list of folders used to organize documents in the workspace. Supports filtering by parent folder and search by name.
+      tags:
+      - Folders
+      parameters:
+      - $ref: '#/components/parameters/QueryCount'
+      - $ref: '#/components/parameters/QueryPage'
+      - name: parent_uuid
+        in: query
+        description: Filter by parent folder UUID to retrieve sub-folders. Omit to retrieve root-level folders.
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: Filter folders by name substring.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of document folders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createDocumentFolder
+      summary: Create Document Folder
+      description: Creates a new folder for organizing documents. An optional parent UUID may be specified to create a nested sub-folder within an existing folder.
+      tags:
+      - Folders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreateRequest'
+      responses:
+        '201':
+          description: Folder created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    Folder:
+      type: object
+      description: A folder used to organize documents or templates.
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier of the folder.
+        name:
+          type: string
+          description: Display name of the folder.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the folder was created.
+        parent_uuid:
+          type: string
+          nullable: true
+          description: Identifier of the parent folder, if nested.
+    FolderListResponse:
+      type: object
+      description: List of document or template folders.
+      properties:
+        results:
+          type: array
+          description: Array of folder records.
+          items:
+            $ref: '#/components/schemas/Folder'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    FolderCreateRequest:
+      type: object
+      description: Request body for creating a folder.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new folder.
+        parent_uuid:
+          type: string
+          description: UUID of the parent folder. Omit to create a root-level folder.
+  parameters:
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key authentication. Include the key in the Authorization header as "API-Key YOUR_API_KEY". Generate keys from the PandaDoc Developer Dashboard.
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Use the authorization code flow to obtain user-scoped access tokens. Tokens expire after approximately one year.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.pandadoc.com/oauth2/authorize
+          tokenUrl: https://api.pandadoc.com/oauth2/access_token
+          scopes:
+            read: Read access to documents, templates, contacts, and workspace data.
+            write: Write access to create and modify documents, templates, and contacts.
+externalDocs:
+  description: PandaDoc API Reference
+  url: https://developers.pandadoc.com/reference/about
