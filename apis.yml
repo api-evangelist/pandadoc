@@ -5,9 +5,22 @@ description: PandaDoc is a document automation platform that enables businesses 
   provides REST APIs and embedded tools for integrating document generation, e-signature
   collection, and workflow automation directly into third-party applications.
 kind: contract
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pandadoc.png
 tags:
 - Document Automation
 - E-Signature
@@ -19,122 +32,397 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/pandadoc/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: pandadoc:rest-api
-  name: PandaDoc REST API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document
-    automation platform, enabling developers to create, send, track, and manage documents
-    within their own applications. The API supports the full document lifecycle including
-    generating documents from templates with dynamic data, collecting e-signatures,
-    managing recipients, and tracking document status through webhooks. Authentication
-    is handled via API keys, and a free sandbox environment is available for testing
-    integrations before moving to production. An active Enterprise plan is required
-    to access the production API.
+- aid: pandadoc:pandadoc-api-logs-api
+  name: PandaDoc API Logs API
+  description: >-
+    Operations for retrieving API request logs useful for debugging and auditing integration activity.
   humanURL: https://developers.pandadoc.com/reference/about
   baseURL: https://api.pandadoc.com/public/v1
   tags:
-  - Document Automation
-  - E-Signature
-  - Document Management
-  - REST
+  - API Logs
   properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-api-logs-api-openapi.yml
   - type: Documentation
     url: https://developers.pandadoc.com/reference/about
-  - type: OpenAPI
-    url: openapi/pandadoc-rest-api-openapi.yml
-  - url: graphql/pandadoc-graphql.md
-    type: GraphQL
-- aid: pandadoc:document-generation-api
-  name: PandaDoc Document Generation API
-  description: The PandaDoc Document Generation API allows developers to programmatically
-    create documents from templates by injecting dynamic data pulled from CRM systems,
-    databases, or other external sources. It supports branded document creation with
-    content placeholders, conditional sections, pricing tables, and custom fields
-    that are populated at runtime. Documents can be generated from existing PandaDoc
-    templates or uploaded PDFs, enabling consistent and automated document production
-    at scale. The API is commonly used in sales, legal, and HR workflows to eliminate
-    manual document preparation.
-  humanURL: https://developers.pandadoc.com/docs/getting-started
-  baseURL: https://api.pandadoc.com/public/v1
-  tags:
-  - Document Generation
-  - Templates
-  - Document Automation
-  - CRM Integration
-  properties:
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
   - type: Documentation
     url: https://developers.pandadoc.com/docs/getting-started
-  - type: OpenAPI
-    url: openapi/pandadoc-rest-api-openapi.yml
-- aid: pandadoc:e-signature-api
-  name: PandaDoc E-Signature API
-  description: The PandaDoc E-Signature API enables developers to embed legally binding
-    e-signature workflows directly within their applications using a white-label signing
-    experience. It supports sending signature requests via email or SMS, configuring
-    multiple recipients with defined roles and signing order, and collecting signatures
-    without signers needing a PandaDoc account. The API provides real-time status
-    tracking and generates audit trails and signed PDF copies upon completion. It
-    is designed for use cases in contract management, sales, finance, and any workflow
-    requiring legally compliant electronic signatures.
-  humanURL: https://www.pandadoc.com/api/
-  baseURL: https://api.pandadoc.com/public/v1
-  tags:
-  - E-Signature
-  - Electronic Signatures
-  - Document Signing
-  - Compliance
-  properties:
   - type: Documentation
     url: https://www.pandadoc.com/api/
-  - type: OpenAPI
-    url: openapi/pandadoc-rest-api-openapi.yml
-- aid: pandadoc:embedded-editing-api
-  name: PandaDoc Embedded Editing API
-  description: The PandaDoc Embedded Editing API allows developers to embed PandaDoc's
-    document editor directly within their own platform, enabling end users to prepare,
-    customize, and finalize documents without leaving the host application. Users
-    can upload PDFs or select templates, place signature and form fields, adjust content,
-    and assign recipients through a drag-and-drop interface embedded via token-based
-    sessions. Once editing is complete, documents can be sent for e-signature collection
-    and the resulting signed PDFs and audit trails can be retrieved via API. This
-    enables a seamless, branded document experience without requiring users to have
-    separate PandaDoc accounts.
-  humanURL: https://www.pandadoc.com/api/embedded-editing/
-  baseURL: https://api.pandadoc.com/public/v1
-  tags:
-  - Embedded Editing
-  - Document Editor
-  - White Label
-  - Embedded
-  properties:
   - type: Documentation
     url: https://www.pandadoc.com/api/embedded-editing/
-  - type: OpenAPI
-    url: openapi/pandadoc-rest-api-openapi.yml
-- aid: pandadoc:webhooks-api
-  name: PandaDoc Webhooks API
-  description: The PandaDoc Webhooks API enables developers to subscribe to real-time
-    event notifications for document lifecycle events such as document sent, viewed,
-    signed, approved, declined, and completed. Webhooks can be configured to trigger
-    events both within PandaDoc and in connected external systems, enabling automated
-    workflows across a technology stack. Each event payload includes document metadata
-    and status information for processing downstream actions like CRM updates, storage
-    routing, or approval notifications. Webhooks are configured through the PandaDoc
-    dashboard and are available to accounts with API access.
-  humanURL: https://developers.pandadoc.com/docs/webhooks-concepts
-  baseURL: https://api.pandadoc.com/public/v1
-  tags:
-  - Webhooks
-  - Events
-  - Notifications
-  - Integration
-  properties:
   - type: Documentation
     url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-contacts-api
+  name: PandaDoc Contacts API
+  description: >-
+    Operations for managing the PandaDoc contacts directory, including creating, reading, updating, and
+    deleting contact records.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Contacts
+  properties:
   - type: OpenAPI
-    url: openapi/pandadoc-rest-api-openapi.yml
+    url: openapi/pandadoc-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-document-attachments-api
+  name: PandaDoc Document Attachments API
+  description: >-
+    Operations for managing file attachments associated with a document, including uploading and downloading
+    attachment files.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Document Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-document-attachments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-document-fields-api
+  name: PandaDoc Document Fields API
+  description: >-
+    Operations for retrieving and updating field values within a document, such as text fields, checkboxes,
+    signatures, and date fields.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Document Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-document-fields-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-document-link-to-crm-api
+  name: PandaDoc Document Link to CRM API
+  description: >-
+    Operations for managing links between PandaDoc documents and external CRM entities such as contacts,
+    deals, or accounts.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Document Link to CRM
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-document-link-to-crm-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-document-recipients-api
+  name: PandaDoc Document Recipients API
+  description: >-
+    Operations for managing recipients within documents, including adding, editing, reassigning, and deleting
+    recipients.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Document Recipients
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-document-recipients-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-document-reminders-api
+  name: PandaDoc Document Reminders API
+  description: >-
+    Operations for configuring automatic reminders sent to document recipients who have not yet completed
+    their actions.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Document Reminders
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-document-reminders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-documents-api
+  name: PandaDoc Documents API
+  description: >-
+    Operations for creating, retrieving, sending, and managing the full lifecycle of documents including
+    drafting, sending for signature, downloading, and deleting.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-folders-api
+  name: PandaDoc Folders API
+  description: >-
+    Operations for organizing documents and templates into folders, including creating, renaming, and
+    listing folder contents.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-folders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-forms-api
+  name: PandaDoc Forms API
+  description: >-
+    Operations for retrieving and managing forms, which are publicly shareable document templates that
+    can be filled and signed without a predefined recipient list.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-forms-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-members-api
+  name: PandaDoc Members API
+  description: >-
+    Operations for managing and retrieving details about workspace members, including listing members
+    and generating member API tokens.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Members
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-members-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-templates-api
+  name: PandaDoc Templates API
+  description: >-
+    Operations for managing document templates, including listing available templates, retrieving template
+    details, creating templates from file upload, and deleting templates.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-templates-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-webhook-events-api
+  name: PandaDoc Webhook Events API
+  description: >-
+    Operations for querying the log of webhook events that have been dispatched, including filtering by
+    type and delivery status.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Webhook Events
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-webhook-events-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-webhook-subscriptions-api
+  name: PandaDoc Webhook Subscriptions API
+  description: >-
+    Operations for managing webhook subscriptions that deliver real-time event notifications for document
+    lifecycle and other platform events.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Webhook Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-webhook-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
+  - type: AsyncAPI
+    url: asyncapi/pandadoc-webhooks-asyncapi.yml
+- aid: pandadoc:pandadoc-workspaces-api
+  name: PandaDoc Workspaces API
+  description: >-
+    Operations for managing organization workspaces, including listing, creating, and deactivating workspaces.
+  humanURL: https://developers.pandadoc.com/reference/about
+  baseURL: https://api.pandadoc.com/public/v1
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/pandadoc-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pandadoc.com/reference/about
+  - type: GraphQL
+    url: graphql/pandadoc-graphql.md
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/getting-started
+  - type: Documentation
+    url: https://www.pandadoc.com/api/
+  - type: Documentation
+    url: https://www.pandadoc.com/api/embedded-editing/
+  - type: Documentation
+    url: https://developers.pandadoc.com/docs/webhooks-concepts
   - type: AsyncAPI
     url: asyncapi/pandadoc-webhooks-asyncapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/pandadoc/overview
 - type: AgenticAccess
   url: agentic-access/pandadoc-agentic-access.yml
 - type: DomainSecurity
