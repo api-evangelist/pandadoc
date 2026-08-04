@@ -1,0 +1,1371 @@
+{
+  "info": {
+    "_postman_id": "ba98f226-a336-4bb7-a2a3-7d1391895c91",
+    "name": "PandaDoc REST API Logs Contacts API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:02.000Z",
+    "updatedAt": "2026-07-28T02:31:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ba98f226-a336-4bb7-a2a3-7d1391895c91"
+  },
+  "item": [
+    {
+      "name": "contacts",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Contact",
+              "id": "45f73947-8391-48f4-9ce6-b5f50a5e156d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/contacts/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9264dda9-9db4-4b7d-b1d5-ea8e9cd33f06",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the contact."
+                    }
+                  ]
+                },
+                "description": "Retrieves details of a specific contact by their unique identifier, including name, email, phone, company, and job title."
+              },
+              "response": [
+                {
+                  "id": "93182662-0a88-46d6-b6b8-c1b9d6642b96",
+                  "name": "Contact details retrieved.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"state\": \"<string>\",\n  \"street_address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-93182662-0a88-46d6-b6b8-c1b9d6642b96"
+                },
+                {
+                  "id": "f8053367-925c-4057-9d9d-b38705fd4ee2",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-f8053367-925c-4057-9d9d-b38705fd4ee2"
+                },
+                {
+                  "id": "cf400848-056a-416e-bd24-aaa813828d0a",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-cf400848-056a-416e-bd24-aaa813828d0a"
+                },
+                {
+                  "id": "b8331b1b-0980-466a-8abf-cb4f7290cd79",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-b8331b1b-0980-466a-8abf-cb4f7290cd79"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-45f73947-8391-48f4-9ce6-b5f50a5e156d"
+            },
+            {
+              "name": "Update Contact",
+              "id": "51918a41-d1fc-4392-a2db-9caf8fac0086",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contacts/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e8105040-2b3d-4948-8cb6-2b68bb951cf8",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the contact."
+                    }
+                  ]
+                },
+                "description": "Updates the fields of an existing contact record. Only the provided fields are updated; omitted fields retain their current values."
+              },
+              "response": [
+                {
+                  "id": "675e04c5-e0a4-49b5-9afa-cb0d098a2389",
+                  "name": "Contact updated successfully.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"state\": \"<string>\",\n  \"street_address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-675e04c5-e0a4-49b5-9afa-cb0d098a2389"
+                },
+                {
+                  "id": "d8451356-667f-48b8-a383-0abc33b81ddd",
+                  "name": "The request was malformed or contained invalid parameters.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-d8451356-667f-48b8-a383-0abc33b81ddd"
+                },
+                {
+                  "id": "7082a345-65cb-43e0-bac0-9f8475ad5ff2",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-7082a345-65cb-43e0-bac0-9f8475ad5ff2"
+                },
+                {
+                  "id": "cabfca07-9ce7-4845-9f21-f286a70ff19e",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-cabfca07-9ce7-4845-9f21-f286a70ff19e"
+                },
+                {
+                  "id": "58fdbb95-83db-4a9f-81f1-648dc1089076",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-58fdbb95-83db-4a9f-81f1-648dc1089076"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-51918a41-d1fc-4392-a2db-9caf8fac0086"
+            },
+            {
+              "name": "Delete Contact",
+              "id": "5f6ca489-b57b-4113-8507-778038751163",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/contacts/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "ce0fc6ab-34cf-4b19-84d5-c508f18b18e3",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the contact."
+                    }
+                  ]
+                },
+                "description": "Permanently removes a contact from the workspace contacts directory. Documents and templates that previously used this contact are not affected."
+              },
+              "response": [
+                {
+                  "id": "e1691ba6-85a7-4379-abd1-3969426e0741",
+                  "name": "Contact deleted successfully.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-e1691ba6-85a7-4379-abd1-3969426e0741"
+                },
+                {
+                  "id": "d9cc4dca-8840-4449-98f5-a3cbf6ab64ec",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-d9cc4dca-8840-4449-98f5-a3cbf6ab64ec"
+                },
+                {
+                  "id": "908acc38-ed09-4312-ad3b-44faefe1ef9b",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-908acc38-ed09-4312-ad3b-44faefe1ef9b"
+                },
+                {
+                  "id": "eba3747c-c43a-4bea-adde-016b7b308347",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contacts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contacts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:03.000Z",
+                  "updatedAt": "2026-07-28T02:31:03.000Z",
+                  "uid": "35240-eba3747c-c43a-4bea-adde-016b7b308347"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-5f6ca489-b57b-4113-8507-778038751163"
+            }
+          ],
+          "id": "4022d471-3da0-495f-aa09-0c4e9987bad6",
+          "createdAt": "2026-07-28T02:31:02.000Z",
+          "updatedAt": "2026-07-28T02:31:02.000Z",
+          "uid": "35240-4022d471-3da0-495f-aa09-0c4e9987bad6"
+        },
+        {
+          "name": "List Contacts",
+          "id": "d20c4a74-c214-44d0-bb2b-fd1fc92b1fee",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/contacts?count=50&page=1&q=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "contacts"
+              ],
+              "query": [
+                {
+                  "description": "Number of results to return per page.",
+                  "key": "count",
+                  "value": "50"
+                },
+                {
+                  "description": "Page number to retrieve, starting from 1.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Search contacts by name, email, or company substring.",
+                  "key": "q",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of contacts from the workspace contacts directory. Supports search by name, email, or company. Contacts can be used to pre-populate recipient data when creating documents."
+          },
+          "response": [
+            {
+              "id": "d800ed92-96fe-4bb6-be27-a8412eda8ba5",
+              "name": "Paginated list of contacts.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/contacts?count=50&page=1&q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Search contacts by name, email, or company substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"company\": \"<string>\",\n      \"job_title\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"state\": \"<string>\",\n      \"street_address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"company\": \"<string>\",\n      \"job_title\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"state\": \"<string>\",\n      \"street_address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-d800ed92-96fe-4bb6-be27-a8412eda8ba5"
+            },
+            {
+              "id": "62916b76-3b9c-4be1-8311-5284c6c404f3",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/contacts?count=50&page=1&q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Search contacts by name, email, or company substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-62916b76-3b9c-4be1-8311-5284c6c404f3"
+            },
+            {
+              "id": "2de1d863-4031-46cd-bc55-352f30b6f343",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/contacts?count=50&page=1&q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Search contacts by name, email, or company substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-2de1d863-4031-46cd-bc55-352f30b6f343"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:03.000Z",
+          "updatedAt": "2026-07-28T02:31:03.000Z",
+          "uid": "35240-d20c4a74-c214-44d0-bb2b-fd1fc92b1fee"
+        },
+        {
+          "name": "Create Contact",
+          "id": "5091546c-cc80-4966-b6b7-fa36f0ce92a7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/contacts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "contacts"
+              ]
+            },
+            "description": "Creates a new contact record in the workspace contacts directory. The email field is optional. Contacts can be referenced when adding recipients to documents."
+          },
+          "response": [
+            {
+              "id": "a8bd4001-245e-48b6-af7b-c2c7ec13ddab",
+              "name": "Contact created successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contacts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"state\": \"<string>\",\n  \"street_address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-a8bd4001-245e-48b6-af7b-c2c7ec13ddab"
+            },
+            {
+              "id": "fae5d3d1-c553-4bb0-a52b-b5001ea91729",
+              "name": "The request was malformed or contained invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contacts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-fae5d3d1-c553-4bb0-a52b-b5001ea91729"
+            },
+            {
+              "id": "217fa29d-3014-430d-bae3-d69d1d387e84",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contacts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-217fa29d-3014-430d-bae3-d69d1d387e84"
+            },
+            {
+              "id": "4394be5f-318e-4f1a-b028-716e93d2dd1d",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"company\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contacts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contacts"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:03.000Z",
+              "updatedAt": "2026-07-28T02:31:03.000Z",
+              "uid": "35240-4394be5f-318e-4f1a-b028-716e93d2dd1d"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:03.000Z",
+          "updatedAt": "2026-07-28T02:31:03.000Z",
+          "uid": "35240-5091546c-cc80-4966-b6b7-fa36f0ce92a7"
+        }
+      ],
+      "id": "2352484f-3e5d-4e3d-aafb-347da79d8277",
+      "createdAt": "2026-07-28T02:31:02.000Z",
+      "updatedAt": "2026-07-28T02:31:02.000Z",
+      "uid": "35240-2352484f-3e5d-4e3d-aafb-347da79d8277"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

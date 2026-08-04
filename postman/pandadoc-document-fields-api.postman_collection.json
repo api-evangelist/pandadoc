@@ -1,0 +1,674 @@
+{
+  "info": {
+    "_postman_id": "afdd59aa-6bcb-4fdf-8d40-2043cf6c92e5",
+    "name": "PandaDoc REST API Logs Document Fields API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:22.000Z",
+    "updatedAt": "2026-07-28T02:31:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-afdd59aa-6bcb-4fdf-8d40-2043cf6c92e5"
+  },
+  "item": [
+    {
+      "name": "documents",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "fields",
+              "item": [
+                {
+                  "name": "List Document Fields",
+                  "id": "876530bf-14c0-4e6f-b53a-53f7de556803",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/fields",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "fields"
+                      ],
+                      "variable": [
+                        {
+                          "id": "39be9324-e1d4-4472-9f39-52f9e0b4fbd5",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Returns all fields defined in a document, including their identifiers, types, values, roles, and positions. Supports filtering by field type and recipient role."
+                  },
+                  "response": [
+                    {
+                      "id": "769c392f-73c1-442f-bf1f-bc508d6c0f27",
+                      "name": "List of document fields.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"radio\",\n      \"value\": {\n        \"description\": \"Current value assigned to the field.\"\n      },\n      \"role\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"checkbox\",\n      \"value\": {\n        \"description\": \"Current value assigned to the field.\"\n      },\n      \"role\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-769c392f-73c1-442f-bf1f-bc508d6c0f27"
+                    },
+                    {
+                      "id": "d0af2ab2-3f3e-410b-a7d7-1637d0ee61b2",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-d0af2ab2-3f3e-410b-a7d7-1637d0ee61b2"
+                    },
+                    {
+                      "id": "538b3d3c-6691-481d-875d-bd4a38a286dc",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-538b3d3c-6691-481d-875d-bd4a38a286dc"
+                    },
+                    {
+                      "id": "b9bc4f51-988c-49d3-8a17-de34c96303bc",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-b9bc4f51-988c-49d3-8a17-de34c96303bc"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:23.000Z",
+                  "updatedAt": "2026-07-28T02:31:23.000Z",
+                  "uid": "35240-876530bf-14c0-4e6f-b53a-53f7de556803"
+                },
+                {
+                  "name": "Update Document Fields",
+                  "id": "b5231c29-28a3-4fc5-843e-cc9f99004eab",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/fields",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "fields"
+                      ],
+                      "variable": [
+                        {
+                          "id": "008bf46e-0977-415c-adfb-d2af30dbb335",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Updates the values of one or more fields in a document that is in draft status. Supports updating text fields, checkboxes, dropdowns, dates, and other field types by name."
+                  },
+                  "response": [
+                    {
+                      "id": "7a9e21b8-2cd3-46e6-b9c5-fa22998479d4",
+                      "name": "Fields updated successfully.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"radio\",\n      \"value\": {\n        \"description\": \"Current value assigned to the field.\"\n      },\n      \"role\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"checkbox\",\n      \"value\": {\n        \"description\": \"Current value assigned to the field.\"\n      },\n      \"role\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-7a9e21b8-2cd3-46e6-b9c5-fa22998479d4"
+                    },
+                    {
+                      "id": "ff7c682e-34ff-4791-8a58-430554a1f42e",
+                      "name": "The request was malformed or contained invalid parameters.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-ff7c682e-34ff-4791-8a58-430554a1f42e"
+                    },
+                    {
+                      "id": "51a1d2f5-7a15-4c3a-984f-f6bc5216724a",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-51a1d2f5-7a15-4c3a-984f-f6bc5216724a"
+                    },
+                    {
+                      "id": "7af5bfc7-2646-4617-9a72-a2fa92aea673",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-7af5bfc7-2646-4617-9a72-a2fa92aea673"
+                    },
+                    {
+                      "id": "514b6cc2-538a-4ca1-b011-7a6025a681dc",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": {\n        \"description\": \"New value to assign to the field.\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/fields",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "fields"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:23.000Z",
+                      "updatedAt": "2026-07-28T02:31:23.000Z",
+                      "uid": "35240-514b6cc2-538a-4ca1-b011-7a6025a681dc"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:23.000Z",
+                  "updatedAt": "2026-07-28T02:31:23.000Z",
+                  "uid": "35240-b5231c29-28a3-4fc5-843e-cc9f99004eab"
+                }
+              ],
+              "id": "74c1c2a3-09c1-4b2b-9e8f-25397b6c9440",
+              "createdAt": "2026-07-28T02:31:23.000Z",
+              "updatedAt": "2026-07-28T02:31:23.000Z",
+              "uid": "35240-74c1c2a3-09c1-4b2b-9e8f-25397b6c9440"
+            }
+          ],
+          "id": "0f81f79f-60ff-40d8-b37c-67ae9bfa2c4d",
+          "createdAt": "2026-07-28T02:31:23.000Z",
+          "updatedAt": "2026-07-28T02:31:23.000Z",
+          "uid": "35240-0f81f79f-60ff-40d8-b37c-67ae9bfa2c4d"
+        }
+      ],
+      "id": "e99c3cb1-91c1-4491-8dc8-c4de565d97bd",
+      "createdAt": "2026-07-28T02:31:23.000Z",
+      "updatedAt": "2026-07-28T02:31:23.000Z",
+      "uid": "35240-e99c3cb1-91c1-4491-8dc8-c4de565d97bd"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

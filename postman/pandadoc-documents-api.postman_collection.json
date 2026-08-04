@@ -1,0 +1,2827 @@
+{
+  "info": {
+    "_postman_id": "04a13fec-b5bc-4daa-9e53-51ddf17374b7",
+    "name": "PandaDoc REST API Logs Documents API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:28.000Z",
+    "updatedAt": "2026-07-28T02:31:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-04a13fec-b5bc-4daa-9e53-51ddf17374b7"
+  },
+  "item": [
+    {
+      "name": "documents",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "status",
+              "item": [
+                {
+                  "name": "Get Document Status",
+                  "id": "bee2938f-222f-41f6-93c3-b7156eeffe10",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/status",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "status"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4140a494-8d4f-4351-9002-375c11e11b08",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Returns the current status of a document. Use this endpoint to poll for status transitions after creating or sending a document."
+                  },
+                  "response": [
+                    {
+                      "id": "6dffa9ab-d388-4e62-9762-08c5a0fed80b",
+                      "name": "Document status retrieved successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"document.declined\",\n  \"date_modified\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-6dffa9ab-d388-4e62-9762-08c5a0fed80b"
+                    },
+                    {
+                      "id": "b2fbcceb-0ece-4f56-ad1b-42eee0e7e8a7",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-b2fbcceb-0ece-4f56-ad1b-42eee0e7e8a7"
+                    },
+                    {
+                      "id": "dbcb1705-e82a-437d-bf5d-02189bf00529",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-dbcb1705-e82a-437d-bf5d-02189bf00529"
+                    },
+                    {
+                      "id": "0fc5d9af-4531-4fd9-a8f6-c8fa572e613f",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-0fc5d9af-4531-4fd9-a8f6-c8fa572e613f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-bee2938f-222f-41f6-93c3-b7156eeffe10"
+                }
+              ],
+              "id": "a12c8bb7-2b86-48e6-811b-916bf1846f32",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-a12c8bb7-2b86-48e6-811b-916bf1846f32"
+            },
+            {
+              "name": "send",
+              "item": [
+                {
+                  "name": "Send Document",
+                  "id": "285c616d-aa89-4f60-a65c-dc05661c75ec",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"subject\": \"<string>\",\n  \"message\": \"<string>\",\n  \"silent\": false,\n  \"sender\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/send",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "send"
+                      ],
+                      "variable": [
+                        {
+                          "id": "48404862-fcdf-4cd7-8471-f34717877e69",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Sends a document in draft status to its recipients for e-signature collection or review. Optionally includes a subject line, custom message, and controls whether email notifications are sent silently. The document must be in document.draft status before it can be sent."
+                  },
+                  "response": [
+                    {
+                      "id": "27058628-0380-4348-a972-daf7421be999",
+                      "name": "Document sent successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"message\": \"<string>\",\n  \"silent\": false,\n  \"sender\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/send",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "send"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"status\": \"document.waiting_approval\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-27058628-0380-4348-a972-daf7421be999"
+                    },
+                    {
+                      "id": "dfd970be-8019-4228-801e-14d60b710a16",
+                      "name": "The request was malformed or contained invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"message\": \"<string>\",\n  \"silent\": false,\n  \"sender\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/send",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "send"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-dfd970be-8019-4228-801e-14d60b710a16"
+                    },
+                    {
+                      "id": "433588b4-3073-4890-9f1a-e56bcc53c038",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"message\": \"<string>\",\n  \"silent\": false,\n  \"sender\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/send",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "send"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-433588b4-3073-4890-9f1a-e56bcc53c038"
+                    },
+                    {
+                      "id": "d30d66f3-b23a-46c3-86d2-921dfbf9c422",
+                      "name": "The authenticated user does not have permission for this action.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"message\": \"<string>\",\n  \"silent\": false,\n  \"sender\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/send",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "send"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-d30d66f3-b23a-46c3-86d2-921dfbf9c422"
+                    },
+                    {
+                      "id": "8c95e4af-ae79-43f9-988d-9fa2c4f2b5cc",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"message\": \"<string>\",\n  \"silent\": false,\n  \"sender\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/send",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "send"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-8c95e4af-ae79-43f9-988d-9fa2c4f2b5cc"
+                    },
+                    {
+                      "id": "faef643d-1613-4541-9a42-5de9696b39e4",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"subject\": \"<string>\",\n  \"message\": \"<string>\",\n  \"silent\": false,\n  \"sender\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/send",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "send"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-faef643d-1613-4541-9a42-5de9696b39e4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-285c616d-aa89-4f60-a65c-dc05661c75ec"
+                }
+              ],
+              "id": "b401c916-e473-44a2-bc7b-259e911c6c77",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-b401c916-e473-44a2-bc7b-259e911c6c77"
+            },
+            {
+              "name": "download",
+              "item": [
+                {
+                  "name": "Download Document",
+                  "id": "be24cae9-1804-4f9c-9915-40137e85d060",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/pdf"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/download?watermark_color=<string>&watermark_font_size=<integer>&watermark_opacity=<float>&watermark_text=<string>&separate_files=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "download"
+                      ],
+                      "query": [
+                        {
+                          "description": "Hex color code for watermark text applied to the downloaded PDF.",
+                          "key": "watermark_color",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Font size for watermark text in points.",
+                          "key": "watermark_font_size",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Opacity of the watermark from 0.0 to 1.0.",
+                          "key": "watermark_opacity",
+                          "value": "<float>"
+                        },
+                        {
+                          "description": "Text to render as a watermark on every page of the PDF.",
+                          "key": "watermark_text",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "If true, returns a ZIP archive containing each document section as a separate PDF file.",
+                          "key": "separate_files",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "b7153f7d-5c05-4fe5-a346-cd3b3859ff6e",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Downloads the signed PDF for a completed document. The document must be in document.completed status. Returns the binary PDF file content with appropriate Content-Disposition headers."
+                  },
+                  "response": [
+                    {
+                      "id": "353671be-a56c-4a7b-96f3-7cb012b8b15c",
+                      "name": "PDF file content.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/pdf"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/download?watermark_color=<string>&watermark_font_size=<integer>&watermark_opacity=<float>&watermark_text=<string>&separate_files=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "download"
+                          ],
+                          "query": [
+                            {
+                              "description": "Hex color code for watermark text applied to the downloaded PDF.",
+                              "key": "watermark_color",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Font size for watermark text in points.",
+                              "key": "watermark_font_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Opacity of the watermark from 0.0 to 1.0.",
+                              "key": "watermark_opacity",
+                              "value": "<float>"
+                            },
+                            {
+                              "description": "Text to render as a watermark on every page of the PDF.",
+                              "key": "watermark_text",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If true, returns a ZIP archive containing each document section as a separate PDF file.",
+                              "key": "separate_files",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/pdf"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<binary>",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-353671be-a56c-4a7b-96f3-7cb012b8b15c"
+                    },
+                    {
+                      "id": "b781210a-bc20-445b-813d-989bf33b24fb",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/download?watermark_color=<string>&watermark_font_size=<integer>&watermark_opacity=<float>&watermark_text=<string>&separate_files=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "download"
+                          ],
+                          "query": [
+                            {
+                              "description": "Hex color code for watermark text applied to the downloaded PDF.",
+                              "key": "watermark_color",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Font size for watermark text in points.",
+                              "key": "watermark_font_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Opacity of the watermark from 0.0 to 1.0.",
+                              "key": "watermark_opacity",
+                              "value": "<float>"
+                            },
+                            {
+                              "description": "Text to render as a watermark on every page of the PDF.",
+                              "key": "watermark_text",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If true, returns a ZIP archive containing each document section as a separate PDF file.",
+                              "key": "separate_files",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-b781210a-bc20-445b-813d-989bf33b24fb"
+                    },
+                    {
+                      "id": "fbf52a14-44a4-4532-a3ce-dff6da7bef74",
+                      "name": "The authenticated user does not have permission for this action.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/download?watermark_color=<string>&watermark_font_size=<integer>&watermark_opacity=<float>&watermark_text=<string>&separate_files=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "download"
+                          ],
+                          "query": [
+                            {
+                              "description": "Hex color code for watermark text applied to the downloaded PDF.",
+                              "key": "watermark_color",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Font size for watermark text in points.",
+                              "key": "watermark_font_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Opacity of the watermark from 0.0 to 1.0.",
+                              "key": "watermark_opacity",
+                              "value": "<float>"
+                            },
+                            {
+                              "description": "Text to render as a watermark on every page of the PDF.",
+                              "key": "watermark_text",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If true, returns a ZIP archive containing each document section as a separate PDF file.",
+                              "key": "separate_files",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-fbf52a14-44a4-4532-a3ce-dff6da7bef74"
+                    },
+                    {
+                      "id": "10c3952d-aa91-4040-bde4-91507396bfb9",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/download?watermark_color=<string>&watermark_font_size=<integer>&watermark_opacity=<float>&watermark_text=<string>&separate_files=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "download"
+                          ],
+                          "query": [
+                            {
+                              "description": "Hex color code for watermark text applied to the downloaded PDF.",
+                              "key": "watermark_color",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Font size for watermark text in points.",
+                              "key": "watermark_font_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Opacity of the watermark from 0.0 to 1.0.",
+                              "key": "watermark_opacity",
+                              "value": "<float>"
+                            },
+                            {
+                              "description": "Text to render as a watermark on every page of the PDF.",
+                              "key": "watermark_text",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If true, returns a ZIP archive containing each document section as a separate PDF file.",
+                              "key": "separate_files",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-10c3952d-aa91-4040-bde4-91507396bfb9"
+                    },
+                    {
+                      "id": "70a20214-6d08-4aae-ab39-fe7fdf1eb7b9",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/download?watermark_color=<string>&watermark_font_size=<integer>&watermark_opacity=<float>&watermark_text=<string>&separate_files=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "download"
+                          ],
+                          "query": [
+                            {
+                              "description": "Hex color code for watermark text applied to the downloaded PDF.",
+                              "key": "watermark_color",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Font size for watermark text in points.",
+                              "key": "watermark_font_size",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Opacity of the watermark from 0.0 to 1.0.",
+                              "key": "watermark_opacity",
+                              "value": "<float>"
+                            },
+                            {
+                              "description": "Text to render as a watermark on every page of the PDF.",
+                              "key": "watermark_text",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If true, returns a ZIP archive containing each document section as a separate PDF file.",
+                              "key": "separate_files",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-70a20214-6d08-4aae-ab39-fe7fdf1eb7b9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-be24cae9-1804-4f9c-9915-40137e85d060"
+                }
+              ],
+              "id": "b3f89182-7b0f-48da-aa03-6727083eb2bb",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-b3f89182-7b0f-48da-aa03-6727083eb2bb"
+            },
+            {
+              "name": "session",
+              "item": [
+                {
+                  "name": "Create Document Session",
+                  "id": "2c13fd4b-926b-47fe-a4bb-34ce89d3a5d1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"recipient\": \"<email>\",\n  \"lifetime\": \"<integer>\",\n  \"read_only\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "session"
+                      ],
+                      "variable": [
+                        {
+                          "id": "888b74d0-9761-41a3-908f-3692b9b0f2c2",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Creates a time-limited session token for embedded document viewing or signing. The returned session ID is used to embed the PandaDoc document viewer within an iframe in the host application. Session lifetime and recipient scope are configurable."
+                  },
+                  "response": [
+                    {
+                      "id": "002247a2-0786-48de-808b-18e68f2563a5",
+                      "name": "Document session created successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"recipient\": \"<email>\",\n  \"lifetime\": \"<integer>\",\n  \"read_only\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/session",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "session"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-002247a2-0786-48de-808b-18e68f2563a5"
+                    },
+                    {
+                      "id": "ec4f2643-2eb3-42f4-b1d1-0196cd21b954",
+                      "name": "The request was malformed or contained invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"recipient\": \"<email>\",\n  \"lifetime\": \"<integer>\",\n  \"read_only\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/session",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "session"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-ec4f2643-2eb3-42f4-b1d1-0196cd21b954"
+                    },
+                    {
+                      "id": "afc25d59-770b-4ce1-9214-17e4bfdb33aa",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"recipient\": \"<email>\",\n  \"lifetime\": \"<integer>\",\n  \"read_only\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/session",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "session"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-afc25d59-770b-4ce1-9214-17e4bfdb33aa"
+                    },
+                    {
+                      "id": "72c7634b-ca2e-4b5e-920c-be28c82371c5",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"recipient\": \"<email>\",\n  \"lifetime\": \"<integer>\",\n  \"read_only\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/session",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "session"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-72c7634b-ca2e-4b5e-920c-be28c82371c5"
+                    },
+                    {
+                      "id": "eebe20d7-f862-4115-b658-75db160ba927",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"recipient\": \"<email>\",\n  \"lifetime\": \"<integer>\",\n  \"read_only\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/session",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "session"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:28.000Z",
+                      "updatedAt": "2026-07-28T02:31:28.000Z",
+                      "uid": "35240-eebe20d7-f862-4115-b658-75db160ba927"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-2c13fd4b-926b-47fe-a4bb-34ce89d3a5d1"
+                }
+              ],
+              "id": "cb2764a7-5fe4-431e-beda-8cced4d9999a",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-cb2764a7-5fe4-431e-beda-8cced4d9999a"
+            },
+            {
+              "name": "Get Document Details",
+              "id": "e1d6323b-f750-4d90-90c5-de3ae190c6c6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "40aa2547-81b6-4b22-a4dc-b949a36d9229",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the document."
+                    }
+                  ]
+                },
+                "description": "Retrieves comprehensive details for a specific document including its status, recipients, fields, pricing tables, tokens, tags, and metadata."
+              },
+              "response": [
+                {
+                  "id": "2fb2ab81-f156-40d9-a72a-f0015b8b51d9",
+                  "name": "Document details retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"status\": \"document.external_review\",\n  \"date_created\": \"<dateTime>\",\n  \"date_modified\": \"<dateTime>\",\n  \"expiration_date\": \"<dateTime>\",\n  \"version\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipients\": [\n    {\n      \"id\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"phone\": \"<string>\",\n      \"recipient_type\": \"CC\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"has_completed\": \"<boolean>\",\n      \"contact_id\": \"<string>\",\n      \"shared_link\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"phone\": \"<string>\",\n      \"recipient_type\": \"APPROVER\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"has_completed\": \"<boolean>\",\n      \"contact_id\": \"<string>\",\n      \"shared_link\": \"<string>\"\n    }\n  ],\n  \"template\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"grand_total\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-2fb2ab81-f156-40d9-a72a-f0015b8b51d9"
+                },
+                {
+                  "id": "2e4a3d60-957b-4935-9c8d-4e3dbea5f6f8",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-2e4a3d60-957b-4935-9c8d-4e3dbea5f6f8"
+                },
+                {
+                  "id": "16773dba-7c0d-47ff-b313-0b334861f3c8",
+                  "name": "The authenticated user does not have permission for this action.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-16773dba-7c0d-47ff-b313-0b334861f3c8"
+                },
+                {
+                  "id": "38ef9317-3795-45c3-b9db-c8033c444fea",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-38ef9317-3795-45c3-b9db-c8033c444fea"
+                },
+                {
+                  "id": "c92f04f7-3a51-40af-a9c6-8459e69dd7c3",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-c92f04f7-3a51-40af-a9c6-8459e69dd7c3"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-e1d6323b-f750-4d90-90c5-de3ae190c6c6"
+            },
+            {
+              "name": "Delete Document",
+              "id": "1d816c32-605a-487f-9bc3-702d6fa0d434",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "321f83e9-3b07-4fdf-a159-b1468edb31fd",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the document."
+                    }
+                  ]
+                },
+                "description": "Permanently deletes a specific document by its identifier. This action is irreversible and removes the document and all associated data."
+              },
+              "response": [
+                {
+                  "id": "916f1b72-d5ec-49eb-be34-473afa772fd3",
+                  "name": "Document deleted successfully.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-916f1b72-d5ec-49eb-be34-473afa772fd3"
+                },
+                {
+                  "id": "f9fa8548-50d5-42b5-a07a-2e523d762c4f",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-f9fa8548-50d5-42b5-a07a-2e523d762c4f"
+                },
+                {
+                  "id": "d14b5d7e-71fc-4a51-b7b4-4b1c89210dc2",
+                  "name": "The authenticated user does not have permission for this action.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-d14b5d7e-71fc-4a51-b7b4-4b1c89210dc2"
+                },
+                {
+                  "id": "83c82a6b-34c1-496e-98d9-5ce3dbe8c566",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-83c82a6b-34c1-496e-98d9-5ce3dbe8c566"
+                },
+                {
+                  "id": "56e0f80d-c426-4db3-8551-0187bc092060",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:28.000Z",
+                  "updatedAt": "2026-07-28T02:31:28.000Z",
+                  "uid": "35240-56e0f80d-c426-4db3-8551-0187bc092060"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-1d816c32-605a-487f-9bc3-702d6fa0d434"
+            }
+          ],
+          "id": "3b9d2e4b-cf2a-480f-be60-bf9b44c124b5",
+          "createdAt": "2026-07-28T02:31:28.000Z",
+          "updatedAt": "2026-07-28T02:31:28.000Z",
+          "uid": "35240-3b9d2e4b-cf2a-480f-be60-bf9b44c124b5"
+        },
+        {
+          "name": "List Documents",
+          "id": "ef800c0c-5808-4221-9033-65f4624d27fb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/documents?count=50&page=1&template_id=<string>&form_id=<string>&folder_uuid=<string>&contact_id=<string>&status=document.viewed&tag=<string>&q=<string>&id=<string>&owner_id=<string>&order_by=name&asc=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documents"
+              ],
+              "query": [
+                {
+                  "description": "Number of results to return per page.",
+                  "key": "count",
+                  "value": "50"
+                },
+                {
+                  "description": "Page number to retrieve, starting from 1.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Filter by the parent template identifier.",
+                  "key": "template_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by the parent form identifier.",
+                  "key": "form_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by the folder where documents are stored.",
+                  "key": "folder_uuid",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by recipient or approver contact identifier.",
+                  "key": "contact_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by document status.",
+                  "key": "status",
+                  "value": "document.viewed"
+                },
+                {
+                  "description": "Filter by document tag (exact match).",
+                  "key": "tag",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Search by document name substring.",
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by a specific document identifier.",
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by the document owner member identifier.",
+                  "key": "owner_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Sort field for results.",
+                  "key": "order_by",
+                  "value": "name"
+                },
+                {
+                  "description": "Set to true for ascending order, false for descending.",
+                  "key": "asc",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of documents accessible to the authenticated user. Supports filtering by template, form, folder, contact, status, tag, owner, and date ranges. Results can be ordered by various fields."
+          },
+          "response": [
+            {
+              "id": "c82c7bec-1364-4bb7-aa09-100310d26704",
+              "name": "Paginated list of documents.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents?count=50&page=1&template_id=<string>&form_id=<string>&folder_uuid=<string>&contact_id=<string>&status=document.viewed&tag=<string>&q=<string>&id=<string>&owner_id=<string>&order_by=name&asc=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Filter by the parent template identifier.",
+                      "key": "template_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the parent form identifier.",
+                      "key": "form_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the folder where documents are stored.",
+                      "key": "folder_uuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by recipient or approver contact identifier.",
+                      "key": "contact_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by document status.",
+                      "key": "status",
+                      "value": "document.viewed"
+                    },
+                    {
+                      "description": "Filter by document tag (exact match).",
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Search by document name substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by a specific document identifier.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the document owner member identifier.",
+                      "key": "owner_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field for results.",
+                      "key": "order_by",
+                      "value": "name"
+                    },
+                    {
+                      "description": "Set to true for ascending order, false for descending.",
+                      "key": "asc",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"document.waiting_pay\",\n      \"date_created\": \"<dateTime>\",\n      \"date_modified\": \"<dateTime>\",\n      \"expiration_date\": \"<dateTime>\",\n      \"version\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"document.rejected\",\n      \"date_created\": \"<dateTime>\",\n      \"date_modified\": \"<dateTime>\",\n      \"expiration_date\": \"<dateTime>\",\n      \"version\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-c82c7bec-1364-4bb7-aa09-100310d26704"
+            },
+            {
+              "id": "b2e50204-b5e9-4d46-9713-7946c96bd652",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents?count=50&page=1&template_id=<string>&form_id=<string>&folder_uuid=<string>&contact_id=<string>&status=document.viewed&tag=<string>&q=<string>&id=<string>&owner_id=<string>&order_by=name&asc=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Filter by the parent template identifier.",
+                      "key": "template_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the parent form identifier.",
+                      "key": "form_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the folder where documents are stored.",
+                      "key": "folder_uuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by recipient or approver contact identifier.",
+                      "key": "contact_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by document status.",
+                      "key": "status",
+                      "value": "document.viewed"
+                    },
+                    {
+                      "description": "Filter by document tag (exact match).",
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Search by document name substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by a specific document identifier.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the document owner member identifier.",
+                      "key": "owner_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field for results.",
+                      "key": "order_by",
+                      "value": "name"
+                    },
+                    {
+                      "description": "Set to true for ascending order, false for descending.",
+                      "key": "asc",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-b2e50204-b5e9-4d46-9713-7946c96bd652"
+            },
+            {
+              "id": "e1b0c72b-554b-4f00-8f4a-e9ac660b41ed",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents?count=50&page=1&template_id=<string>&form_id=<string>&folder_uuid=<string>&contact_id=<string>&status=document.viewed&tag=<string>&q=<string>&id=<string>&owner_id=<string>&order_by=name&asc=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Filter by the parent template identifier.",
+                      "key": "template_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the parent form identifier.",
+                      "key": "form_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the folder where documents are stored.",
+                      "key": "folder_uuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by recipient or approver contact identifier.",
+                      "key": "contact_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by document status.",
+                      "key": "status",
+                      "value": "document.viewed"
+                    },
+                    {
+                      "description": "Filter by document tag (exact match).",
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Search by document name substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by a specific document identifier.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by the document owner member identifier.",
+                      "key": "owner_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field for results.",
+                      "key": "order_by",
+                      "value": "name"
+                    },
+                    {
+                      "description": "Set to true for ascending order, false for descending.",
+                      "key": "asc",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-e1b0c72b-554b-4f00-8f4a-e9ac660b41ed"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:28.000Z",
+          "updatedAt": "2026-07-28T02:31:28.000Z",
+          "uid": "35240-ef800c0c-5808-4221-9033-65f4624d27fb"
+        },
+        {
+          "name": "Create Document",
+          "id": "2e721682-db8a-4523-bd19-2eda85508bfe",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"template_uuid\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"recipients\": [\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    },\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    }\n  ],\n  \"fields\": {\n    \"dolore7\": {\n      \"value\": {\n        \"description\": \"The value to assign to the field.\"\n      },\n      \"role\": \"<string>\"\n    }\n  },\n  \"tokens\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"quica\": \"<string>\",\n    \"enim535\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"folder_uuid\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documents"
+              ]
+            },
+            "description": "Creates a new document from a template, an uploaded file, or a URL. The document is created in draft status and can be customized with recipient details, field values, pricing table data, and metadata tokens before being sent for signature."
+          },
+          "response": [
+            {
+              "id": "550ef9db-34f8-4d5d-96d5-94220b94e588",
+              "name": "Document created successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"template_uuid\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"recipients\": [\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    },\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    }\n  ],\n  \"fields\": {\n    \"dolore7\": {\n      \"value\": {\n        \"description\": \"The value to assign to the field.\"\n      },\n      \"role\": \"<string>\"\n    }\n  },\n  \"tokens\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"quica\": \"<string>\",\n    \"enim535\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"folder_uuid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"status\": \"document.waiting_approval\",\n  \"date_created\": \"<dateTime>\",\n  \"date_modified\": \"<dateTime>\",\n  \"expiration_date\": \"<dateTime>\",\n  \"version\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-550ef9db-34f8-4d5d-96d5-94220b94e588"
+            },
+            {
+              "id": "ee7ce2e1-aadb-48de-bd4e-d50bc009fad4",
+              "name": "The request was malformed or contained invalid parameters.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"template_uuid\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"recipients\": [\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    },\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    }\n  ],\n  \"fields\": {\n    \"dolore7\": {\n      \"value\": {\n        \"description\": \"The value to assign to the field.\"\n      },\n      \"role\": \"<string>\"\n    }\n  },\n  \"tokens\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"quica\": \"<string>\",\n    \"enim535\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"folder_uuid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-ee7ce2e1-aadb-48de-bd4e-d50bc009fad4"
+            },
+            {
+              "id": "4458a60f-6db8-4f07-ac95-92f92e6c9b29",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"template_uuid\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"recipients\": [\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    },\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    }\n  ],\n  \"fields\": {\n    \"dolore7\": {\n      \"value\": {\n        \"description\": \"The value to assign to the field.\"\n      },\n      \"role\": \"<string>\"\n    }\n  },\n  \"tokens\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"quica\": \"<string>\",\n    \"enim535\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"folder_uuid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-4458a60f-6db8-4f07-ac95-92f92e6c9b29"
+            },
+            {
+              "id": "033fc495-ef57-44d4-a5a8-689dd11a221b",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"template_uuid\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"recipients\": [\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    },\n    {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"phone\": \"<string>\",\n      \"contact_id\": \"<string>\"\n    }\n  ],\n  \"fields\": {\n    \"dolore7\": {\n      \"value\": {\n        \"description\": \"The value to assign to the field.\"\n      },\n      \"role\": \"<string>\"\n    }\n  },\n  \"tokens\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"quica\": \"<string>\",\n    \"enim535\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"folder_uuid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/documents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:28.000Z",
+              "updatedAt": "2026-07-28T02:31:28.000Z",
+              "uid": "35240-033fc495-ef57-44d4-a5a8-689dd11a221b"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:28.000Z",
+          "updatedAt": "2026-07-28T02:31:28.000Z",
+          "uid": "35240-2e721682-db8a-4523-bd19-2eda85508bfe"
+        }
+      ],
+      "id": "fe5ec9b7-1a12-470b-bc49-a366083c07c0",
+      "createdAt": "2026-07-28T02:31:28.000Z",
+      "updatedAt": "2026-07-28T02:31:28.000Z",
+      "uid": "35240-fe5ec9b7-1a12-470b-bc49-a366083c07c0"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

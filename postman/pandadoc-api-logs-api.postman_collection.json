@@ -1,0 +1,254 @@
+{
+  "info": {
+    "_postman_id": "0d6ba163-1ba3-45a0-b9c3-fb0200a94e8d",
+    "name": "PandaDoc REST API Logs API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:01.000Z",
+    "updatedAt": "2026-07-28T02:31:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0d6ba163-1ba3-45a0-b9c3-fb0200a94e8d"
+  },
+  "item": [
+    {
+      "name": "logs",
+      "item": [
+        {
+          "name": "List API Logs",
+          "id": "37df86a5-5486-4b86-89a9-100a24a9e363",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logs?count=50&page=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logs"
+              ],
+              "query": [
+                {
+                  "description": "Number of results to return per page.",
+                  "key": "count",
+                  "value": "50"
+                },
+                {
+                  "description": "Page number to retrieve, starting from 1.",
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of API request logs. Useful for debugging integration issues and auditing API usage. Logs include request method, path, status code, and timestamp."
+          },
+          "response": [
+            {
+              "id": "92db7aa3-290f-4bd0-89ef-014bf99075c4",
+              "name": "Paginated list of API logs.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/logs?count=50&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"method\": \"<string>\",\n      \"path\": \"<string>\",\n      \"status_code\": \"<integer>\",\n      \"date_created\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"method\": \"<string>\",\n      \"path\": \"<string>\",\n      \"status_code\": \"<integer>\",\n      \"date_created\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:31:01.000Z",
+              "updatedAt": "2026-07-28T02:31:01.000Z",
+              "uid": "35240-92db7aa3-290f-4bd0-89ef-014bf99075c4"
+            },
+            {
+              "id": "7ecb4275-9757-466c-9f35-f3985ec231d5",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/logs?count=50&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:01.000Z",
+              "updatedAt": "2026-07-28T02:31:01.000Z",
+              "uid": "35240-7ecb4275-9757-466c-9f35-f3985ec231d5"
+            },
+            {
+              "id": "effb8dc9-5b77-486b-82a1-10dbdf3c4c1f",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/logs?count=50&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:01.000Z",
+              "updatedAt": "2026-07-28T02:31:01.000Z",
+              "uid": "35240-effb8dc9-5b77-486b-82a1-10dbdf3c4c1f"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:01.000Z",
+          "updatedAt": "2026-07-28T02:31:01.000Z",
+          "uid": "35240-37df86a5-5486-4b86-89a9-100a24a9e363"
+        }
+      ],
+      "id": "d343e1d7-667a-4a13-b845-0dce0de3a8e5",
+      "createdAt": "2026-07-28T02:31:01.000Z",
+      "updatedAt": "2026-07-28T02:31:01.000Z",
+      "uid": "35240-d343e1d7-667a-4a13-b845-0dce0de3a8e5"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

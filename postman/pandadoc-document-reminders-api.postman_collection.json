@@ -1,0 +1,304 @@
+{
+  "info": {
+    "_postman_id": "b681b3bd-1f42-491a-ad6d-0e90a088c104",
+    "name": "PandaDoc REST API Logs Document Reminders API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:26.000Z",
+    "updatedAt": "2026-07-28T02:31:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b681b3bd-1f42-491a-ad6d-0e90a088c104"
+  },
+  "item": [
+    {
+      "name": "documents",
+      "item": [
+        {
+          "name": "{document_id}",
+          "item": [
+            {
+              "name": "auto-reminders",
+              "item": [
+                {
+                  "name": "Get Document Auto-Reminders",
+                  "id": "0fe60c47-7197-4029-bbc5-c457c0a7a11e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:document_id/auto-reminders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":document_id",
+                        "auto-reminders"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9eaea3f7-ecde-455e-9c93-2ec2e1948091",
+                          "key": "document_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the automatic reminder configuration for a specific document, including the schedule and message used for outstanding recipient notification emails."
+                  },
+                  "response": [
+                    {
+                      "id": "a04c2930-5786-4e1b-92ff-26b023e2ea2b",
+                      "name": "Auto-reminder configuration retrieved.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:document_id/auto-reminders",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":document_id",
+                            "auto-reminders"
+                          ],
+                          "variable": [
+                            {
+                              "key": "document_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"scheduled\": \"<boolean>\",\n  \"days\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T02:31:27.000Z",
+                      "updatedAt": "2026-07-28T02:31:27.000Z",
+                      "uid": "35240-a04c2930-5786-4e1b-92ff-26b023e2ea2b"
+                    },
+                    {
+                      "id": "f76d14e3-9634-4789-9d40-031064505472",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:document_id/auto-reminders",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":document_id",
+                            "auto-reminders"
+                          ],
+                          "variable": [
+                            {
+                              "key": "document_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:27.000Z",
+                      "updatedAt": "2026-07-28T02:31:27.000Z",
+                      "uid": "35240-f76d14e3-9634-4789-9d40-031064505472"
+                    },
+                    {
+                      "id": "6bb7587d-a793-4cd9-abba-3a505f31d9d2",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:document_id/auto-reminders",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":document_id",
+                            "auto-reminders"
+                          ],
+                          "variable": [
+                            {
+                              "key": "document_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:27.000Z",
+                      "updatedAt": "2026-07-28T02:31:27.000Z",
+                      "uid": "35240-6bb7587d-a793-4cd9-abba-3a505f31d9d2"
+                    },
+                    {
+                      "id": "c713d20e-16e4-4363-83e8-54fcbe92bb97",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:document_id/auto-reminders",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":document_id",
+                            "auto-reminders"
+                          ],
+                          "variable": [
+                            {
+                              "key": "document_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:27.000Z",
+                      "updatedAt": "2026-07-28T02:31:27.000Z",
+                      "uid": "35240-c713d20e-16e4-4363-83e8-54fcbe92bb97"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:27.000Z",
+                  "updatedAt": "2026-07-28T02:31:27.000Z",
+                  "uid": "35240-0fe60c47-7197-4029-bbc5-c457c0a7a11e"
+                }
+              ],
+              "id": "23c77312-c131-43c9-b4ac-12f5165285f3",
+              "createdAt": "2026-07-28T02:31:27.000Z",
+              "updatedAt": "2026-07-28T02:31:27.000Z",
+              "uid": "35240-23c77312-c131-43c9-b4ac-12f5165285f3"
+            }
+          ],
+          "id": "0eddb7dd-bcaf-4644-b2ca-cac059f3bdba",
+          "createdAt": "2026-07-28T02:31:27.000Z",
+          "updatedAt": "2026-07-28T02:31:27.000Z",
+          "uid": "35240-0eddb7dd-bcaf-4644-b2ca-cac059f3bdba"
+        }
+      ],
+      "id": "94717da7-cec5-48ff-8d58-86b1206ae331",
+      "createdAt": "2026-07-28T02:31:27.000Z",
+      "updatedAt": "2026-07-28T02:31:27.000Z",
+      "uid": "35240-94717da7-cec5-48ff-8d58-86b1206ae331"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

@@ -1,0 +1,880 @@
+{
+  "info": {
+    "_postman_id": "91befec7-f5c4-443c-8768-024223b23283",
+    "name": "PandaDoc REST API Logs Templates API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:31.000Z",
+    "updatedAt": "2026-07-28T02:31:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-91befec7-f5c4-443c-8768-024223b23283"
+  },
+  "item": [
+    {
+      "name": "templates",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "details",
+              "item": [
+                {
+                  "name": "Get Template Details",
+                  "id": "88030ae7-cf87-4291-b4f8-736821333164",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/:id/details",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        ":id",
+                        "details"
+                      ],
+                      "variable": [
+                        {
+                          "id": "384cf197-4a0c-4e28-bf78-3e074c7b95e5",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the template."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves detailed information about a specific template including its roles, fields, tokens, pricing tables, and content configuration. Use this information to determine the data needed when creating documents from this template."
+                  },
+                  "response": [
+                    {
+                      "id": "313d4d02-382e-4002-843f-b4ee5d3abbf5",
+                      "name": "Template details retrieved successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/:id/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            ":id",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"date_created\": \"<dateTime>\",\n  \"date_modified\": \"<dateTime>\",\n  \"roles\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"tokens\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-07-28T02:31:32.000Z",
+                      "updatedAt": "2026-07-28T02:31:32.000Z",
+                      "uid": "35240-313d4d02-382e-4002-843f-b4ee5d3abbf5"
+                    },
+                    {
+                      "id": "cc009679-9c86-43a4-a1ec-154be144ef62",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/:id/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            ":id",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:32.000Z",
+                      "updatedAt": "2026-07-28T02:31:32.000Z",
+                      "uid": "35240-cc009679-9c86-43a4-a1ec-154be144ef62"
+                    },
+                    {
+                      "id": "558a992d-b780-4077-8389-2d635f609b20",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/:id/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            ":id",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:32.000Z",
+                      "updatedAt": "2026-07-28T02:31:32.000Z",
+                      "uid": "35240-558a992d-b780-4077-8389-2d635f609b20"
+                    },
+                    {
+                      "id": "c03c9ad2-5549-45d3-bbfd-b3712d991719",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/:id/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            ":id",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:32.000Z",
+                      "updatedAt": "2026-07-28T02:31:32.000Z",
+                      "uid": "35240-c03c9ad2-5549-45d3-bbfd-b3712d991719"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:32.000Z",
+                  "updatedAt": "2026-07-28T02:31:32.000Z",
+                  "uid": "35240-88030ae7-cf87-4291-b4f8-736821333164"
+                }
+              ],
+              "id": "f3b9f980-3f28-43bc-9953-3fb3ce39752d",
+              "createdAt": "2026-07-28T02:31:32.000Z",
+              "updatedAt": "2026-07-28T02:31:32.000Z",
+              "uid": "35240-f3b9f980-3f28-43bc-9953-3fb3ce39752d"
+            },
+            {
+              "name": "Delete Template",
+              "id": "c4f81c3a-ea99-4d7b-9825-d4b05d55d131",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/templates/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "templates",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "308e9726-17b0-43c8-97d7-1d5a9117b208",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the template."
+                    }
+                  ]
+                },
+                "description": "Permanently deletes a template by its identifier. This action cannot be undone and will prevent creation of new documents from this template. Existing documents created from this template are not affected."
+              },
+              "response": [
+                {
+                  "id": "576624e7-d400-4890-bfb1-35219526d77f",
+                  "name": "Template deleted successfully.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:31:32.000Z",
+                  "updatedAt": "2026-07-28T02:31:32.000Z",
+                  "uid": "35240-576624e7-d400-4890-bfb1-35219526d77f"
+                },
+                {
+                  "id": "f96bdaca-3924-40c4-adef-59beb5adc40a",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:32.000Z",
+                  "updatedAt": "2026-07-28T02:31:32.000Z",
+                  "uid": "35240-f96bdaca-3924-40c4-adef-59beb5adc40a"
+                },
+                {
+                  "id": "f1078a53-7533-48f0-b9f2-f91af755675a",
+                  "name": "The authenticated user does not have permission for this action.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:32.000Z",
+                  "updatedAt": "2026-07-28T02:31:32.000Z",
+                  "uid": "35240-f1078a53-7533-48f0-b9f2-f91af755675a"
+                },
+                {
+                  "id": "3e1a1067-3902-47f4-8bfd-e5b15f3d1c28",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:32.000Z",
+                  "updatedAt": "2026-07-28T02:31:32.000Z",
+                  "uid": "35240-3e1a1067-3902-47f4-8bfd-e5b15f3d1c28"
+                },
+                {
+                  "id": "b3437c96-c01c-41d7-be26-a02fcc51aca8",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:32.000Z",
+                  "updatedAt": "2026-07-28T02:31:32.000Z",
+                  "uid": "35240-b3437c96-c01c-41d7-be26-a02fcc51aca8"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:32.000Z",
+              "updatedAt": "2026-07-28T02:31:32.000Z",
+              "uid": "35240-c4f81c3a-ea99-4d7b-9825-d4b05d55d131"
+            }
+          ],
+          "id": "e8503276-c068-4d24-b704-4a26eb0c0b07",
+          "createdAt": "2026-07-28T02:31:32.000Z",
+          "updatedAt": "2026-07-28T02:31:32.000Z",
+          "uid": "35240-e8503276-c068-4d24-b704-4a26eb0c0b07"
+        },
+        {
+          "name": "List Templates",
+          "id": "1de908a0-c1c8-4e55-a077-0f4fb5c54fb1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/templates?count=50&page=1&q=<string>&tag=<string>&folder_uuid=<string>&deleted=<boolean>&id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "templates"
+              ],
+              "query": [
+                {
+                  "description": "Number of results to return per page.",
+                  "key": "count",
+                  "value": "50"
+                },
+                {
+                  "description": "Page number to retrieve, starting from 1.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Search by template name substring.",
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by template tag (exact match).",
+                  "key": "tag",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by folder identifier.",
+                  "key": "folder_uuid",
+                  "value": "<string>"
+                },
+                {
+                  "description": "If true, include deleted templates in the results.",
+                  "key": "deleted",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Filter by specific template identifier.",
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of templates available in the authenticated workspace. Supports filtering by tag, folder, and search query."
+          },
+          "response": [
+            {
+              "id": "e0f8bc95-c57d-4258-ad0e-ba48fc63eb07",
+              "name": "Paginated list of templates.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/templates?count=50&page=1&q=<string>&tag=<string>&folder_uuid=<string>&deleted=<boolean>&id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "templates"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Search by template name substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by template tag (exact match).",
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by folder identifier.",
+                      "key": "folder_uuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, include deleted templates in the results.",
+                      "key": "deleted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter by specific template identifier.",
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<dateTime>\",\n      \"date_modified\": \"<dateTime>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<dateTime>\",\n      \"date_modified\": \"<dateTime>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:31:32.000Z",
+              "updatedAt": "2026-07-28T02:31:32.000Z",
+              "uid": "35240-e0f8bc95-c57d-4258-ad0e-ba48fc63eb07"
+            },
+            {
+              "id": "a5df29d4-6b00-487d-bec7-4d159bb229bd",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/templates?count=50&page=1&q=<string>&tag=<string>&folder_uuid=<string>&deleted=<boolean>&id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "templates"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Search by template name substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by template tag (exact match).",
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by folder identifier.",
+                      "key": "folder_uuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, include deleted templates in the results.",
+                      "key": "deleted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter by specific template identifier.",
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:32.000Z",
+              "updatedAt": "2026-07-28T02:31:32.000Z",
+              "uid": "35240-a5df29d4-6b00-487d-bec7-4d159bb229bd"
+            },
+            {
+              "id": "70bcf879-8bbb-4113-9cec-a64e07166c58",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/templates?count=50&page=1&q=<string>&tag=<string>&folder_uuid=<string>&deleted=<boolean>&id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "templates"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Search by template name substring.",
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by template tag (exact match).",
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by folder identifier.",
+                      "key": "folder_uuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, include deleted templates in the results.",
+                      "key": "deleted",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter by specific template identifier.",
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:32.000Z",
+              "updatedAt": "2026-07-28T02:31:32.000Z",
+              "uid": "35240-70bcf879-8bbb-4113-9cec-a64e07166c58"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:32.000Z",
+          "updatedAt": "2026-07-28T02:31:32.000Z",
+          "uid": "35240-1de908a0-c1c8-4e55-a077-0f4fb5c54fb1"
+        }
+      ],
+      "id": "af8325c1-4541-4282-8933-5765169cc2a6",
+      "createdAt": "2026-07-28T02:31:32.000Z",
+      "updatedAt": "2026-07-28T02:31:32.000Z",
+      "uid": "35240-af8325c1-4541-4282-8933-5765169cc2a6"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

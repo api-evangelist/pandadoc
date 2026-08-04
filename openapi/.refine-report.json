@@ -1,0 +1,42 @@
+{
+  "provider": "pandadoc",
+  "sources": [
+    "pandadoc-api-logs-api-openapi.yml",
+    "pandadoc-contacts-api-openapi.yml",
+    "pandadoc-document-attachments-api-openapi.yml",
+    "pandadoc-document-fields-api-openapi.yml",
+    "pandadoc-document-link-to-crm-api-openapi.yml",
+    "pandadoc-document-recipients-api-openapi.yml",
+    "pandadoc-document-reminders-api-openapi.yml",
+    "pandadoc-documents-api-openapi.yml",
+    "pandadoc-folders-api-openapi.yml",
+    "pandadoc-forms-api-openapi.yml",
+    "pandadoc-members-api-openapi.yml",
+    "pandadoc-templates-api-openapi.yml",
+    "pandadoc-webhook-events-api-openapi.yml",
+    "pandadoc-webhook-subscriptions-api-openapi.yml",
+    "pandadoc-workspaces-api-openapi.yml"
+  ],
+  "outputs": [
+    "pandadoc-api-logs-api-openapi.yml",
+    "pandadoc-contacts-api-openapi.yml",
+    "pandadoc-document-attachments-api-openapi.yml",
+    "pandadoc-document-fields-api-openapi.yml",
+    "pandadoc-document-link-to-crm-api-openapi.yml",
+    "pandadoc-document-recipients-api-openapi.yml",
+    "pandadoc-document-reminders-api-openapi.yml",
+    "pandadoc-documents-api-openapi.yml",
+    "pandadoc-folders-api-openapi.yml",
+    "pandadoc-forms-api-openapi.yml",
+    "pandadoc-members-api-openapi.yml",
+    "pandadoc-templates-api-openapi.yml",
+    "pandadoc-webhook-events-api-openapi.yml",
+    "pandadoc-webhook-subscriptions-api-openapi.yml",
+    "pandadoc-workspaces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

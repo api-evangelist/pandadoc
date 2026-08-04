@@ -1,0 +1,1331 @@
+{
+  "info": {
+    "_postman_id": "0b01a51b-0af6-4bea-acbb-b1cf6e7b3741",
+    "name": "PandaDoc REST API Logs Document Recipients API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:25.000Z",
+    "updatedAt": "2026-07-28T02:31:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0b01a51b-0af6-4bea-acbb-b1cf6e7b3741"
+  },
+  "item": [
+    {
+      "name": "documents",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "recipients",
+              "item": [
+                {
+                  "name": "{recipient_id}",
+                  "item": [
+                    {
+                      "name": "Update Document Recipient",
+                      "id": "0f0fb90c-6d88-4bad-8047-0d2b32d75430",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"signing_order\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients",
+                            ":recipient_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "7d9ba9f0-8c09-4787-a032-33883159f297",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the document."
+                            },
+                            {
+                              "id": "571b0c83-d2a1-457c-82aa-6893e10dcd28",
+                              "key": "recipient_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the document recipient."
+                            }
+                          ]
+                        },
+                        "description": "Updates the details of an existing recipient on a document, such as their name, email, role, or signing order. The document must be in an editable state."
+                      },
+                      "response": [
+                        {
+                          "id": "2d6c606d-f649-45f7-a6a6-b81cea223824",
+                          "name": "Recipient updated successfully.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"signing_order\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"recipient_type\": \"SIGNER\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"has_completed\": \"<boolean>\",\n  \"contact_id\": \"<string>\",\n  \"shared_link\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-2d6c606d-f649-45f7-a6a6-b81cea223824"
+                        },
+                        {
+                          "id": "22a42ab9-15f8-4d7b-ba5e-c681d7eb5bb7",
+                          "name": "The request was malformed or contained invalid parameters.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"signing_order\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-22a42ab9-15f8-4d7b-ba5e-c681d7eb5bb7"
+                        },
+                        {
+                          "id": "847a501c-2c51-4382-94e1-041f83cafb3f",
+                          "name": "Authentication credentials are missing or invalid.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"signing_order\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-847a501c-2c51-4382-94e1-041f83cafb3f"
+                        },
+                        {
+                          "id": "fb771d54-9c26-4d56-b358-bcd524f350fd",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"signing_order\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-fb771d54-9c26-4d56-b358-bcd524f350fd"
+                        },
+                        {
+                          "id": "bd3f3705-0e72-4d33-a518-8664c48c10c0",
+                          "name": "Rate limit exceeded. Retry after the indicated delay.",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"signing_order\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-bd3f3705-0e72-4d33-a518-8664c48c10c0"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-0f0fb90c-6d88-4bad-8047-0d2b32d75430"
+                    },
+                    {
+                      "name": "Delete Document Recipient",
+                      "id": "a0151544-029f-41e7-904d-b441f5a21daa",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients",
+                            ":recipient_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a3bdd7da-8f35-4a45-af07-0426a4d991fb",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the document."
+                            },
+                            {
+                              "id": "fdf48449-3930-454e-9fb2-d029570f12f0",
+                              "key": "recipient_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the document recipient."
+                            }
+                          ]
+                        },
+                        "description": "Removes a recipient from a document. The document must not have been sent yet. If the recipient has associated fields, those fields will be unassigned."
+                      },
+                      "response": [
+                        {
+                          "id": "25613665-9797-4c6e-8dcf-7354f0699082",
+                          "name": "Recipient removed from document.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-25613665-9797-4c6e-8dcf-7354f0699082"
+                        },
+                        {
+                          "id": "e44eec1c-0860-499c-9005-af10c12372c8",
+                          "name": "Authentication credentials are missing or invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-e44eec1c-0860-499c-9005-af10c12372c8"
+                        },
+                        {
+                          "id": "718daaf4-f414-4e9d-9781-165ee65d58bb",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-718daaf4-f414-4e9d-9781-165ee65d58bb"
+                        },
+                        {
+                          "id": "3d566ff2-f1f0-45a1-94e6-8e9c32be09e3",
+                          "name": "Rate limit exceeded. Retry after the indicated delay.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/recipients/:recipient_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "recipients",
+                                ":recipient_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "recipient_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:31:26.000Z",
+                          "updatedAt": "2026-07-28T02:31:26.000Z",
+                          "uid": "35240-3d566ff2-f1f0-45a1-94e6-8e9c32be09e3"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-a0151544-029f-41e7-904d-b441f5a21daa"
+                    }
+                  ],
+                  "id": "fec25ec8-7e6d-48e6-a795-f93f98fe6802",
+                  "createdAt": "2026-07-28T02:31:26.000Z",
+                  "updatedAt": "2026-07-28T02:31:26.000Z",
+                  "uid": "35240-fec25ec8-7e6d-48e6-a795-f93f98fe6802"
+                },
+                {
+                  "name": "List Document Recipients",
+                  "id": "cc6578d7-9491-403e-977d-af693d18f360",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/recipients",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "recipients"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b0cd72ff-c84e-40ac-9aad-8db6d8f37502",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Returns the list of recipients associated with a document, including their roles, completion status, signing order, and contact information."
+                  },
+                  "response": [
+                    {
+                      "id": "c49e2f17-7ebc-40e8-8214-35a63afcf617",
+                      "name": "List of document recipients.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"recipients\": [\n    {\n      \"id\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"phone\": \"<string>\",\n      \"recipient_type\": \"CC\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"has_completed\": \"<boolean>\",\n      \"contact_id\": \"<string>\",\n      \"shared_link\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"phone\": \"<string>\",\n      \"recipient_type\": \"SIGNER\",\n      \"role\": \"<string>\",\n      \"signing_order\": \"<integer>\",\n      \"has_completed\": \"<boolean>\",\n      \"contact_id\": \"<string>\",\n      \"shared_link\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-c49e2f17-7ebc-40e8-8214-35a63afcf617"
+                    },
+                    {
+                      "id": "f5d5a1bd-e803-4c05-b7ea-a62558d6f1d2",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-f5d5a1bd-e803-4c05-b7ea-a62558d6f1d2"
+                    },
+                    {
+                      "id": "46b7853f-ac0d-4230-839a-04fe747c81e8",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-46b7853f-ac0d-4230-839a-04fe747c81e8"
+                    },
+                    {
+                      "id": "90aaedbf-e103-4666-99aa-3d0e8c70a0cc",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-90aaedbf-e103-4666-99aa-3d0e8c70a0cc"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:26.000Z",
+                  "updatedAt": "2026-07-28T02:31:26.000Z",
+                  "uid": "35240-cc6578d7-9491-403e-977d-af693d18f360"
+                },
+                {
+                  "name": "Add Document Recipient",
+                  "id": "dfb1b6c8-aa67-4302-afe6-457be4f9e842",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"contact_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/recipients",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "recipients"
+                      ],
+                      "variable": [
+                        {
+                          "id": "dc8ab955-43b7-4cd7-a334-908808e092a6",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Adds a new recipient to a document that is in draft status. Recipients can be assigned roles that map to signature and form fields within the document. The recipient will receive signing instructions when the document is sent."
+                  },
+                  "response": [
+                    {
+                      "id": "68b349e2-0bd3-45b6-a351-8f274edd8c8f",
+                      "name": "Recipient added to document.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"contact_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"recipient_type\": \"SIGNER\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"has_completed\": \"<boolean>\",\n  \"contact_id\": \"<string>\",\n  \"shared_link\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-68b349e2-0bd3-45b6-a351-8f274edd8c8f"
+                    },
+                    {
+                      "id": "6d94743b-0065-44b7-bbac-7a7d096be222",
+                      "name": "The request was malformed or contained invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"contact_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-6d94743b-0065-44b7-bbac-7a7d096be222"
+                    },
+                    {
+                      "id": "608bed24-6539-4b51-b9c3-5083df62d239",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"contact_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-608bed24-6539-4b51-b9c3-5083df62d239"
+                    },
+                    {
+                      "id": "2e81974c-52ce-4cc9-90a1-acfc804b1709",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"contact_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-2e81974c-52ce-4cc9-90a1-acfc804b1709"
+                    },
+                    {
+                      "id": "270b5e46-6202-486a-978d-ec430e801fd3",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"signing_order\": \"<integer>\",\n  \"phone\": \"<string>\",\n  \"contact_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/recipients",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "recipients"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:26.000Z",
+                      "updatedAt": "2026-07-28T02:31:26.000Z",
+                      "uid": "35240-270b5e46-6202-486a-978d-ec430e801fd3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:26.000Z",
+                  "updatedAt": "2026-07-28T02:31:26.000Z",
+                  "uid": "35240-dfb1b6c8-aa67-4302-afe6-457be4f9e842"
+                }
+              ],
+              "id": "1c15b94c-05e1-4d20-bcf7-10613d382a90",
+              "createdAt": "2026-07-28T02:31:26.000Z",
+              "updatedAt": "2026-07-28T02:31:26.000Z",
+              "uid": "35240-1c15b94c-05e1-4d20-bcf7-10613d382a90"
+            }
+          ],
+          "id": "fae9798f-2f0a-4139-b8ee-ec239f550542",
+          "createdAt": "2026-07-28T02:31:26.000Z",
+          "updatedAt": "2026-07-28T02:31:26.000Z",
+          "uid": "35240-fae9798f-2f0a-4139-b8ee-ec239f550542"
+        }
+      ],
+      "id": "ede6f9eb-bad2-498a-9636-ccc115a856f3",
+      "createdAt": "2026-07-28T02:31:26.000Z",
+      "updatedAt": "2026-07-28T02:31:26.000Z",
+      "uid": "35240-ede6f9eb-bad2-498a-9636-ccc115a856f3"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

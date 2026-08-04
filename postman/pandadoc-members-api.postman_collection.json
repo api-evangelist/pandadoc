@@ -1,0 +1,617 @@
+{
+  "info": {
+    "_postman_id": "bee726a0-e237-4e07-ad11-01a3e8fd8f6a",
+    "name": "PandaDoc REST API Logs Members API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:30.000Z",
+    "updatedAt": "2026-07-28T02:31:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bee726a0-e237-4e07-ad11-01a3e8fd8f6a"
+  },
+  "item": [
+    {
+      "name": "members",
+      "item": [
+        {
+          "name": "current",
+          "item": [
+            {
+              "name": "Get Current Member",
+              "id": "aabe1022-1dda-4f06-b5ee-6e9715443ce8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/members/current",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "members",
+                    "current"
+                  ]
+                },
+                "description": "Returns the profile of the currently authenticated member, including their identifier, email, name, role, and workspace association."
+              },
+              "response": [
+                {
+                  "id": "876d01ed-bf61-4c4f-8cb9-25b6d3316012",
+                  "name": "Current member details.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/members/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "members",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"role\": \"manager\",\n  \"status\": \"active\"\n}",
+                  "createdAt": "2026-07-28T02:31:31.000Z",
+                  "updatedAt": "2026-07-28T02:31:31.000Z",
+                  "uid": "35240-876d01ed-bf61-4c4f-8cb9-25b6d3316012"
+                },
+                {
+                  "id": "2423d538-9170-4b4e-9c73-dcda22e60a46",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/members/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "members",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:31.000Z",
+                  "updatedAt": "2026-07-28T02:31:31.000Z",
+                  "uid": "35240-2423d538-9170-4b4e-9c73-dcda22e60a46"
+                },
+                {
+                  "id": "d268c725-d4c5-4635-83c1-945956789a19",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/members/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "members",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:31.000Z",
+                  "updatedAt": "2026-07-28T02:31:31.000Z",
+                  "uid": "35240-d268c725-d4c5-4635-83c1-945956789a19"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:31.000Z",
+              "updatedAt": "2026-07-28T02:31:31.000Z",
+              "uid": "35240-aabe1022-1dda-4f06-b5ee-6e9715443ce8"
+            }
+          ],
+          "id": "3860c71c-2dfe-445c-abba-1bedbb210274",
+          "createdAt": "2026-07-28T02:31:31.000Z",
+          "updatedAt": "2026-07-28T02:31:31.000Z",
+          "uid": "35240-3860c71c-2dfe-445c-abba-1bedbb210274"
+        },
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Member",
+              "id": "bbae93f1-5914-4332-b5af-1da8fa7ca0a3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/members/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "members",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "80be41da-9d15-43eb-9ac0-2388babd51bd",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the workspace member."
+                    }
+                  ]
+                },
+                "description": "Retrieves the details of a specific workspace member by their unique identifier, including their name, email, role, and membership status."
+              },
+              "response": [
+                {
+                  "id": "cf0f6d17-f96b-47cd-b2c8-1ecefb99b4cd",
+                  "name": "Member details retrieved.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/members/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "members",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"role\": \"manager\",\n  \"status\": \"active\"\n}",
+                  "createdAt": "2026-07-28T02:31:31.000Z",
+                  "updatedAt": "2026-07-28T02:31:31.000Z",
+                  "uid": "35240-cf0f6d17-f96b-47cd-b2c8-1ecefb99b4cd"
+                },
+                {
+                  "id": "98f4a3af-50f9-47c4-b08a-42f2c12c6a40",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/members/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "members",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:31.000Z",
+                  "updatedAt": "2026-07-28T02:31:31.000Z",
+                  "uid": "35240-98f4a3af-50f9-47c4-b08a-42f2c12c6a40"
+                },
+                {
+                  "id": "c67766a9-b87d-409e-a2f5-1083a82051e7",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/members/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "members",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:31.000Z",
+                  "updatedAt": "2026-07-28T02:31:31.000Z",
+                  "uid": "35240-c67766a9-b87d-409e-a2f5-1083a82051e7"
+                },
+                {
+                  "id": "42e9ede5-5b3b-41cc-8309-e790e65c17fe",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/members/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "members",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:31.000Z",
+                  "updatedAt": "2026-07-28T02:31:31.000Z",
+                  "uid": "35240-42e9ede5-5b3b-41cc-8309-e790e65c17fe"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:31.000Z",
+              "updatedAt": "2026-07-28T02:31:31.000Z",
+              "uid": "35240-bbae93f1-5914-4332-b5af-1da8fa7ca0a3"
+            }
+          ],
+          "id": "f1b32b0c-137f-4202-a2ca-82ff699c04ad",
+          "createdAt": "2026-07-28T02:31:31.000Z",
+          "updatedAt": "2026-07-28T02:31:31.000Z",
+          "uid": "35240-f1b32b0c-137f-4202-a2ca-82ff699c04ad"
+        },
+        {
+          "name": "List Members",
+          "id": "b6a1798c-c117-4953-85c8-d347299ca63e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "members"
+              ]
+            },
+            "description": "Returns a list of all members in the current workspace, including their user details, roles, and status. Useful for workspace administration and for looking up member identifiers."
+          },
+          "response": [
+            {
+              "id": "9f9eeff5-9e4d-465b-aa6e-a9cca04c9a24",
+              "name": "List of workspace members.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/members",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "members"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"role\": \"user\",\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<string>\",\n      \"email\": \"<email>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"role\": \"manager\",\n      \"status\": \"inactive\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:31:31.000Z",
+              "updatedAt": "2026-07-28T02:31:31.000Z",
+              "uid": "35240-9f9eeff5-9e4d-465b-aa6e-a9cca04c9a24"
+            },
+            {
+              "id": "cbfa825b-03ca-4e23-8d2c-4b67272fe04d",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/members",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "members"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:31.000Z",
+              "updatedAt": "2026-07-28T02:31:31.000Z",
+              "uid": "35240-cbfa825b-03ca-4e23-8d2c-4b67272fe04d"
+            },
+            {
+              "id": "a9e42714-76f9-45f2-92fa-e87dfa97eaea",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/members",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "members"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:31.000Z",
+              "updatedAt": "2026-07-28T02:31:31.000Z",
+              "uid": "35240-a9e42714-76f9-45f2-92fa-e87dfa97eaea"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:31.000Z",
+          "updatedAt": "2026-07-28T02:31:31.000Z",
+          "uid": "35240-b6a1798c-c117-4953-85c8-d347299ca63e"
+        }
+      ],
+      "id": "9938966d-4809-47c6-ba6b-bd5ec6621f84",
+      "createdAt": "2026-07-28T02:31:31.000Z",
+      "updatedAt": "2026-07-28T02:31:31.000Z",
+      "uid": "35240-9938966d-4809-47c6-ba6b-bd5ec6621f84"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "info": {
+    "_postman_id": "d8ac126e-0399-4a84-ba28-e9b109e85e6f",
+    "name": "PandaDoc REST API Logs Document Link to CRM API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:23.000Z",
+    "updatedAt": "2026-07-28T02:31:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d8ac126e-0399-4a84-ba28-e9b109e85e6f"
+  },
+  "item": [
+    {
+      "name": "documents",
+      "item": [
+        {
+          "name": "linked-objects",
+          "item": [
+            {
+              "name": "List Linked Objects",
+              "id": "dc2734af-7261-467d-b5cc-1d2c6327093d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/documents/linked-objects?provider=<string>&entity_type=<string>&entity_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "documents",
+                    "linked-objects"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) CRM provider name (e.g., salesforce, hubspot).",
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) CRM entity type (e.g., contact, deal, account).",
+                      "key": "entity_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Unique identifier of the CRM entity.",
+                      "key": "entity_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns a list of documents that are linked to a specified CRM object. Supports filtering by CRM provider, object type, and object identifier."
+              },
+              "response": [
+                {
+                  "id": "981bc2b4-d50b-4830-8235-66812199c2eb",
+                  "name": "List of documents linked to the CRM object.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/linked-objects?provider=<string>&entity_type=<string>&entity_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        "linked-objects"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) CRM provider name (e.g., salesforce, hubspot).",
+                          "key": "provider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) CRM entity type (e.g., contact, deal, account).",
+                          "key": "entity_type",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Unique identifier of the CRM entity.",
+                          "key": "entity_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"document.declined\",\n      \"date_created\": \"<dateTime>\",\n      \"date_modified\": \"<dateTime>\",\n      \"expiration_date\": \"<dateTime>\",\n      \"version\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"document.voided\",\n      \"date_created\": \"<dateTime>\",\n      \"date_modified\": \"<dateTime>\",\n      \"expiration_date\": \"<dateTime>\",\n      \"version\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:31:24.000Z",
+                  "updatedAt": "2026-07-28T02:31:24.000Z",
+                  "uid": "35240-981bc2b4-d50b-4830-8235-66812199c2eb"
+                },
+                {
+                  "id": "9d3810e6-e538-4d60-b8cf-1fc6a44db4eb",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/linked-objects?provider=<string>&entity_type=<string>&entity_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        "linked-objects"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) CRM provider name (e.g., salesforce, hubspot).",
+                          "key": "provider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) CRM entity type (e.g., contact, deal, account).",
+                          "key": "entity_type",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Unique identifier of the CRM entity.",
+                          "key": "entity_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:24.000Z",
+                  "updatedAt": "2026-07-28T02:31:24.000Z",
+                  "uid": "35240-9d3810e6-e538-4d60-b8cf-1fc6a44db4eb"
+                },
+                {
+                  "id": "76c389a1-a593-43f7-81ea-ea54480583e7",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/linked-objects?provider=<string>&entity_type=<string>&entity_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        "linked-objects"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) CRM provider name (e.g., salesforce, hubspot).",
+                          "key": "provider",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) CRM entity type (e.g., contact, deal, account).",
+                          "key": "entity_type",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Unique identifier of the CRM entity.",
+                          "key": "entity_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:24.000Z",
+                  "updatedAt": "2026-07-28T02:31:24.000Z",
+                  "uid": "35240-76c389a1-a593-43f7-81ea-ea54480583e7"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:24.000Z",
+              "updatedAt": "2026-07-28T02:31:24.000Z",
+              "uid": "35240-dc2734af-7261-467d-b5cc-1d2c6327093d"
+            }
+          ],
+          "id": "f6b33792-59a5-47da-866d-b893b6d81393",
+          "createdAt": "2026-07-28T02:31:24.000Z",
+          "updatedAt": "2026-07-28T02:31:24.000Z",
+          "uid": "35240-f6b33792-59a5-47da-866d-b893b6d81393"
+        }
+      ],
+      "id": "74823a00-8090-411d-bc75-f6f226281288",
+      "createdAt": "2026-07-28T02:31:24.000Z",
+      "updatedAt": "2026-07-28T02:31:24.000Z",
+      "uid": "35240-74823a00-8090-411d-bc75-f6f226281288"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

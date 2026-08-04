@@ -1,0 +1,537 @@
+{
+  "info": {
+    "_postman_id": "1e1947b8-7208-4a27-8de8-8c83eab59b73",
+    "name": "PandaDoc REST API Logs Webhook Events API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:32.000Z",
+    "updatedAt": "2026-07-28T02:31:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1e1947b8-7208-4a27-8de8-8c83eab59b73"
+  },
+  "item": [
+    {
+      "name": "webhook-events",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Webhook Event Details",
+              "id": "515bd0db-c847-4d9a-a7e9-50ba1a2c6cbc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-events/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-events",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7753274e-e26c-4900-ba77-28c9d6d5eb21",
+                      "key": "id",
+                      "value": "<uuid>",
+                      "description": "(Required) Unique identifier of the webhook event."
+                    }
+                  ]
+                },
+                "description": "Retrieves detailed information about a specific webhook event by its UUID, including the full request body sent to the subscriber, the response received, HTTP status code, delivery timestamp, and HMAC signature used for verification."
+              },
+              "response": [
+                {
+                  "id": "4e06c2fc-ebbc-407d-ae8e-85f7ea630339",
+                  "name": "Webhook event details.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook-events/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook-events",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"uuid\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"type\": \"document_creation_failed\",\n  \"url\": \"<uri>\",\n  \"signature\": \"<string>\",\n  \"http_status_code\": \"<integer>\",\n  \"delivery_time\": \"<dateTime>\",\n  \"event_time\": \"<dateTime>\",\n  \"request_body\": \"<string>\",\n  \"response_body\": \"<string>\",\n  \"response_headers\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:33.000Z",
+                  "updatedAt": "2026-07-28T02:31:33.000Z",
+                  "uid": "35240-4e06c2fc-ebbc-407d-ae8e-85f7ea630339"
+                },
+                {
+                  "id": "6bf754c7-e2c1-4549-ad75-6ab2c64838c4",
+                  "name": "Authentication credentials are missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook-events/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook-events",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:33.000Z",
+                  "updatedAt": "2026-07-28T02:31:33.000Z",
+                  "uid": "35240-6bf754c7-e2c1-4549-ad75-6ab2c64838c4"
+                },
+                {
+                  "id": "388ef0eb-76f2-40bf-9da2-983a314352e9",
+                  "name": "Rate limit exceeded. Retry after the indicated delay.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook-events/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook-events",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:31:33.000Z",
+                  "updatedAt": "2026-07-28T02:31:33.000Z",
+                  "uid": "35240-388ef0eb-76f2-40bf-9da2-983a314352e9"
+                }
+              ],
+              "createdAt": "2026-07-28T02:31:33.000Z",
+              "updatedAt": "2026-07-28T02:31:33.000Z",
+              "uid": "35240-515bd0db-c847-4d9a-a7e9-50ba1a2c6cbc"
+            }
+          ],
+          "id": "4578d873-4540-4e46-b1b7-53e33666b5d9",
+          "createdAt": "2026-07-28T02:31:33.000Z",
+          "updatedAt": "2026-07-28T02:31:33.000Z",
+          "uid": "35240-4578d873-4540-4e46-b1b7-53e33666b5d9"
+        },
+        {
+          "name": "List Webhook Events",
+          "id": "2bef5885-7fec-42ab-9412-cafe0adcda17",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhook-events?count=<integer>&page=<integer>&since=<dateTime>&to=<dateTime>&type=document_completed_pdf_ready&type=recipient_completed&http_status_code=200&http_status_code=300",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook-events"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Number of results to return per page.",
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "(Required) Page number to retrieve.",
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Return events created on or after this timestamp.",
+                  "key": "since",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "Return events created before this timestamp.",
+                  "key": "to",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "Filter by event trigger type.",
+                  "key": "type",
+                  "value": "document_completed_pdf_ready"
+                },
+                {
+                  "description": "Filter by event trigger type.",
+                  "key": "type",
+                  "value": "recipient_completed"
+                },
+                {
+                  "description": "Filter by HTTP response status code group.",
+                  "key": "http_status_code",
+                  "value": "200"
+                },
+                {
+                  "description": "Filter by HTTP response status code group.",
+                  "key": "http_status_code",
+                  "value": "300"
+                }
+              ]
+            },
+            "description": "Returns a paginated log of webhook events that have been dispatched. Supports filtering by event type, delivery time range, HTTP status code group, and error type. Use this endpoint to audit deliveries and diagnose failures."
+          },
+          "response": [
+            {
+              "id": "11b8cbb4-9581-4861-9dda-ce0956404da3",
+              "name": "Paginated list of webhook events.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-events?count=<integer>&page=<integer>&since=<dateTime>&to=<dateTime>&type=recipient_completed&http_status_code=300",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-events"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Number of results to return per page.",
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) Page number to retrieve.",
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Return events created on or after this timestamp.",
+                      "key": "since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Return events created before this timestamp.",
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Filter by event trigger type.",
+                      "key": "type",
+                      "value": "recipient_completed"
+                    },
+                    {
+                      "description": "Filter by HTTP response status code group.",
+                      "key": "http_status_code",
+                      "value": "300"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"items\": [\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"type\": \"content_library_item_created\",\n      \"error\": \"<string>\",\n      \"http_status_code\": \"<integer>\",\n      \"delivery_time\": \"<dateTime>\"\n    },\n    {\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"type\": \"document_updated\",\n      \"error\": \"<string>\",\n      \"http_status_code\": \"<integer>\",\n      \"delivery_time\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:31:33.000Z",
+              "updatedAt": "2026-07-28T02:31:33.000Z",
+              "uid": "35240-11b8cbb4-9581-4861-9dda-ce0956404da3"
+            },
+            {
+              "id": "460a8d75-2aa2-4437-b707-4ea13e450ca2",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-events?count=<integer>&page=<integer>&since=<dateTime>&to=<dateTime>&type=recipient_completed&http_status_code=300",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-events"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Number of results to return per page.",
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) Page number to retrieve.",
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Return events created on or after this timestamp.",
+                      "key": "since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Return events created before this timestamp.",
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Filter by event trigger type.",
+                      "key": "type",
+                      "value": "recipient_completed"
+                    },
+                    {
+                      "description": "Filter by HTTP response status code group.",
+                      "key": "http_status_code",
+                      "value": "300"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:33.000Z",
+              "updatedAt": "2026-07-28T02:31:33.000Z",
+              "uid": "35240-460a8d75-2aa2-4437-b707-4ea13e450ca2"
+            },
+            {
+              "id": "3a057944-adbf-4e26-91f3-03d0e97df397",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-events?count=<integer>&page=<integer>&since=<dateTime>&to=<dateTime>&type=recipient_completed&http_status_code=300",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-events"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Number of results to return per page.",
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) Page number to retrieve.",
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Return events created on or after this timestamp.",
+                      "key": "since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Return events created before this timestamp.",
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Filter by event trigger type.",
+                      "key": "type",
+                      "value": "recipient_completed"
+                    },
+                    {
+                      "description": "Filter by HTTP response status code group.",
+                      "key": "http_status_code",
+                      "value": "300"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:33.000Z",
+              "updatedAt": "2026-07-28T02:31:33.000Z",
+              "uid": "35240-3a057944-adbf-4e26-91f3-03d0e97df397"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:33.000Z",
+          "updatedAt": "2026-07-28T02:31:33.000Z",
+          "uid": "35240-2bef5885-7fec-42ab-9412-cafe0adcda17"
+        }
+      ],
+      "id": "4e241bd5-01a4-433c-9d37-6ce088735766",
+      "createdAt": "2026-07-28T02:31:33.000Z",
+      "updatedAt": "2026-07-28T02:31:33.000Z",
+      "uid": "35240-4e241bd5-01a4-433c-9d37-6ce088735766"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

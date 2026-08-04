@@ -1,0 +1,294 @@
+{
+  "info": {
+    "_postman_id": "6f957ce9-1025-4943-a71e-5576c8851adc",
+    "name": "PandaDoc REST API Logs Forms API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:30.000Z",
+    "updatedAt": "2026-07-28T02:31:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6f957ce9-1025-4943-a71e-5576c8851adc"
+  },
+  "item": [
+    {
+      "name": "forms",
+      "item": [
+        {
+          "name": "List Forms",
+          "id": "09e3666c-b47a-4972-821a-257971534a09",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/forms?count=50&page=1&name=<string>&status=disabled",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forms"
+              ],
+              "query": [
+                {
+                  "description": "Number of results to return per page.",
+                  "key": "count",
+                  "value": "50"
+                },
+                {
+                  "description": "Page number to retrieve, starting from 1.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Filter forms by name substring.",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter forms by status.",
+                  "key": "status",
+                  "value": "disabled"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of forms in the authenticated workspace. Forms are publicly shareable documents that allow recipients to fill and sign without being pre-specified as named recipients."
+          },
+          "response": [
+            {
+              "id": "3583a36b-6cf6-4cb9-852a-6c55ce3ac58e",
+              "name": "Paginated list of forms.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/forms?count=50&page=1&name=<string>&status=disabled",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forms"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Filter forms by name substring.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter forms by status.",
+                      "key": "status",
+                      "value": "disabled"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"disabled\",\n      \"date_created\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"active\",\n      \"date_created\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:31:30.000Z",
+              "updatedAt": "2026-07-28T02:31:30.000Z",
+              "uid": "35240-3583a36b-6cf6-4cb9-852a-6c55ce3ac58e"
+            },
+            {
+              "id": "c7d2ab53-22a9-4d1f-aa47-779f9ea10478",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/forms?count=50&page=1&name=<string>&status=disabled",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forms"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Filter forms by name substring.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter forms by status.",
+                      "key": "status",
+                      "value": "disabled"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:30.000Z",
+              "updatedAt": "2026-07-28T02:31:30.000Z",
+              "uid": "35240-c7d2ab53-22a9-4d1f-aa47-779f9ea10478"
+            },
+            {
+              "id": "aadaea9d-73df-4780-9e3d-0a979813a448",
+              "name": "Rate limit exceeded. Retry after the indicated delay.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/forms?count=50&page=1&name=<string>&status=disabled",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forms"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results to return per page.",
+                      "key": "count",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Page number to retrieve, starting from 1.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Filter forms by name substring.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter forms by status.",
+                      "key": "status",
+                      "value": "disabled"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:31:30.000Z",
+              "updatedAt": "2026-07-28T02:31:30.000Z",
+              "uid": "35240-aadaea9d-73df-4780-9e3d-0a979813a448"
+            }
+          ],
+          "createdAt": "2026-07-28T02:31:30.000Z",
+          "updatedAt": "2026-07-28T02:31:30.000Z",
+          "uid": "35240-09e3666c-b47a-4972-821a-257971534a09"
+        }
+      ],
+      "id": "1ae818e0-ac52-46d4-9958-38703757db9c",
+      "createdAt": "2026-07-28T02:31:30.000Z",
+      "updatedAt": "2026-07-28T02:31:30.000Z",
+      "uid": "35240-1ae818e0-ac52-46d4-9958-38703757db9c"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}

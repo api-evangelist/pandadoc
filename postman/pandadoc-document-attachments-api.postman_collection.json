@@ -1,0 +1,587 @@
+{
+  "info": {
+    "_postman_id": "e620fab8-4cbe-4c39-9aa3-a258a7521ed0",
+    "name": "PandaDoc REST API Logs Document Attachments API",
+    "description": "The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.\n\nContact Support:\n Name: PandaDoc API Support\n Email: api-track@pandadoc.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:31:21.000Z",
+    "updatedAt": "2026-07-28T02:31:21.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e620fab8-4cbe-4c39-9aa3-a258a7521ed0"
+  },
+  "item": [
+    {
+      "name": "documents",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "attachments",
+              "item": [
+                {
+                  "name": "{attachment_id}",
+                  "item": [
+                    {
+                      "name": "download",
+                      "item": [
+                        {
+                          "name": "Download Document Attachment",
+                          "id": "fc2dbada-0755-49ab-b00a-46a66e737068",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/octet-stream"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/documents/:id/attachments/:attachment_id/download",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "documents",
+                                ":id",
+                                "attachments",
+                                ":attachment_id",
+                                "download"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "40b23151-56e7-409d-aefc-7fdcbc695e40",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the document."
+                                },
+                                {
+                                  "id": "a6fa7439-625e-4160-baeb-78bc7f48a4ae",
+                                  "key": "attachment_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the document attachment."
+                                }
+                              ]
+                            },
+                            "description": "Downloads a specific attachment file associated with a document. Returns the binary file content with appropriate content type headers."
+                          },
+                          "response": [
+                            {
+                              "id": "e9a6970c-d3ca-4383-b9ec-a9fb1153ea4b",
+                              "name": "Attachment file content.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/octet-stream"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/documents/:id/attachments/:attachment_id/download",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "documents",
+                                    ":id",
+                                    "attachments",
+                                    ":attachment_id",
+                                    "download"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "attachment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/octet-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<binary>",
+                              "createdAt": "2026-07-28T02:31:22.000Z",
+                              "updatedAt": "2026-07-28T02:31:22.000Z",
+                              "uid": "35240-e9a6970c-d3ca-4383-b9ec-a9fb1153ea4b"
+                            },
+                            {
+                              "id": "a125a040-2ca3-493a-8245-88bc6656e69b",
+                              "name": "Authentication credentials are missing or invalid.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/documents/:id/attachments/:attachment_id/download",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "documents",
+                                    ":id",
+                                    "attachments",
+                                    ":attachment_id",
+                                    "download"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "attachment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:31:22.000Z",
+                              "updatedAt": "2026-07-28T02:31:22.000Z",
+                              "uid": "35240-a125a040-2ca3-493a-8245-88bc6656e69b"
+                            },
+                            {
+                              "id": "35e149ee-80fc-45e6-acfc-09d987e4c276",
+                              "name": "The requested resource was not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/documents/:id/attachments/:attachment_id/download",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "documents",
+                                    ":id",
+                                    "attachments",
+                                    ":attachment_id",
+                                    "download"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "attachment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:31:22.000Z",
+                              "updatedAt": "2026-07-28T02:31:22.000Z",
+                              "uid": "35240-35e149ee-80fc-45e6-acfc-09d987e4c276"
+                            },
+                            {
+                              "id": "3cfb8c58-e704-46a8-a965-fc9360da518f",
+                              "name": "Rate limit exceeded. Retry after the indicated delay.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/documents/:id/attachments/:attachment_id/download",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "documents",
+                                    ":id",
+                                    "attachments",
+                                    ":attachment_id",
+                                    "download"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "attachment_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:31:22.000Z",
+                              "updatedAt": "2026-07-28T02:31:22.000Z",
+                              "uid": "35240-3cfb8c58-e704-46a8-a965-fc9360da518f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:31:22.000Z",
+                          "updatedAt": "2026-07-28T02:31:22.000Z",
+                          "uid": "35240-fc2dbada-0755-49ab-b00a-46a66e737068"
+                        }
+                      ],
+                      "id": "a492bf02-72c7-44dc-9459-b1adcc379cd5",
+                      "createdAt": "2026-07-28T02:31:22.000Z",
+                      "updatedAt": "2026-07-28T02:31:22.000Z",
+                      "uid": "35240-a492bf02-72c7-44dc-9459-b1adcc379cd5"
+                    }
+                  ],
+                  "id": "17ffc5c1-ce78-4ad3-8609-cfc7eb74e111",
+                  "createdAt": "2026-07-28T02:31:22.000Z",
+                  "updatedAt": "2026-07-28T02:31:22.000Z",
+                  "uid": "35240-17ffc5c1-ce78-4ad3-8609-cfc7eb74e111"
+                },
+                {
+                  "name": "List Document Attachments",
+                  "id": "f6cd8e2a-256b-4a15-8290-5d5e1f75befc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/documents/:id/attachments",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "documents",
+                        ":id",
+                        "attachments"
+                      ],
+                      "variable": [
+                        {
+                          "id": "00cd0808-9cc0-4b13-8ebf-a2cfbc7ccacf",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the document."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of all file attachments associated with a document. Includes attachment metadata such as name, size, and upload date."
+                  },
+                  "response": [
+                    {
+                      "id": "ce7e1a86-964e-4e3e-81ec-8d632f1b95ac",
+                      "name": "List of document attachments.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/attachments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "attachments"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"attachments\": [\n    {\n      \"uuid\": \"<string>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<dateTime>\"\n    },\n    {\n      \"uuid\": \"<string>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:31:22.000Z",
+                      "updatedAt": "2026-07-28T02:31:22.000Z",
+                      "uid": "35240-ce7e1a86-964e-4e3e-81ec-8d632f1b95ac"
+                    },
+                    {
+                      "id": "c292d7fa-7f86-47ae-a567-d89a07c215fc",
+                      "name": "Authentication credentials are missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/attachments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "attachments"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:22.000Z",
+                      "updatedAt": "2026-07-28T02:31:22.000Z",
+                      "uid": "35240-c292d7fa-7f86-47ae-a567-d89a07c215fc"
+                    },
+                    {
+                      "id": "19860ea8-ef19-4b8d-bd00-e4e13d758238",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/attachments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "attachments"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:22.000Z",
+                      "updatedAt": "2026-07-28T02:31:22.000Z",
+                      "uid": "35240-19860ea8-ef19-4b8d-bd00-e4e13d758238"
+                    },
+                    {
+                      "id": "63cb0857-8b40-490c-aaf8-fe9e29b92de2",
+                      "name": "Rate limit exceeded. Retry after the indicated delay.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/documents/:id/attachments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "documents",
+                            ":id",
+                            "attachments"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:31:22.000Z",
+                      "updatedAt": "2026-07-28T02:31:22.000Z",
+                      "uid": "35240-63cb0857-8b40-490c-aaf8-fe9e29b92de2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:31:22.000Z",
+                  "updatedAt": "2026-07-28T02:31:22.000Z",
+                  "uid": "35240-f6cd8e2a-256b-4a15-8290-5d5e1f75befc"
+                }
+              ],
+              "id": "7735b7b1-6bd5-4220-9d29-a6d33b2de03b",
+              "createdAt": "2026-07-28T02:31:22.000Z",
+              "updatedAt": "2026-07-28T02:31:22.000Z",
+              "uid": "35240-7735b7b1-6bd5-4220-9d29-a6d33b2de03b"
+            }
+          ],
+          "id": "2916b9dc-6f71-4e88-8063-c3994febbd39",
+          "createdAt": "2026-07-28T02:31:22.000Z",
+          "updatedAt": "2026-07-28T02:31:22.000Z",
+          "uid": "35240-2916b9dc-6f71-4e88-8063-c3994febbd39"
+        }
+      ],
+      "id": "b0dae0d6-0862-4a90-a9f2-13ef2719c139",
+      "createdAt": "2026-07-28T02:31:22.000Z",
+      "updatedAt": "2026-07-28T02:31:22.000Z",
+      "uid": "35240-b0dae0d6-0862-4a90-a9f2-13ef2719c139"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pandadoc.com/public/v1"
+    }
+  ]
+}
