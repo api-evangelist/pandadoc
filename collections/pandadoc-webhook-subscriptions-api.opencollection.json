@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Webhook Subscriptions API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhook Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions"
+          },
+          "docs": "Returns a paginated list of all webhook subscriptions configured in the workspace, including their trigger types, target URLs, payload options, and current status."
+        },
+        {
+          "info": {
+            "name": "Create Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook subscription that will deliver event notifications to the specified URL. Specify the trigger event types and optional payload extras (fields, products, metadata, tokens, pricing) to include in each notification."
+        },
+        {
+          "info": {
+            "name": "Get Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific webhook subscription by its UUID, including its configuration, trigger list, payload options, shared key, and status."
+        },
+        {
+          "info": {
+            "name": "Update Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing webhook subscription, including its name, target URL, active status, trigger types, and payload options. Only provided fields are updated."
+        },
+        {
+          "info": {
+            "name": "Delete Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a webhook subscription. No further notifications will be delivered to the associated URL after deletion."
+        },
+        {
+          "info": {
+            "name": "Regenerate Webhook Shared Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/webhook-subscriptions/:id/shared-key",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Regenerates the shared HMAC key for a webhook subscription. The new shared key is used to sign outgoing webhook payloads for signature verification. Update the key in your receiving endpoint before rotating to avoid verification failures."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Document Recipients API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Recipients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Returns the list of recipients associated with a document, including their roles, completion status, signing order, and contact information."
+        },
+        {
+          "info": {
+            "name": "Add Document Recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new recipient to a document that is in draft status. Recipients can be assigned roles that map to signature and form fields within the document. The recipient will receive signing instructions when the document is sent."
+        },
+        {
+          "info": {
+            "name": "Update Document Recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients/:recipient_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document recipient."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing recipient on a document, such as their name, email, role, or signing order. The document must be in an editable state."
+        },
+        {
+          "info": {
+            "name": "Delete Document Recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/recipients/:recipient_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document recipient."
+              }
+            ]
+          },
+          "docs": "Removes a recipient from a document. The document must not have been sent yet. If the recipient has associated fields, those fields will be unassigned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

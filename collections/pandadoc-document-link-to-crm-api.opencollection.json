@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Document Link to CRM API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Link to CRM",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Linked Objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/linked-objects",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "CRM provider name (e.g., salesforce, hubspot)."
+              },
+              {
+                "name": "entity_type",
+                "value": "",
+                "type": "query",
+                "description": "CRM entity type (e.g., contact, deal, account)."
+              },
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of the CRM entity."
+              }
+            ]
+          },
+          "docs": "Returns a list of documents that are linked to a specified CRM object. Supports filtering by CRM provider, object type, and object identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

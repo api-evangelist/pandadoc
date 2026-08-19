@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List API Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/logs",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of API request logs. Useful for debugging integration issues and auditing API usage. Logs include request method, path, status code, and timestamp."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

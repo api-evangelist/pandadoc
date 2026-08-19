@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Document Attachments API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/attachments",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Returns a list of all file attachments associated with a document. Includes attachment metadata such as name, size, and upload date."
+        },
+        {
+          "info": {
+            "name": "Download Document Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/attachments/:attachment_id/download",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document attachment."
+              }
+            ]
+          },
+          "docs": "Downloads a specific attachment file associated with a document. Returns the binary file content with appropriate content type headers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

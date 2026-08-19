@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Folders API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/folders",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "parent_uuid",
+                "value": "",
+                "type": "query",
+                "description": "Filter by parent folder UUID to retrieve sub-folders. Omit to retrieve root-level folders."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter folders by name substring."
+              }
+            ]
+          },
+          "docs": "Returns a list of folders used to organize documents in the workspace. Supports filtering by parent folder and search by name."
+        },
+        {
+          "info": {
+            "name": "Create Document Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/folders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new folder for organizing documents. An optional parent UUID may be specified to create a nested sub-folder within an existing folder."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

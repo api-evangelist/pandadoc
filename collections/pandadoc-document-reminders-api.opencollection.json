@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Document Reminders API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Reminders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Document Auto-Reminders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:document_id/auto-reminders",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Retrieves the automatic reminder configuration for a specific document, including the schedule and message used for outstanding recipient notification emails."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

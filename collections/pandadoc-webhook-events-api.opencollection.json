@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Webhook Events API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhook Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-events",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve."
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Return events created on or after this timestamp."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Return events created before this timestamp."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event trigger type."
+              },
+              {
+                "name": "http_status_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter by HTTP response status code group."
+              }
+            ]
+          },
+          "docs": "Returns a paginated log of webhook events that have been dispatched. Supports filtering by event type, delivery time range, HTTP status code group, and error type. Use this endpoint to audit deliveries and diagnose failures."
+        },
+        {
+          "info": {
+            "name": "Get Webhook Event Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/webhook-events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook event."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific webhook event by its UUID, including the full request body sent to the subscriber, the response received, HTTP status code, delivery timestamp, and HMAC signature used for verification."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

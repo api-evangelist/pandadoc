@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Contacts API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/contacts",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search contacts by name, email, or company substring."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of contacts from the workspace contacts directory. Supports search by name, email, or company. Contacts can be used to pre-populate recipient data when creating documents."
+        },
+        {
+          "info": {
+            "name": "Create Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/contacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new contact record in the workspace contacts directory. The email field is optional. Contacts can be referenced when adding recipients to documents."
+        },
+        {
+          "info": {
+            "name": "Get Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the contact."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific contact by their unique identifier, including name, email, phone, company, and job title."
+        },
+        {
+          "info": {
+            "name": "Update Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pandadoc.com/public/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the contact."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the fields of an existing contact record. Only the provided fields are updated; omitted fields retain their current values."
+        },
+        {
+          "info": {
+            "name": "Delete Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the contact."
+              }
+            ]
+          },
+          "docs": "Permanently removes a contact from the workspace contacts directory. Documents and templates that previously used this contact are not affected."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

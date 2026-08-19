@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Members API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/members"
+          },
+          "docs": "Returns a list of all members in the current workspace, including their user details, roles, and status. Useful for workspace administration and for looking up member identifiers."
+        },
+        {
+          "info": {
+            "name": "Get Current Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/members/current"
+          },
+          "docs": "Returns the profile of the currently authenticated member, including their identifier, email, name, role, and workspace association."
+        },
+        {
+          "info": {
+            "name": "Get Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the workspace member."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific workspace member by their unique identifier, including their name, email, role, and membership status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

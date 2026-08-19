@@ -1,0 +1,284 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PandaDoc REST API Logs Documents API",
+    "version": "7.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve, starting from 1."
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the parent template identifier."
+              },
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the parent form identifier."
+              },
+              {
+                "name": "folder_uuid",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the folder where documents are stored."
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by recipient or approver contact identifier."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by document status."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by document tag (exact match)."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search by document name substring."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific document identifier."
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the document owner member identifier."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort field for results."
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "Set to true for ascending order, false for descending."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of documents accessible to the authenticated user. Supports filtering by template, form, folder, contact, status, tag, owner, and date ranges. Results can be ordered by various fields."
+        },
+        {
+          "info": {
+            "name": "Create Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new document from a template, an uploaded file, or a URL. The document is created in draft status and can be customized with recipient details, field values, pricing table data, and metadata tokens before being sent for signature."
+        },
+        {
+          "info": {
+            "name": "Get Document Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Retrieves comprehensive details for a specific document including its status, recipients, fields, pricing tables, tokens, tags, and metadata."
+        },
+        {
+          "info": {
+            "name": "Delete Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a specific document by its identifier. This action is irreversible and removes the document and all associated data."
+        },
+        {
+          "info": {
+            "name": "Get Document Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/status",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Returns the current status of a document. Use this endpoint to poll for status transitions after creating or sending a document."
+        },
+        {
+          "info": {
+            "name": "Send Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/send",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a document in draft status to its recipients for e-signature collection or review. Optionally includes a subject line, custom message, and controls whether email notifications are sent silently. The document must be in document.draft status before it can be sent."
+        },
+        {
+          "info": {
+            "name": "Download Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/download",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              },
+              {
+                "name": "watermark_color",
+                "value": "",
+                "type": "query",
+                "description": "Hex color code for watermark text applied to the downloaded PDF."
+              },
+              {
+                "name": "watermark_font_size",
+                "value": "",
+                "type": "query",
+                "description": "Font size for watermark text in points."
+              },
+              {
+                "name": "watermark_opacity",
+                "value": "",
+                "type": "query",
+                "description": "Opacity of the watermark from 0.0 to 1.0."
+              },
+              {
+                "name": "watermark_text",
+                "value": "",
+                "type": "query",
+                "description": "Text to render as a watermark on every page of the PDF."
+              },
+              {
+                "name": "separate_files",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns a ZIP archive containing each document section as a separate PDF file."
+              }
+            ]
+          },
+          "docs": "Downloads the signed PDF for a completed document. The document must be in document.completed status. Returns the binary PDF file content with appropriate Content-Disposition headers."
+        },
+        {
+          "info": {
+            "name": "Create Document Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pandadoc.com/public/v1/documents/:id/session",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a time-limited session token for embedded document viewing or signing. The returned session ID is used to embed the PandaDoc document viewer within an iframe in the host application. Session lifetime and recipient scope are configurable."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
