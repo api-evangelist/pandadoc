@@ -24,6 +24,12 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pandadoc.p
 tags:
 - Document Automation
 - E-Signature
+- Document-Management
+- Document Generation
+- Webhook
+tags_raw:
+- Document Automation
+- E-Signature
 - Document Management
 - Document Generation
 - Webhooks
