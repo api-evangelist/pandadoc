@@ -420,6 +420,8 @@ apis:
   humanURL: https://developers.pandadoc.com/reference/about
   baseURL: https://api.pandadoc.com/public/v1
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
