@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Webhook Subscriptions API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Webhook Subscriptions API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -206,22 +206,6 @@ components:
             - metadata
             - tokens
             - pricing
-    WebhookSubscriptionListResponse:
-      type: object
-      description: List of webhook subscriptions.
-      properties:
-        items:
-          type: array
-          description: Array of webhook subscription records.
-          items:
-            $ref: '#/components/schemas/WebhookSubscription'
-    WebhookSharedKeyResponse:
-      type: object
-      description: Regenerated shared key for a webhook subscription.
-      properties:
-        shared_key:
-          type: string
-          description: New HMAC shared key for payload signature verification.
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -256,6 +240,13 @@ components:
           description: Updated list of additional payload sections.
           items:
             type: string
+    WebhookSharedKeyResponse:
+      type: object
+      description: Regenerated shared key for a webhook subscription.
+      properties:
+        shared_key:
+          type: string
+          description: New HMAC shared key for payload signature verification.
     WebhookSubscription:
       type: object
       description: A webhook subscription that delivers event notifications to a subscriber endpoint URL.
@@ -302,6 +293,15 @@ components:
         workspace_id:
           type: string
           description: Identifier of the workspace this subscription belongs to.
+    WebhookSubscriptionListResponse:
+      type: object
+      description: List of webhook subscriptions.
+      properties:
+        items:
+          type: array
+          description: Array of webhook subscription records.
+          items:
+            $ref: '#/components/schemas/WebhookSubscription'
   parameters:
     WebhookSubscriptionId:
       name: id
@@ -312,14 +312,8 @@ components:
         type: string
         format: uuid
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
@@ -330,8 +324,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

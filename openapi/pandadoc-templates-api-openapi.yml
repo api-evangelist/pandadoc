@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Templates API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Templates API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -107,30 +107,78 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  parameters:
+    TemplateId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the template.
+      schema:
+        type: string
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+  responses:
+    Forbidden:
+      description: The authenticated user does not have permission for this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    TemplateListItem:
+    TemplateListResponse:
       type: object
-      description: Summary record for a template returned in list responses.
+      description: Paginated list of templates.
       properties:
-        id:
-          type: string
-          description: Unique identifier of the template.
-        name:
-          type: string
-          description: Display name of the template.
-        date_created:
-          type: string
-          format: date-time
-          description: Timestamp when the template was created.
-        date_modified:
-          type: string
-          format: date-time
-          description: Timestamp when the template was last modified.
-        tags:
+        results:
           type: array
-          description: Tags applied to the template.
+          description: Array of template summary records.
           items:
-            type: string
+            $ref: '#/components/schemas/TemplateListItem'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     TemplateDetailsResponse:
       type: object
       description: Detailed information about a template.
@@ -178,77 +226,29 @@ components:
           description: Tags applied to the template.
           items:
             type: string
-    TemplateListResponse:
+    TemplateListItem:
       type: object
-      description: Paginated list of templates.
+      description: Summary record for a template returned in list responses.
       properties:
-        results:
+        id:
+          type: string
+          description: Unique identifier of the template.
+        name:
+          type: string
+          description: Display name of the template.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last modified.
+        tags:
           type: array
-          description: Array of template summary records.
+          description: Tags applied to the template.
           items:
-            $ref: '#/components/schemas/TemplateListItem'
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
-  parameters:
-    QueryCount:
-      name: count
-      in: query
-      description: Number of results to return per page.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        maximum: 100
-        default: 50
-    TemplateId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the template.
-      schema:
-        type: string
-    QueryPage:
-      name: page
-      in: query
-      description: Page number to retrieve, starting from 1.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        default: 1
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission for this action.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            type: string
   securitySchemes:
     apiKey:
       type: apiKey

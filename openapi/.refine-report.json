@@ -1,21 +1,7 @@
 {
   "provider": "pandadoc",
   "sources": [
-    "pandadoc-api-logs-api-openapi.yml",
-    "pandadoc-contacts-api-openapi.yml",
-    "pandadoc-document-attachments-api-openapi.yml",
-    "pandadoc-document-fields-api-openapi.yml",
-    "pandadoc-document-link-to-crm-api-openapi.yml",
-    "pandadoc-document-recipients-api-openapi.yml",
-    "pandadoc-document-reminders-api-openapi.yml",
-    "pandadoc-documents-api-openapi.yml",
-    "pandadoc-folders-api-openapi.yml",
-    "pandadoc-forms-api-openapi.yml",
-    "pandadoc-members-api-openapi.yml",
-    "pandadoc-templates-api-openapi.yml",
-    "pandadoc-webhook-events-api-openapi.yml",
-    "pandadoc-webhook-subscriptions-api-openapi.yml",
-    "pandadoc-workspaces-api-openapi.yml"
+    "_original/pandadoc-rest-api-openapi.yml"
   ],
   "outputs": [
     "pandadoc-api-logs-api-openapi.yml",
@@ -37,6 +23,26 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pandadoc-rest-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "pandadoc-api-logs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-document-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-document-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-document-link-to-crm-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-document-recipients-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-document-reminders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-forms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-members-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-webhook-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-webhook-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pandadoc-workspaces-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

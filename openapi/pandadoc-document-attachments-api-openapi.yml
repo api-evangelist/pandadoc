@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Document Attachments API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Document Attachments API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -71,6 +71,25 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    DocumentAttachmentsResponse:
+      type: object
+      description: Attachments associated with a document.
+      properties:
+        attachments:
+          type: array
+          description: List of attachment records.
+          items:
+            $ref: '#/components/schemas/DocumentAttachment'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     DocumentAttachment:
       type: object
       description: A file attached to a document.
@@ -85,28 +104,9 @@ components:
           type: string
           format: date-time
           description: Timestamp when the attachment was uploaded.
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
-    DocumentAttachmentsResponse:
-      type: object
-      description: Attachments associated with a document.
-      properties:
-        attachments:
-          type: array
-          description: List of attachment records.
-          items:
-            $ref: '#/components/schemas/DocumentAttachment'
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
@@ -117,8 +117,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Contacts API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Contacts API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -138,57 +138,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  parameters:
-    QueryCount:
-      name: count
-      in: query
-      description: Number of results to return per page.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        maximum: 100
-        default: 50
-    ContactId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the contact.
-      schema:
-        type: string
-    QueryPage:
-      name: page
-      in: query
-      description: Page number to retrieve, starting from 1.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        default: 1
   schemas:
-    ContactUpdateRequest:
-      type: object
-      description: Fields to update on an existing contact record.
-      properties:
-        first_name:
-          type: string
-          description: Updated first name.
-        last_name:
-          type: string
-          description: Updated last name.
-        email:
-          type: string
-          format: email
-          description: Updated email address.
-        company:
-          type: string
-          description: Updated company name.
-        job_title:
-          type: string
-          description: Updated job title.
-        phone:
-          type: string
-          description: Updated phone number.
     ContactCreateRequest:
       type: object
       description: Request body for creating a new contact.
@@ -215,6 +165,38 @@ components:
         phone:
           type: string
           description: Phone number of the contact.
+    ContactUpdateRequest:
+      type: object
+      description: Fields to update on an existing contact record.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        company:
+          type: string
+          description: Updated company name.
+        job_title:
+          type: string
+          description: Updated job title.
+        phone:
+          type: string
+          description: Updated phone number.
+    ContactListResponse:
+      type: object
+      description: Paginated list of contacts.
+      properties:
+        results:
+          type: array
+          description: Array of contact records.
+          items:
+            $ref: '#/components/schemas/Contact'
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -275,24 +257,36 @@ components:
           type: string
           nullable: true
           description: ISO country code of the contact.
-    ContactListResponse:
-      type: object
-      description: Paginated list of contacts.
-      properties:
-        results:
-          type: array
-          description: Array of contact records.
-          items:
-            $ref: '#/components/schemas/Contact'
+  parameters:
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    ContactId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the contact.
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
@@ -303,8 +297,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

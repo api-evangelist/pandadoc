@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Folders API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Folders API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -76,6 +76,18 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    FolderCreateRequest:
+      type: object
+      description: Request body for creating a folder.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new folder.
+        parent_uuid:
+          type: string
+          description: UUID of the parent folder. Omit to create a root-level folder.
     Folder:
       type: object
       description: A folder used to organize documents or templates.
@@ -94,15 +106,6 @@ components:
           type: string
           nullable: true
           description: Identifier of the parent folder, if nested.
-    FolderListResponse:
-      type: object
-      description: List of document or template folders.
-      properties:
-        results:
-          type: array
-          description: Array of folder records.
-          items:
-            $ref: '#/components/schemas/Folder'
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -113,19 +116,25 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-    FolderCreateRequest:
+    FolderListResponse:
       type: object
-      description: Request body for creating a folder.
-      required:
-      - name
+      description: List of document or template folders.
       properties:
-        name:
-          type: string
-          description: Display name for the new folder.
-        parent_uuid:
-          type: string
-          description: UUID of the parent folder. Omit to create a root-level folder.
+        results:
+          type: array
+          description: Array of folder records.
+          items:
+            $ref: '#/components/schemas/Folder'
   parameters:
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
     QueryCount:
       name: count
       in: query
@@ -136,18 +145,9 @@ components:
         minimum: 1
         maximum: 100
         default: 50
-    QueryPage:
-      name: page
-      in: query
-      description: Page number to retrieve, starting from 1.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        default: 1
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
@@ -158,8 +158,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

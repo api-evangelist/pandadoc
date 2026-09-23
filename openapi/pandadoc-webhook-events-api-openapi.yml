@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Webhook Events API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Webhook Events API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -113,25 +113,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    WebhookEventListResponse:
-      type: object
-      description: Paginated list of webhook event delivery records.
-      properties:
-        items:
-          type: array
-          description: Array of webhook event summary records.
-          items:
-            $ref: '#/components/schemas/WebhookEventListItem'
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     WebhookEventDetails:
       type: object
       description: Full details of a webhook event delivery including the request and response bodies, signature, and delivery metadata.
@@ -172,6 +153,34 @@ components:
         response_headers:
           type: string
           description: Response headers received from the subscriber endpoint.
+    WebhookEventTrigger:
+      type: string
+      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
+      enum:
+      - recipient_completed
+      - document_updated
+      - document_deleted
+      - document_state_changed
+      - document_creation_failed
+      - document_completed_pdf_ready
+      - document_section_added
+      - quote_updated
+      - template_created
+      - template_updated
+      - template_deleted
+      - content_library_item_created
+      - content_library_item_creation_failed
+      example: document_state_changed
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     WebhookEventListItem:
       type: object
       description: Summary record for a webhook event delivery attempt.
@@ -196,33 +205,24 @@ components:
           type: string
           format: date-time
           description: Timestamp when the webhook was delivered.
-    WebhookEventTrigger:
-      type: string
-      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
-      enum:
-      - recipient_completed
-      - document_updated
-      - document_deleted
-      - document_state_changed
-      - document_creation_failed
-      - document_completed_pdf_ready
-      - document_section_added
-      - quote_updated
-      - template_created
-      - template_updated
-      - template_deleted
-      - content_library_item_created
-      - content_library_item_creation_failed
-      example: document_state_changed
+    WebhookEventListResponse:
+      type: object
+      description: Paginated list of webhook event delivery records.
+      properties:
+        items:
+          type: array
+          description: Array of webhook event summary records.
+          items:
+            $ref: '#/components/schemas/WebhookEventListItem'
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

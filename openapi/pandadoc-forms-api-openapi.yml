@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Forms API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Forms API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -54,25 +54,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    FormListResponse:
-      type: object
-      description: Paginated list of forms.
-      properties:
-        results:
-          type: array
-          description: Array of form summary records.
-          items:
-            $ref: '#/components/schemas/FormListItem'
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     FormListItem:
       type: object
       description: Summary record for a form.
@@ -93,7 +74,35 @@ components:
           type: string
           format: date-time
           description: Timestamp when the form was created.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    FormListResponse:
+      type: object
+      description: Paginated list of forms.
+      properties:
+        results:
+          type: array
+          description: Array of form summary records.
+          items:
+            $ref: '#/components/schemas/FormListItem'
   parameters:
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
     QueryCount:
       name: count
       in: query
@@ -104,24 +113,15 @@ components:
         minimum: 1
         maximum: 100
         default: 50
-    QueryPage:
-      name: page
-      in: query
-      description: Page number to retrieve, starting from 1.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        default: 1
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

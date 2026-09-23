@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PandaDoc REST API Logs Document Recipients API
-  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status. Authentication is handled via API keys or OAuth 2.0, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+  title: PandaDoc REST Document Recipients API
+  description: The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications.
   version: 7.18.0
   contact:
     name: PandaDoc API Support
@@ -120,42 +120,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    DocumentRecipientUpdateRequest:
-      type: object
-      description: Fields to update on an existing document recipient.
-      properties:
-        first_name:
-          type: string
-          description: Updated first name.
-        last_name:
-          type: string
-          description: Updated last name.
-        email:
-          type: string
-          format: email
-          description: Updated email address.
-        signing_order:
-          type: integer
-          description: Updated signing order position.
-    DocumentRecipientsResponse:
-      type: object
-      description: List of recipients for a document.
-      properties:
-        recipients:
-          type: array
-          description: Array of recipient records.
-          items:
-            $ref: '#/components/schemas/DocumentRecipient'
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     DocumentRecipient:
       type: object
       description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
@@ -200,6 +164,16 @@ components:
         shared_link:
           type: string
           description: Public signing link for this recipient.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     DocumentRecipientCreateRequest:
       type: object
       description: Details for a recipient to be added to a document.
@@ -229,9 +203,35 @@ components:
         contact_id:
           type: string
           description: Optional contact identifier to link the recipient to a contact record.
+    DocumentRecipientsResponse:
+      type: object
+      description: List of recipients for a document.
+      properties:
+        recipients:
+          type: array
+          description: Array of recipient records.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
+    DocumentRecipientUpdateRequest:
+      type: object
+      description: Fields to update on an existing document recipient.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        signing_order:
+          type: integer
+          description: Updated signing order position.
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
@@ -248,8 +248,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
