@@ -70,6 +70,33 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
   schemas:
     DocumentAttachmentsResponse:
       type: object
@@ -80,16 +107,6 @@ components:
           description: List of attachment records.
           items:
             $ref: '#/components/schemas/DocumentAttachment'
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     DocumentAttachment:
       type: object
       description: A file attached to a document.
@@ -104,33 +121,16 @@ components:
           type: string
           format: date-time
           description: Timestamp when the attachment was uploaded.
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    DocumentId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the document.
-      schema:
-        type: string
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
   securitySchemes:
     apiKey:
       type: apiKey

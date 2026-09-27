@@ -113,6 +113,57 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    WebhookEventTrigger:
+      type: string
+      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
+      enum:
+      - recipient_completed
+      - document_updated
+      - document_deleted
+      - document_state_changed
+      - document_creation_failed
+      - document_completed_pdf_ready
+      - document_section_added
+      - quote_updated
+      - template_created
+      - template_updated
+      - template_deleted
+      - content_library_item_created
+      - content_library_item_creation_failed
+      example: document_state_changed
+    WebhookEventListItem:
+      type: object
+      description: Summary record for a webhook event delivery attempt.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook event.
+        name:
+          type: string
+          description: Name associated with the document or entity that triggered the event.
+        type:
+          $ref: '#/components/schemas/WebhookEventTrigger'
+        error:
+          type: string
+          nullable: true
+          description: Error code if delivery failed.
+        http_status_code:
+          type: integer
+          description: HTTP response status code received from the subscriber endpoint.
+        delivery_time:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was delivered.
+    WebhookEventListResponse:
+      type: object
+      description: Paginated list of webhook event delivery records.
+      properties:
+        items:
+          type: array
+          description: Array of webhook event summary records.
+          items:
+            $ref: '#/components/schemas/WebhookEventListItem'
     WebhookEventDetails:
       type: object
       description: Full details of a webhook event delivery including the request and response bodies, signature, and delivery metadata.
@@ -153,24 +204,6 @@ components:
         response_headers:
           type: string
           description: Response headers received from the subscriber endpoint.
-    WebhookEventTrigger:
-      type: string
-      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
-      enum:
-      - recipient_completed
-      - document_updated
-      - document_deleted
-      - document_state_changed
-      - document_creation_failed
-      - document_completed_pdf_ready
-      - document_section_added
-      - quote_updated
-      - template_created
-      - template_updated
-      - template_deleted
-      - content_library_item_created
-      - content_library_item_creation_failed
-      example: document_state_changed
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -181,39 +214,6 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-    WebhookEventListItem:
-      type: object
-      description: Summary record for a webhook event delivery attempt.
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Unique identifier of the webhook event.
-        name:
-          type: string
-          description: Name associated with the document or entity that triggered the event.
-        type:
-          $ref: '#/components/schemas/WebhookEventTrigger'
-        error:
-          type: string
-          nullable: true
-          description: Error code if delivery failed.
-        http_status_code:
-          type: integer
-          description: HTTP response status code received from the subscriber endpoint.
-        delivery_time:
-          type: string
-          format: date-time
-          description: Timestamp when the webhook was delivered.
-    WebhookEventListResponse:
-      type: object
-      description: Paginated list of webhook event delivery records.
-      properties:
-        items:
-          type: array
-          description: Array of webhook event summary records.
-          items:
-            $ref: '#/components/schemas/WebhookEventListItem'
   responses:
     TooManyRequests:
       description: Rate limit exceeded. Retry after the indicated delay.

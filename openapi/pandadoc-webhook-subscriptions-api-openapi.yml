@@ -171,51 +171,6 @@ components:
       - content_library_item_created
       - content_library_item_creation_failed
       example: document_state_changed
-    WebhookSubscriptionCreateRequest:
-      type: object
-      description: Request body for creating a webhook subscription.
-      required:
-      - name
-      - url
-      - triggers
-      properties:
-        name:
-          type: string
-          description: Display name for the subscription.
-        url:
-          type: string
-          format: uri
-          description: Target URL to receive webhook notifications.
-        active:
-          type: boolean
-          description: Whether the subscription should be active immediately.
-          default: true
-        triggers:
-          type: array
-          description: Event types this subscription should receive.
-          items:
-            $ref: '#/components/schemas/WebhookEventTrigger'
-        payload:
-          type: array
-          description: Additional payload sections to include in notifications.
-          items:
-            type: string
-            enum:
-            - fields
-            - products
-            - metadata
-            - tokens
-            - pricing
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     WebhookSubscriptionUpdateRequest:
       type: object
       description: Fields to update on an existing webhook subscription.
@@ -240,13 +195,6 @@ components:
           description: Updated list of additional payload sections.
           items:
             type: string
-    WebhookSharedKeyResponse:
-      type: object
-      description: Regenerated shared key for a webhook subscription.
-      properties:
-        shared_key:
-          type: string
-          description: New HMAC shared key for payload signature verification.
     WebhookSubscription:
       type: object
       description: A webhook subscription that delivers event notifications to a subscriber endpoint URL.
@@ -302,6 +250,58 @@ components:
           description: Array of webhook subscription records.
           items:
             $ref: '#/components/schemas/WebhookSubscription'
+    WebhookSharedKeyResponse:
+      type: object
+      description: Regenerated shared key for a webhook subscription.
+      properties:
+        shared_key:
+          type: string
+          description: New HMAC shared key for payload signature verification.
+    WebhookSubscriptionCreateRequest:
+      type: object
+      description: Request body for creating a webhook subscription.
+      required:
+      - name
+      - url
+      - triggers
+      properties:
+        name:
+          type: string
+          description: Display name for the subscription.
+        url:
+          type: string
+          format: uri
+          description: Target URL to receive webhook notifications.
+        active:
+          type: boolean
+          description: Whether the subscription should be active immediately.
+          default: true
+        triggers:
+          type: array
+          description: Event types this subscription should receive.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Additional payload sections to include in notifications.
+          items:
+            type: string
+            enum:
+            - fields
+            - products
+            - metadata
+            - tokens
+            - pricing
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
   parameters:
     WebhookSubscriptionId:
       name: id
@@ -312,18 +312,6 @@ components:
         type: string
         format: uuid
   responses:
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -332,6 +320,18 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
       content:
         application/json:
           schema:

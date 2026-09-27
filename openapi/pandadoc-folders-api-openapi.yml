@@ -76,18 +76,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    FolderCreateRequest:
-      type: object
-      description: Request body for creating a folder.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the new folder.
-        parent_uuid:
-          type: string
-          description: UUID of the parent folder. Omit to create a root-level folder.
     Folder:
       type: object
       description: A folder used to organize documents or templates.
@@ -106,6 +94,27 @@ components:
           type: string
           nullable: true
           description: Identifier of the parent folder, if nested.
+    FolderListResponse:
+      type: object
+      description: List of document or template folders.
+      properties:
+        results:
+          type: array
+          description: Array of folder records.
+          items:
+            $ref: '#/components/schemas/Folder'
+    FolderCreateRequest:
+      type: object
+      description: Request body for creating a folder.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new folder.
+        parent_uuid:
+          type: string
+          description: UUID of the parent folder. Omit to create a root-level folder.
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -116,15 +125,25 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-    FolderListResponse:
-      type: object
-      description: List of document or template folders.
-      properties:
-        results:
-          type: array
-          description: Array of folder records.
-          items:
-            $ref: '#/components/schemas/Folder'
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     QueryPage:
       name: page
@@ -145,25 +164,6 @@ components:
         minimum: 1
         maximum: 100
         default: 50
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKey:
       type: apiKey

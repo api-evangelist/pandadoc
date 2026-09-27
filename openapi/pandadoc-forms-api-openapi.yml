@@ -54,6 +54,15 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    FormListResponse:
+      type: object
+      description: Paginated list of forms.
+      properties:
+        results:
+          type: array
+          description: Array of form summary records.
+          items:
+            $ref: '#/components/schemas/FormListItem'
     FormListItem:
       type: object
       description: Summary record for a form.
@@ -84,15 +93,19 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-    FormListResponse:
-      type: object
-      description: Paginated list of forms.
-      properties:
-        results:
-          type: array
-          description: Array of form summary records.
-          items:
-            $ref: '#/components/schemas/FormListItem'
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     QueryPage:
       name: page
@@ -113,19 +126,6 @@ components:
         minimum: 1
         maximum: 100
         default: 50
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKey:
       type: apiKey

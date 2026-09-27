@@ -70,41 +70,40 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
-    DocumentFieldsUpdateRequest:
-      type: object
-      description: Request to update field values within a document.
-      properties:
-        fields:
-          type: array
-          description: List of field name-value pairs to update.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Field name to update.
-              value:
-                description: New value to assign to the field.
-    DocumentFieldsResponse:
-      type: object
-      description: Fields contained in a document.
-      properties:
-        fields:
-          type: array
-          description: List of document fields.
-          items:
-            $ref: '#/components/schemas/DocumentField'
     DocumentField:
       type: object
       description: A field within a document, such as a signature, text, or checkbox field.
@@ -133,39 +132,40 @@ components:
         required:
           type: boolean
           description: Whether the field must be completed before the document can be finalized.
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    DocumentId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the document.
-      schema:
-        type: string
+    DocumentFieldsResponse:
+      type: object
+      description: Fields contained in a document.
+      properties:
+        fields:
+          type: array
+          description: List of document fields.
+          items:
+            $ref: '#/components/schemas/DocumentField'
+    DocumentFieldsUpdateRequest:
+      type: object
+      description: Request to update field values within a document.
+      properties:
+        fields:
+          type: array
+          description: List of field name-value pairs to update.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Field name to update.
+              value:
+                description: New value to assign to the field.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
   securitySchemes:
     apiKey:
       type: apiKey

@@ -70,28 +70,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    WorkspaceListResponse:
-      type: object
-      description: Paginated list of workspaces.
-      properties:
-        results:
-          type: array
-          description: Array of workspace records.
-          items:
-            $ref: '#/components/schemas/Workspace'
-        total:
-          type: integer
-          description: Total number of workspaces matching the query.
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     WorkspaceCreateRequest:
       type: object
       description: Request body for creating a workspace.
@@ -119,15 +97,37 @@ components:
           type: string
           format: date-time
           description: Timestamp when the workspace was created.
+    WorkspaceListResponse:
+      type: object
+      description: Paginated list of workspaces.
+      properties:
+        results:
+          type: array
+          description: Array of workspace records.
+          items:
+            $ref: '#/components/schemas/Workspace'
+        total:
+          type: integer
+          description: Total number of workspaces matching the query.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
   responses:
-    Forbidden:
-      description: The authenticated user does not have permission for this action.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -138,8 +138,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    Forbidden:
+      description: The authenticated user does not have permission for this action.
       content:
         application/json:
           schema:
