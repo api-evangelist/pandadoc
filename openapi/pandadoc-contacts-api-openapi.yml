@@ -139,38 +139,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    ContactUpdateRequest:
-      type: object
-      description: Fields to update on an existing contact record.
-      properties:
-        first_name:
-          type: string
-          description: Updated first name.
-        last_name:
-          type: string
-          description: Updated last name.
-        email:
-          type: string
-          format: email
-          description: Updated email address.
-        company:
-          type: string
-          description: Updated company name.
-        job_title:
-          type: string
-          description: Updated job title.
-        phone:
-          type: string
-          description: Updated phone number.
-    ContactListResponse:
-      type: object
-      description: Paginated list of contacts.
-      properties:
-        results:
-          type: array
-          description: Array of contact records.
-          items:
-            $ref: '#/components/schemas/Contact'
     ContactCreateRequest:
       type: object
       description: Request body for creating a new contact.
@@ -197,6 +165,29 @@ components:
         phone:
           type: string
           description: Phone number of the contact.
+    ContactUpdateRequest:
+      type: object
+      description: Fields to update on an existing contact record.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        company:
+          type: string
+          description: Updated company name.
+        job_title:
+          type: string
+          description: Updated job title.
+        phone:
+          type: string
+          description: Updated phone number.
     Contact:
       type: object
       description: A contact record in the PandaDoc contacts directory.
@@ -247,6 +238,15 @@ components:
           type: string
           nullable: true
           description: ISO country code of the contact.
+    ContactListResponse:
+      type: object
+      description: Paginated list of contacts.
+      properties:
+        results:
+          type: array
+          description: Array of contact records.
+          items:
+            $ref: '#/components/schemas/Contact'
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -257,6 +257,31 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     ContactId:
       name: id
@@ -284,31 +309,6 @@ components:
         minimum: 1
         maximum: 100
         default: 50
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKey:
       type: apiKey

@@ -40,6 +40,26 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  parameters:
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -90,26 +110,6 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-  parameters:
-    QueryPage:
-      name: page
-      in: query
-      description: Page number to retrieve, starting from 1.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        default: 1
-    QueryCount:
-      name: count
-      in: query
-      description: Number of results to return per page.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        maximum: 100
-        default: 50
   securitySchemes:
     apiKey:
       type: apiKey

@@ -119,21 +119,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  parameters:
-    RecipientId:
-      name: recipient_id
-      in: path
-      required: true
-      description: Unique identifier of the document recipient.
-      schema:
-        type: string
-    DocumentId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the document.
-      schema:
-        type: string
   schemas:
     DocumentRecipientCreateRequest:
       type: object
@@ -164,15 +149,6 @@ components:
         contact_id:
           type: string
           description: Optional contact identifier to link the recipient to a contact record.
-    DocumentRecipientsResponse:
-      type: object
-      description: List of recipients for a document.
-      properties:
-        recipients:
-          type: array
-          description: Array of recipient records.
-          items:
-            $ref: '#/components/schemas/DocumentRecipient'
     DocumentRecipientUpdateRequest:
       type: object
       description: Fields to update on an existing document recipient.
@@ -244,6 +220,15 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
+    DocumentRecipientsResponse:
+      type: object
+      description: List of recipients for a document.
+      properties:
+        recipients:
+          type: array
+          description: Array of recipient records.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
   responses:
     NotFound:
       description: The requested resource was not found.
@@ -269,6 +254,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    RecipientId:
+      name: recipient_id
+      in: path
+      required: true
+      description: Unique identifier of the document recipient.
+      schema:
+        type: string
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

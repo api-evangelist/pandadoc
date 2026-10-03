@@ -41,6 +41,27 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  schemas:
+    DocumentAutoReminderResponse:
+      type: object
+      description: Auto-reminder settings for a document.
+      properties:
+        scheduled:
+          type: boolean
+          description: Whether automatic reminders are enabled for this document.
+        days:
+          type: integer
+          description: Number of days between reminder emails.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
   responses:
     NotFound:
       description: The requested resource was not found.
@@ -68,27 +89,6 @@ components:
       description: Unique identifier of the document.
       schema:
         type: string
-  schemas:
-    DocumentAutoReminderResponse:
-      type: object
-      description: Auto-reminder settings for a document.
-      properties:
-        scheduled:
-          type: boolean
-          description: Whether automatic reminders are enabled for this document.
-        days:
-          type: integer
-          description: Number of days between reminder emails.
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
   securitySchemes:
     apiKey:
       type: apiKey

@@ -89,24 +89,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    DocumentId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the document.
-      schema:
-        type: string
   schemas:
-    DocumentAttachmentsResponse:
-      type: object
-      description: Attachments associated with a document.
-      properties:
-        attachments:
-          type: array
-          description: List of attachment records.
-          items:
-            $ref: '#/components/schemas/DocumentAttachment'
     DocumentAttachment:
       type: object
       description: A file attached to a document.
@@ -121,6 +104,15 @@ components:
           type: string
           format: date-time
           description: Timestamp when the attachment was uploaded.
+    DocumentAttachmentsResponse:
+      type: object
+      description: Attachments associated with a document.
+      properties:
+        attachments:
+          type: array
+          description: List of attachment records.
+          items:
+            $ref: '#/components/schemas/DocumentAttachment'
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -131,6 +123,14 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

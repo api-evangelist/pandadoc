@@ -57,6 +57,25 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    DocumentStatus:
+      type: string
+      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
+      enum:
+      - document.draft
+      - document.sent
+      - document.completed
+      - document.uploaded
+      - document.error
+      - document.viewed
+      - document.waiting_approval
+      - document.approved
+      - document.rejected
+      - document.waiting_pay
+      - document.paid
+      - document.voided
+      - document.declined
+      - document.external_review
+      example: document.draft
     LinkedObjectsResponse:
       type: object
       description: Documents linked to a CRM object.
@@ -66,6 +85,16 @@ components:
           description: Array of linked document records.
           items:
             $ref: '#/components/schemas/DocumentListItem'
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     DocumentListItem:
       type: object
       description: Summary record for a document returned in list responses.
@@ -97,35 +126,6 @@ components:
           type: string
           nullable: true
           description: Document version string.
-    DocumentStatus:
-      type: string
-      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
-      enum:
-      - document.draft
-      - document.sent
-      - document.completed
-      - document.uploaded
-      - document.error
-      - document.viewed
-      - document.waiting_approval
-      - document.approved
-      - document.rejected
-      - document.waiting_pay
-      - document.paid
-      - document.voided
-      - document.declined
-      - document.external_review
-      example: document.draft
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

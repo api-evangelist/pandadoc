@@ -304,6 +304,56 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    DocumentListResponse:
+      type: object
+      description: Paginated list of document summary records.
+      properties:
+        results:
+          type: array
+          description: Array of document summary records for the current page.
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+    DocumentRecipientCreateRequest:
+      type: object
+      description: Details for a recipient to be added to a document.
+      required:
+      - first_name
+      - last_name
+      properties:
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        role:
+          type: string
+          description: Role name mapping this recipient to fields in the document. Must match a role defined in the template.
+        signing_order:
+          type: integer
+          description: Signing order position for sequential signing workflows. Omit to allow simultaneous signing.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        contact_id:
+          type: string
+          description: Optional contact identifier to link the recipient to a contact record.
+    DocumentSendResponse:
+      type: object
+      description: Confirmation of a document having been sent.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the sent document.
+        name:
+          type: string
+          description: Display name of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
     DocumentListItem:
       type: object
       description: Summary record for a document returned in list responses.
@@ -335,40 +385,6 @@ components:
           type: string
           nullable: true
           description: Document version string.
-    DocumentStatusResponse:
-      type: object
-      description: Current status of a document.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the document.
-        status:
-          $ref: '#/components/schemas/DocumentStatus'
-        date_modified:
-          type: string
-          format: date-time
-          description: Timestamp of the most recent status change.
-    DocumentSessionCreateRequest:
-      type: object
-      description: Request body for creating an embedded document session.
-      required:
-      - recipient
-      - lifetime
-      properties:
-        recipient:
-          type: string
-          format: email
-          description: Email address of the recipient for whom the session is created.
-        lifetime:
-          type: integer
-          description: Session lifetime in seconds.
-          minimum: 60
-          maximum: 31536000
-          example: 3600
-        read_only:
-          type: boolean
-          description: If true, the embedded viewer is in read-only mode. Recipients cannot interact with fields.
-          default: false
     DocumentSendRequest:
       type: object
       description: Request body for sending a document to its recipients for signature.
@@ -396,16 +412,19 @@ components:
             name:
               type: string
               description: Sender display name.
-    ErrorResponse:
+    DocumentStatusResponse:
       type: object
-      description: Standard error response body.
+      description: Current status of a document.
       properties:
-        type:
+        id:
           type: string
-          description: Error type identifier.
-        detail:
+          description: Unique identifier of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_modified:
           type: string
-          description: Human-readable description of the error.
+          format: date-time
+          description: Timestamp of the most recent status change.
     DocumentCreateResponse:
       type: object
       description: Response returned after successfully creating a document.
@@ -494,79 +513,27 @@ components:
         folder_uuid:
           type: string
           description: Identifier of the folder in which to store the document.
-    DocumentRecipient:
+    DocumentSessionCreateRequest:
       type: object
-      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the recipient within the document.
-        first_name:
-          type: string
-          description: First name of the recipient.
-        last_name:
-          type: string
-          description: Last name of the recipient.
-        email:
-          type: string
-          format: email
-          description: Email address of the recipient.
-        phone:
-          type: string
-          description: Phone number of the recipient.
-        recipient_type:
-          type: string
-          description: Recipient participation type.
-          enum:
-          - SIGNER
-          - CC
-          - APPROVER
-        role:
-          type: string
-          description: Role name that maps the recipient to fields in the document.
-        signing_order:
-          type: integer
-          nullable: true
-          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
-        has_completed:
-          type: boolean
-          description: Whether this recipient has completed all required actions.
-        contact_id:
-          type: string
-          nullable: true
-          description: Identifier of the associated contact record if linked.
-        shared_link:
-          type: string
-          description: Public signing link for this recipient.
-    DocumentRecipientCreateRequest:
-      type: object
-      description: Details for a recipient to be added to a document.
+      description: Request body for creating an embedded document session.
       required:
-      - first_name
-      - last_name
+      - recipient
+      - lifetime
       properties:
-        first_name:
-          type: string
-          description: First name of the recipient.
-        last_name:
-          type: string
-          description: Last name of the recipient.
-        email:
+        recipient:
           type: string
           format: email
-          description: Email address of the recipient.
-        role:
-          type: string
-          description: Role name mapping this recipient to fields in the document. Must match a role defined in the template.
-        signing_order:
+          description: Email address of the recipient for whom the session is created.
+        lifetime:
           type: integer
-          description: Signing order position for sequential signing workflows. Omit to allow simultaneous signing.
-        phone:
-          type: string
-          description: Phone number of the recipient.
-        contact_id:
-          type: string
-          description: Optional contact identifier to link the recipient to a contact record.
+          description: Session lifetime in seconds.
+          minimum: 60
+          maximum: 31536000
+          example: 3600
+        read_only:
+          type: boolean
+          description: If true, the embedded viewer is in read-only mode. Recipients cannot interact with fields.
+          default: false
     DocumentDetailsResponse:
       type: object
       description: Complete details of a PandaDoc document.
@@ -628,34 +595,16 @@ components:
             currency:
               type: string
               description: Three-letter ISO 4217 currency code.
-    DocumentSendResponse:
+    ErrorResponse:
       type: object
-      description: Confirmation of a document having been sent.
+      description: Standard error response body.
       properties:
-        id:
+        type:
           type: string
-          description: Unique identifier of the sent document.
-        name:
+          description: Error type identifier.
+        detail:
           type: string
-          description: Display name of the document.
-        status:
-          $ref: '#/components/schemas/DocumentStatus'
-    DocumentListResponse:
-      type: object
-      description: Paginated list of document summary records.
-      properties:
-        results:
-          type: array
-          description: Array of document summary records for the current page.
-          items:
-            $ref: '#/components/schemas/DocumentListItem'
-    DocumentSessionCreateResponse:
-      type: object
-      description: Session token for embedding a document in an iframe.
-      properties:
-        id:
-          type: string
-          description: Session identifier used to construct the embedded document URL. Embed at https://app.pandadoc.com/s/{id}.
+          description: Human-readable description of the error.
     DocumentStatus:
       type: string
       description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
@@ -675,15 +624,60 @@ components:
       - document.declined
       - document.external_review
       example: document.draft
+    DocumentSessionCreateResponse:
+      type: object
+      description: Session token for embedding a document in an iframe.
+      properties:
+        id:
+          type: string
+          description: Session identifier used to construct the embedded document URL. Embed at https://app.pandadoc.com/s/{id}.
+    DocumentRecipient:
+      type: object
+      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the recipient within the document.
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        recipient_type:
+          type: string
+          description: Recipient participation type.
+          enum:
+          - SIGNER
+          - CC
+          - APPROVER
+        role:
+          type: string
+          description: Role name that maps the recipient to fields in the document.
+        signing_order:
+          type: integer
+          nullable: true
+          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
+        has_completed:
+          type: boolean
+          description: Whether this recipient has completed all required actions.
+        contact_id:
+          type: string
+          nullable: true
+          description: Identifier of the associated contact record if linked.
+        shared_link:
+          type: string
+          description: Public signing link for this recipient.
   responses:
     Forbidden:
       description: The authenticated user does not have permission for this action.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
@@ -706,7 +700,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
     QueryCount:
       name: count
       in: query
@@ -717,15 +726,6 @@ components:
         minimum: 1
         maximum: 100
         default: 50
-    QueryPage:
-      name: page
-      in: query
-      description: Page number to retrieve, starting from 1.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        default: 1
     DocumentId:
       name: id
       in: path

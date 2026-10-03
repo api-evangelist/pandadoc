@@ -131,39 +131,6 @@ components:
       - content_library_item_created
       - content_library_item_creation_failed
       example: document_state_changed
-    WebhookEventListItem:
-      type: object
-      description: Summary record for a webhook event delivery attempt.
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Unique identifier of the webhook event.
-        name:
-          type: string
-          description: Name associated with the document or entity that triggered the event.
-        type:
-          $ref: '#/components/schemas/WebhookEventTrigger'
-        error:
-          type: string
-          nullable: true
-          description: Error code if delivery failed.
-        http_status_code:
-          type: integer
-          description: HTTP response status code received from the subscriber endpoint.
-        delivery_time:
-          type: string
-          format: date-time
-          description: Timestamp when the webhook was delivered.
-    WebhookEventListResponse:
-      type: object
-      description: Paginated list of webhook event delivery records.
-      properties:
-        items:
-          type: array
-          description: Array of webhook event summary records.
-          items:
-            $ref: '#/components/schemas/WebhookEventListItem'
     WebhookEventDetails:
       type: object
       description: Full details of a webhook event delivery including the request and response bodies, signature, and delivery metadata.
@@ -204,6 +171,39 @@ components:
         response_headers:
           type: string
           description: Response headers received from the subscriber endpoint.
+    WebhookEventListItem:
+      type: object
+      description: Summary record for a webhook event delivery attempt.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook event.
+        name:
+          type: string
+          description: Name associated with the document or entity that triggered the event.
+        type:
+          $ref: '#/components/schemas/WebhookEventTrigger'
+        error:
+          type: string
+          nullable: true
+          description: Error code if delivery failed.
+        http_status_code:
+          type: integer
+          description: HTTP response status code received from the subscriber endpoint.
+        delivery_time:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was delivered.
+    WebhookEventListResponse:
+      type: object
+      description: Paginated list of webhook event delivery records.
+      properties:
+        items:
+          type: array
+          description: Array of webhook event summary records.
+          items:
+            $ref: '#/components/schemas/WebhookEventListItem'
     ErrorResponse:
       type: object
       description: Standard error response body.
