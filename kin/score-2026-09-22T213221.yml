@@ -1,21 +1,19 @@
-# Kin Score artifact — pandadoc — 2026-08-25T154045
+# Kin Score artifact — pandadoc — 2026-09-22T213221
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: pandadoc
-  schema_version: 0.14.0
-  scored_at: '2026-08-25'
-  run_ts: 2026-08-25T154045
-  composite: 45.2
+  schema_version: 0.22.0
+  scored_at: '2026-09-22'
+  run_ts: 2026-09-22T213221
+  composite: 42.9
   band: developing
   facets:
-    discoverability: 81.5
-    contract_quality: 77.7
-    governance: 13.6
-    operational_transparency: 7.9
-    developer_ergonomics: 41.7
-    commercial_clarity: 32.9
+    discoverability: 75.9
+    contract_quality: 76.8
     contract_governance: 13.6
+    operational_transparency: 7.9
+    developer_ergonomics: 38.1
     access_clarity: 32.9
   agent_readiness:
     score: 23.0
