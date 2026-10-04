@@ -53,16 +53,27 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  parameters:
+    QueryCount:
+      name: count
+      in: query
+      description: Number of results to return per page.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    QueryPage:
+      name: page
+      in: query
+      description: Page number to retrieve, starting from 1.
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 1
   schemas:
-    FormListResponse:
-      type: object
-      description: Paginated list of forms.
-      properties:
-        results:
-          type: array
-          description: Array of form summary records.
-          items:
-            $ref: '#/components/schemas/FormListItem'
     FormListItem:
       type: object
       description: Summary record for a form.
@@ -83,6 +94,15 @@ components:
           type: string
           format: date-time
           description: Timestamp when the form was created.
+    FormListResponse:
+      type: object
+      description: Paginated list of forms.
+      properties:
+        results:
+          type: array
+          description: Array of form summary records.
+          items:
+            $ref: '#/components/schemas/FormListItem'
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -93,26 +113,6 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-  parameters:
-    QueryPage:
-      name: page
-      in: query
-      description: Page number to retrieve, starting from 1.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        default: 1
-    QueryCount:
-      name: count
-      in: query
-      description: Number of results to return per page.
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        maximum: 100
-        default: 50
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

@@ -120,6 +120,59 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    DocumentRecipient:
+      type: object
+      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the recipient within the document.
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        recipient_type:
+          type: string
+          description: Recipient participation type.
+          enum:
+          - SIGNER
+          - CC
+          - APPROVER
+        role:
+          type: string
+          description: Role name that maps the recipient to fields in the document.
+        signing_order:
+          type: integer
+          nullable: true
+          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
+        has_completed:
+          type: boolean
+          description: Whether this recipient has completed all required actions.
+        contact_id:
+          type: string
+          nullable: true
+          description: Identifier of the associated contact record if linked.
+        shared_link:
+          type: string
+          description: Public signing link for this recipient.
+    DocumentRecipientsResponse:
+      type: object
+      description: List of recipients for a document.
+      properties:
+        recipients:
+          type: array
+          description: Array of recipient records.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
     DocumentRecipientCreateRequest:
       type: object
       description: Details for a recipient to be added to a document.
@@ -166,50 +219,6 @@ components:
         signing_order:
           type: integer
           description: Updated signing order position.
-    DocumentRecipient:
-      type: object
-      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the recipient within the document.
-        first_name:
-          type: string
-          description: First name of the recipient.
-        last_name:
-          type: string
-          description: Last name of the recipient.
-        email:
-          type: string
-          format: email
-          description: Email address of the recipient.
-        phone:
-          type: string
-          description: Phone number of the recipient.
-        recipient_type:
-          type: string
-          description: Recipient participation type.
-          enum:
-          - SIGNER
-          - CC
-          - APPROVER
-        role:
-          type: string
-          description: Role name that maps the recipient to fields in the document.
-        signing_order:
-          type: integer
-          nullable: true
-          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
-        has_completed:
-          type: boolean
-          description: Whether this recipient has completed all required actions.
-        contact_id:
-          type: string
-          nullable: true
-          description: Identifier of the associated contact record if linked.
-        shared_link:
-          type: string
-          description: Public signing link for this recipient.
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -220,22 +229,7 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-    DocumentRecipientsResponse:
-      type: object
-      description: List of recipients for a document.
-      properties:
-        recipients:
-          type: array
-          description: Array of recipient records.
-          items:
-            $ref: '#/components/schemas/DocumentRecipient'
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
@@ -254,19 +248,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    RecipientId:
-      name: recipient_id
-      in: path
-      required: true
-      description: Unique identifier of the document recipient.
-      schema:
-        type: string
     DocumentId:
       name: id
       in: path
       required: true
       description: Unique identifier of the document.
+      schema:
+        type: string
+    RecipientId:
+      name: recipient_id
+      in: path
+      required: true
+      description: Unique identifier of the document recipient.
       schema:
         type: string
   securitySchemes:

@@ -71,16 +71,15 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    ErrorResponse:
+    DocumentFieldsResponse:
       type: object
-      description: Standard error response body.
+      description: Fields contained in a document.
       properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
+        fields:
+          type: array
+          description: List of document fields.
+          items:
+            $ref: '#/components/schemas/DocumentField'
     DocumentFieldsUpdateRequest:
       type: object
       description: Request to update field values within a document.
@@ -96,6 +95,16 @@ components:
                 description: Field name to update.
               value:
                 description: New value to assign to the field.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     DocumentField:
       type: object
       description: A field within a document, such as a signature, text, or checkbox field.
@@ -124,22 +133,7 @@ components:
         required:
           type: boolean
           description: Whether the field must be completed before the document can be finalized.
-    DocumentFieldsResponse:
-      type: object
-      description: Fields contained in a document.
-      properties:
-        fields:
-          type: array
-          description: List of document fields.
-          items:
-            $ref: '#/components/schemas/DocumentField'
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
@@ -154,6 +148,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

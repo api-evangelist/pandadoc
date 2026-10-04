@@ -153,30 +153,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    WebhookSubscriptionUpdateRequest:
-      type: object
-      description: Fields to update on an existing webhook subscription.
-      properties:
-        name:
-          type: string
-          description: Updated display name.
-        url:
-          type: string
-          format: uri
-          description: Updated target URL.
-        active:
-          type: boolean
-          description: Updated active state.
-        triggers:
-          type: array
-          description: Updated list of event trigger types.
-          items:
-            $ref: '#/components/schemas/WebhookEventTrigger'
-        payload:
-          type: array
-          description: Updated list of additional payload sections.
-          items:
-            type: string
     WebhookEventTrigger:
       type: string
       description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
@@ -195,48 +171,6 @@ components:
       - content_library_item_created
       - content_library_item_creation_failed
       example: document_state_changed
-    WebhookSharedKeyResponse:
-      type: object
-      description: Regenerated shared key for a webhook subscription.
-      properties:
-        shared_key:
-          type: string
-          description: New HMAC shared key for payload signature verification.
-    WebhookSubscriptionCreateRequest:
-      type: object
-      description: Request body for creating a webhook subscription.
-      required:
-      - name
-      - url
-      - triggers
-      properties:
-        name:
-          type: string
-          description: Display name for the subscription.
-        url:
-          type: string
-          format: uri
-          description: Target URL to receive webhook notifications.
-        active:
-          type: boolean
-          description: Whether the subscription should be active immediately.
-          default: true
-        triggers:
-          type: array
-          description: Event types this subscription should receive.
-          items:
-            $ref: '#/components/schemas/WebhookEventTrigger'
-        payload:
-          type: array
-          description: Additional payload sections to include in notifications.
-          items:
-            type: string
-            enum:
-            - fields
-            - products
-            - metadata
-            - tokens
-            - pricing
     WebhookSubscription:
       type: object
       description: A webhook subscription that delivers event notifications to a subscriber endpoint URL.
@@ -283,6 +217,48 @@ components:
         workspace_id:
           type: string
           description: Identifier of the workspace this subscription belongs to.
+    WebhookSubscriptionCreateRequest:
+      type: object
+      description: Request body for creating a webhook subscription.
+      required:
+      - name
+      - url
+      - triggers
+      properties:
+        name:
+          type: string
+          description: Display name for the subscription.
+        url:
+          type: string
+          format: uri
+          description: Target URL to receive webhook notifications.
+        active:
+          type: boolean
+          description: Whether the subscription should be active immediately.
+          default: true
+        triggers:
+          type: array
+          description: Event types this subscription should receive.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Additional payload sections to include in notifications.
+          items:
+            type: string
+            enum:
+            - fields
+            - products
+            - metadata
+            - tokens
+            - pricing
+    WebhookSharedKeyResponse:
+      type: object
+      description: Regenerated shared key for a webhook subscription.
+      properties:
+        shared_key:
+          type: string
+          description: New HMAC shared key for payload signature verification.
     WebhookSubscriptionListResponse:
       type: object
       description: List of webhook subscriptions.
@@ -292,6 +268,30 @@ components:
           description: Array of webhook subscription records.
           items:
             $ref: '#/components/schemas/WebhookSubscription'
+    WebhookSubscriptionUpdateRequest:
+      type: object
+      description: Fields to update on an existing webhook subscription.
+      properties:
+        name:
+          type: string
+          description: Updated display name.
+        url:
+          type: string
+          format: uri
+          description: Updated target URL.
+        active:
+          type: boolean
+          description: Updated active state.
+        triggers:
+          type: array
+          description: Updated list of event trigger types.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Updated list of additional payload sections.
+          items:
+            type: string
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -312,12 +312,6 @@ components:
         type: string
         format: uuid
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
@@ -332,6 +326,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

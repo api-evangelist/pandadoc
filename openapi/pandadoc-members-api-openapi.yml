@@ -77,25 +77,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     MemberId:
       name: id
@@ -105,6 +86,15 @@ components:
       schema:
         type: string
   schemas:
+    MemberListResponse:
+      type: object
+      description: List of workspace members.
+      properties:
+        results:
+          type: array
+          description: Array of member records.
+          items:
+            $ref: '#/components/schemas/Member'
     Member:
       type: object
       description: A workspace member representing a PandaDoc user within a workspace.
@@ -138,15 +128,6 @@ components:
           enum:
           - active
           - inactive
-    MemberListResponse:
-      type: object
-      description: List of workspace members.
-      properties:
-        results:
-          type: array
-          description: Array of member records.
-          items:
-            $ref: '#/components/schemas/Member'
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -157,6 +138,25 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKey:
       type: apiKey

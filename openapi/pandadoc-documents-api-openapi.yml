@@ -304,15 +304,19 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    DocumentListResponse:
+    DocumentStatusResponse:
       type: object
-      description: Paginated list of document summary records.
+      description: Current status of a document.
       properties:
-        results:
-          type: array
-          description: Array of document summary records for the current page.
-          items:
-            $ref: '#/components/schemas/DocumentListItem'
+        id:
+          type: string
+          description: Unique identifier of the document.
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp of the most recent status change.
     DocumentRecipientCreateRequest:
       type: object
       description: Details for a recipient to be added to a document.
@@ -342,18 +346,153 @@ components:
         contact_id:
           type: string
           description: Optional contact identifier to link the recipient to a contact record.
-    DocumentSendResponse:
+    DocumentSendRequest:
       type: object
-      description: Confirmation of a document having been sent.
+      description: Request body for sending a document to its recipients for signature.
+      properties:
+        subject:
+          type: string
+          description: Email subject line sent to recipients.
+          example: Please sign your service agreement
+        message:
+          type: string
+          description: Body text of the email sent to recipients.
+          example: Hi, please review and sign the attached agreement at your earliest convenience.
+        silent:
+          type: boolean
+          description: If true, suppresses email notification to recipients. The document is marked as sent but recipients are not emailed.
+          default: false
+        sender:
+          type: object
+          description: Override sender details for the notification email.
+          properties:
+            email:
+              type: string
+              format: email
+              description: Sender email address.
+            name:
+              type: string
+              description: Sender display name.
+    DocumentSessionCreateRequest:
+      type: object
+      description: Request body for creating an embedded document session.
+      required:
+      - recipient
+      - lifetime
+      properties:
+        recipient:
+          type: string
+          format: email
+          description: Email address of the recipient for whom the session is created.
+        lifetime:
+          type: integer
+          description: Session lifetime in seconds.
+          minimum: 60
+          maximum: 31536000
+          example: 3600
+        read_only:
+          type: boolean
+          description: If true, the embedded viewer is in read-only mode. Recipients cannot interact with fields.
+          default: false
+    DocumentRecipient:
+      type: object
+      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
       properties:
         id:
           type: string
-          description: Unique identifier of the sent document.
+          description: Unique identifier of the recipient within the document.
+        first_name:
+          type: string
+          description: First name of the recipient.
+        last_name:
+          type: string
+          description: Last name of the recipient.
+        email:
+          type: string
+          format: email
+          description: Email address of the recipient.
+        phone:
+          type: string
+          description: Phone number of the recipient.
+        recipient_type:
+          type: string
+          description: Recipient participation type.
+          enum:
+          - SIGNER
+          - CC
+          - APPROVER
+        role:
+          type: string
+          description: Role name that maps the recipient to fields in the document.
+        signing_order:
+          type: integer
+          nullable: true
+          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
+        has_completed:
+          type: boolean
+          description: Whether this recipient has completed all required actions.
+        contact_id:
+          type: string
+          nullable: true
+          description: Identifier of the associated contact record if linked.
+        shared_link:
+          type: string
+          description: Public signing link for this recipient.
+    DocumentCreateResponse:
+      type: object
+      description: Response returned after successfully creating a document.
+      properties:
+        id:
+          type: string
+          description: Unique identifier assigned to the new document.
         name:
           type: string
           description: Display name of the document.
         status:
           $ref: '#/components/schemas/DocumentStatus'
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the document was created.
+        date_modified:
+          type: string
+          format: date-time
+          description: Timestamp of the last modification.
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: Expiration timestamp if configured.
+        version:
+          type: string
+          nullable: true
+          description: Document version string.
+    DocumentStatus:
+      type: string
+      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
+      enum:
+      - document.draft
+      - document.sent
+      - document.completed
+      - document.uploaded
+      - document.error
+      - document.viewed
+      - document.waiting_approval
+      - document.approved
+      - document.rejected
+      - document.waiting_pay
+      - document.paid
+      - document.voided
+      - document.declined
+      - document.external_review
+      example: document.draft
+    DocumentSessionCreateResponse:
+      type: object
+      description: Session token for embedding a document in an iframe.
+      properties:
+        id:
+          type: string
+          description: Session identifier used to construct the embedded document URL. Embed at https://app.pandadoc.com/s/{id}.
     DocumentListItem:
       type: object
       description: Summary record for a document returned in list responses.
@@ -385,75 +524,18 @@ components:
           type: string
           nullable: true
           description: Document version string.
-    DocumentSendRequest:
+    DocumentSendResponse:
       type: object
-      description: Request body for sending a document to its recipients for signature.
-      properties:
-        subject:
-          type: string
-          description: Email subject line sent to recipients.
-          example: Please sign your service agreement
-        message:
-          type: string
-          description: Body text of the email sent to recipients.
-          example: Hi, please review and sign the attached agreement at your earliest convenience.
-        silent:
-          type: boolean
-          description: If true, suppresses email notification to recipients. The document is marked as sent but recipients are not emailed.
-          default: false
-        sender:
-          type: object
-          description: Override sender details for the notification email.
-          properties:
-            email:
-              type: string
-              format: email
-              description: Sender email address.
-            name:
-              type: string
-              description: Sender display name.
-    DocumentStatusResponse:
-      type: object
-      description: Current status of a document.
+      description: Confirmation of a document having been sent.
       properties:
         id:
           type: string
-          description: Unique identifier of the document.
-        status:
-          $ref: '#/components/schemas/DocumentStatus'
-        date_modified:
-          type: string
-          format: date-time
-          description: Timestamp of the most recent status change.
-    DocumentCreateResponse:
-      type: object
-      description: Response returned after successfully creating a document.
-      properties:
-        id:
-          type: string
-          description: Unique identifier assigned to the new document.
+          description: Unique identifier of the sent document.
         name:
           type: string
           description: Display name of the document.
         status:
           $ref: '#/components/schemas/DocumentStatus'
-        date_created:
-          type: string
-          format: date-time
-          description: Timestamp when the document was created.
-        date_modified:
-          type: string
-          format: date-time
-          description: Timestamp of the last modification.
-        expiration_date:
-          type: string
-          format: date-time
-          nullable: true
-          description: Expiration timestamp if configured.
-        version:
-          type: string
-          nullable: true
-          description: Document version string.
     DocumentCreateRequest:
       type: object
       description: Request body for creating a new document. A document can be created from a PandaDoc template, a remote URL, or a content library item.
@@ -513,27 +595,15 @@ components:
         folder_uuid:
           type: string
           description: Identifier of the folder in which to store the document.
-    DocumentSessionCreateRequest:
+    DocumentListResponse:
       type: object
-      description: Request body for creating an embedded document session.
-      required:
-      - recipient
-      - lifetime
+      description: Paginated list of document summary records.
       properties:
-        recipient:
-          type: string
-          format: email
-          description: Email address of the recipient for whom the session is created.
-        lifetime:
-          type: integer
-          description: Session lifetime in seconds.
-          minimum: 60
-          maximum: 31536000
-          example: 3600
-        read_only:
-          type: boolean
-          description: If true, the embedded viewer is in read-only mode. Recipients cannot interact with fields.
-          default: false
+        results:
+          type: array
+          description: Array of document summary records for the current page.
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
     DocumentDetailsResponse:
       type: object
       description: Complete details of a PandaDoc document.
@@ -605,85 +675,9 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-    DocumentStatus:
-      type: string
-      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
-      enum:
-      - document.draft
-      - document.sent
-      - document.completed
-      - document.uploaded
-      - document.error
-      - document.viewed
-      - document.waiting_approval
-      - document.approved
-      - document.rejected
-      - document.waiting_pay
-      - document.paid
-      - document.voided
-      - document.declined
-      - document.external_review
-      example: document.draft
-    DocumentSessionCreateResponse:
-      type: object
-      description: Session token for embedding a document in an iframe.
-      properties:
-        id:
-          type: string
-          description: Session identifier used to construct the embedded document URL. Embed at https://app.pandadoc.com/s/{id}.
-    DocumentRecipient:
-      type: object
-      description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the recipient within the document.
-        first_name:
-          type: string
-          description: First name of the recipient.
-        last_name:
-          type: string
-          description: Last name of the recipient.
-        email:
-          type: string
-          format: email
-          description: Email address of the recipient.
-        phone:
-          type: string
-          description: Phone number of the recipient.
-        recipient_type:
-          type: string
-          description: Recipient participation type.
-          enum:
-          - SIGNER
-          - CC
-          - APPROVER
-        role:
-          type: string
-          description: Role name that maps the recipient to fields in the document.
-        signing_order:
-          type: integer
-          nullable: true
-          description: Order in which this recipient must sign relative to other recipients. Null if no signing order is enforced.
-        has_completed:
-          type: boolean
-          description: Whether this recipient has completed all required actions.
-        contact_id:
-          type: string
-          nullable: true
-          description: Identifier of the associated contact record if linked.
-        shared_link:
-          type: string
-          description: Public signing link for this recipient.
   responses:
     Forbidden:
       description: The authenticated user does not have permission for this action.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -696,6 +690,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -716,6 +716,13 @@ components:
         format: int32
         minimum: 1
         default: 1
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
     QueryCount:
       name: count
       in: query
@@ -726,13 +733,6 @@ components:
         minimum: 1
         maximum: 100
         default: 50
-    DocumentId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the document.
-      schema:
-        type: string
   securitySchemes:
     apiKey:
       type: apiKey

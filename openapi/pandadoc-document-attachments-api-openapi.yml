@@ -70,40 +70,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    DocumentAttachment:
-      type: object
-      description: A file attached to a document.
-      properties:
-        uuid:
-          type: string
-          description: Unique identifier of the attachment.
-        name:
-          type: string
-          description: File name of the attachment.
-        date_created:
-          type: string
-          format: date-time
-          description: Timestamp when the attachment was uploaded.
     DocumentAttachmentsResponse:
       type: object
       description: Attachments associated with a document.
@@ -123,6 +90,39 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
+    DocumentAttachment:
+      type: object
+      description: A file attached to a document.
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier of the attachment.
+        name:
+          type: string
+          description: File name of the attachment.
+        date_created:
+          type: string
+          format: date-time
+          description: Timestamp when the attachment was uploaded.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     DocumentId:
       name: id

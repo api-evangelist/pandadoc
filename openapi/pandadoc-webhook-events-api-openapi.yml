@@ -113,6 +113,30 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    WebhookEventListItem:
+      type: object
+      description: Summary record for a webhook event delivery attempt.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier of the webhook event.
+        name:
+          type: string
+          description: Name associated with the document or entity that triggered the event.
+        type:
+          $ref: '#/components/schemas/WebhookEventTrigger'
+        error:
+          type: string
+          nullable: true
+          description: Error code if delivery failed.
+        http_status_code:
+          type: integer
+          description: HTTP response status code received from the subscriber endpoint.
+        delivery_time:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was delivered.
     WebhookEventTrigger:
       type: string
       description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
@@ -131,6 +155,15 @@ components:
       - content_library_item_created
       - content_library_item_creation_failed
       example: document_state_changed
+    WebhookEventListResponse:
+      type: object
+      description: Paginated list of webhook event delivery records.
+      properties:
+        items:
+          type: array
+          description: Array of webhook event summary records.
+          items:
+            $ref: '#/components/schemas/WebhookEventListItem'
     WebhookEventDetails:
       type: object
       description: Full details of a webhook event delivery including the request and response bodies, signature, and delivery metadata.
@@ -171,39 +204,6 @@ components:
         response_headers:
           type: string
           description: Response headers received from the subscriber endpoint.
-    WebhookEventListItem:
-      type: object
-      description: Summary record for a webhook event delivery attempt.
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Unique identifier of the webhook event.
-        name:
-          type: string
-          description: Name associated with the document or entity that triggered the event.
-        type:
-          $ref: '#/components/schemas/WebhookEventTrigger'
-        error:
-          type: string
-          nullable: true
-          description: Error code if delivery failed.
-        http_status_code:
-          type: integer
-          description: HTTP response status code received from the subscriber endpoint.
-        delivery_time:
-          type: string
-          format: date-time
-          description: Timestamp when the webhook was delivered.
-    WebhookEventListResponse:
-      type: object
-      description: Paginated list of webhook event delivery records.
-      properties:
-        items:
-          type: array
-          description: Array of webhook event summary records.
-          items:
-            $ref: '#/components/schemas/WebhookEventListItem'
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -215,14 +215,14 @@ components:
           type: string
           description: Human-readable description of the error.
   responses:
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
