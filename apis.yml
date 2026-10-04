@@ -442,6 +442,9 @@ apis:
   - type: AsyncAPI
     url: asyncapi/pandadoc-webhooks-asyncapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/pandadoc-capability-edges.yml
+  name: PandaDoc Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/pandadoc/overview
 - type: AgenticAccess
