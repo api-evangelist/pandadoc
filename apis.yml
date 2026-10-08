@@ -442,6 +442,12 @@ apis:
   - type: AsyncAPI
     url: asyncapi/pandadoc-webhooks-asyncapi.yml
 common:
+- type: Plans
+  url: plans/pandadoc-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/pandadoc-rate-limits.yml
+- type: FinOps
+  url: finops/pandadoc-finops.yml
 - type: CapabilityMap
   url: capabilities/pandadoc-capability-edges.yml
   name: PandaDoc Business Capability Map
