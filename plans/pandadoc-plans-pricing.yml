@@ -111,3 +111,49 @@ plans:
       - name: SSO
       - name: Team workspaces
       - name: API access
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - seat
+  - subscription
+  units:
+  - object
+  - period
+  - seat
+  plans:
+  - name: Free
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - object
+    periods:
+    - year
+  - name: Starter
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - object
+    - period
+    periods:
+    - month
+    - year
+  - name: Business
+    access: paid
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Enterprise
+    access: enterprise
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
