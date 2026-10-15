@@ -70,7 +70,7 @@
     app_slug: pandadoc
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: pandadoc-pipedream
   label: Pipedream
@@ -96,5 +96,5 @@
     actions: true
     sources: true
     builder: Pipedream repo (component)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
