@@ -153,24 +153,30 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    WebhookEventTrigger:
-      type: string
-      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
-      enum:
-      - recipient_completed
-      - document_updated
-      - document_deleted
-      - document_state_changed
-      - document_creation_failed
-      - document_completed_pdf_ready
-      - document_section_added
-      - quote_updated
-      - template_created
-      - template_updated
-      - template_deleted
-      - content_library_item_created
-      - content_library_item_creation_failed
-      example: document_state_changed
+    WebhookSubscriptionUpdateRequest:
+      type: object
+      description: Fields to update on an existing webhook subscription.
+      properties:
+        name:
+          type: string
+          description: Updated display name.
+        url:
+          type: string
+          format: uri
+          description: Updated target URL.
+        active:
+          type: boolean
+          description: Updated active state.
+        triggers:
+          type: array
+          description: Updated list of event trigger types.
+          items:
+            $ref: '#/components/schemas/WebhookEventTrigger'
+        payload:
+          type: array
+          description: Updated list of additional payload sections.
+          items:
+            type: string
     WebhookSubscription:
       type: object
       description: A webhook subscription that delivers event notifications to a subscriber endpoint URL.
@@ -259,39 +265,24 @@ components:
         shared_key:
           type: string
           description: New HMAC shared key for payload signature verification.
-    WebhookSubscriptionListResponse:
-      type: object
-      description: List of webhook subscriptions.
-      properties:
-        items:
-          type: array
-          description: Array of webhook subscription records.
-          items:
-            $ref: '#/components/schemas/WebhookSubscription'
-    WebhookSubscriptionUpdateRequest:
-      type: object
-      description: Fields to update on an existing webhook subscription.
-      properties:
-        name:
-          type: string
-          description: Updated display name.
-        url:
-          type: string
-          format: uri
-          description: Updated target URL.
-        active:
-          type: boolean
-          description: Updated active state.
-        triggers:
-          type: array
-          description: Updated list of event trigger types.
-          items:
-            $ref: '#/components/schemas/WebhookEventTrigger'
-        payload:
-          type: array
-          description: Updated list of additional payload sections.
-          items:
-            type: string
+    WebhookEventTrigger:
+      type: string
+      description: Event type that triggers a webhook notification delivery to the subscriber endpoint.
+      enum:
+      - recipient_completed
+      - document_updated
+      - document_deleted
+      - document_state_changed
+      - document_creation_failed
+      - document_completed_pdf_ready
+      - document_section_added
+      - quote_updated
+      - template_created
+      - template_updated
+      - template_deleted
+      - content_library_item_created
+      - content_library_item_creation_failed
+      example: document_state_changed
     ErrorResponse:
       type: object
       description: Standard error response body.
@@ -302,22 +293,16 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-  parameters:
-    WebhookSubscriptionId:
-      name: id
-      in: path
-      required: true
-      description: UUID of the webhook subscription.
-      schema:
-        type: string
-        format: uuid
+    WebhookSubscriptionListResponse:
+      type: object
+      description: List of webhook subscriptions.
+      properties:
+        items:
+          type: array
+          description: Array of webhook subscription records.
+          items:
+            $ref: '#/components/schemas/WebhookSubscription'
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     TooManyRequests:
       description: Rate limit exceeded. Retry after the indicated delay.
       content:
@@ -330,12 +315,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    WebhookSubscriptionId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the webhook subscription.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     apiKey:
       type: apiKey

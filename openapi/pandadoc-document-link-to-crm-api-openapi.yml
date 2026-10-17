@@ -57,57 +57,19 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     TooManyRequests:
       description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    DocumentStatus:
-      type: string
-      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
-      enum:
-      - document.draft
-      - document.sent
-      - document.completed
-      - document.uploaded
-      - document.error
-      - document.viewed
-      - document.waiting_approval
-      - document.approved
-      - document.rejected
-      - document.waiting_pay
-      - document.paid
-      - document.voided
-      - document.declined
-      - document.external_review
-      example: document.draft
-    LinkedObjectsResponse:
-      type: object
-      description: Documents linked to a CRM object.
-      properties:
-        items:
-          type: array
-          description: Array of linked document records.
-          items:
-            $ref: '#/components/schemas/DocumentListItem'
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     DocumentListItem:
       type: object
       description: Summary record for a document returned in list responses.
@@ -139,6 +101,44 @@ components:
           type: string
           nullable: true
           description: Document version string.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    DocumentStatus:
+      type: string
+      description: Current lifecycle status of a PandaDoc document. Documents progress through statuses as they are drafted, sent, viewed, signed, and completed.
+      enum:
+      - document.draft
+      - document.sent
+      - document.completed
+      - document.uploaded
+      - document.error
+      - document.viewed
+      - document.waiting_approval
+      - document.approved
+      - document.rejected
+      - document.waiting_pay
+      - document.paid
+      - document.voided
+      - document.declined
+      - document.external_review
+      example: document.draft
+    LinkedObjectsResponse:
+      type: object
+      description: Documents linked to a CRM object.
+      properties:
+        items:
+          type: array
+          description: Array of linked document records.
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
   securitySchemes:
     apiKey:
       type: apiKey

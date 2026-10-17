@@ -77,14 +77,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  parameters:
-    MemberId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the workspace member.
-      schema:
-        type: string
   schemas:
     MemberListResponse:
       type: object
@@ -139,14 +131,14 @@ components:
           type: string
           description: Human-readable description of the error.
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -157,6 +149,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    MemberId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the workspace member.
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

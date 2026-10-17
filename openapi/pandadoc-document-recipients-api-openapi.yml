@@ -119,7 +119,83 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier of the document.
+      schema:
+        type: string
+    RecipientId:
+      name: recipient_id
+      in: path
+      required: true
+      description: Unique identifier of the document recipient.
+      schema:
+        type: string
   schemas:
+    DocumentRecipientsResponse:
+      type: object
+      description: List of recipients for a document.
+      properties:
+        recipients:
+          type: array
+          description: Array of recipient records.
+          items:
+            $ref: '#/components/schemas/DocumentRecipient'
+    DocumentRecipientUpdateRequest:
+      type: object
+      description: Fields to update on an existing document recipient.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name.
+        last_name:
+          type: string
+          description: Updated last name.
+        email:
+          type: string
+          format: email
+          description: Updated email address.
+        signing_order:
+          type: integer
+          description: Updated signing order position.
+    ErrorResponse:
+      type: object
+      description: Standard error response body.
+      properties:
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     DocumentRecipient:
       type: object
       description: A recipient assigned to a document who may be required to sign, approve, or receive a copy of the document.
@@ -164,15 +240,6 @@ components:
         shared_link:
           type: string
           description: Public signing link for this recipient.
-    DocumentRecipientsResponse:
-      type: object
-      description: List of recipients for a document.
-      properties:
-        recipients:
-          type: array
-          description: Array of recipient records.
-          items:
-            $ref: '#/components/schemas/DocumentRecipient'
     DocumentRecipientCreateRequest:
       type: object
       description: Details for a recipient to be added to a document.
@@ -202,73 +269,6 @@ components:
         contact_id:
           type: string
           description: Optional contact identifier to link the recipient to a contact record.
-    DocumentRecipientUpdateRequest:
-      type: object
-      description: Fields to update on an existing document recipient.
-      properties:
-        first_name:
-          type: string
-          description: Updated first name.
-        last_name:
-          type: string
-          description: Updated last name.
-        email:
-          type: string
-          format: email
-          description: Updated email address.
-        signing_order:
-          type: integer
-          description: Updated signing order position.
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    DocumentId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier of the document.
-      schema:
-        type: string
-    RecipientId:
-      name: recipient_id
-      in: path
-      required: true
-      description: Unique identifier of the document recipient.
-      schema:
-        type: string
   securitySchemes:
     apiKey:
       type: apiKey

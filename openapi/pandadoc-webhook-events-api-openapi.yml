@@ -112,7 +112,29 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded. Retry after the indicated delay.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    WebhookEventListResponse:
+      type: object
+      description: Paginated list of webhook event delivery records.
+      properties:
+        items:
+          type: array
+          description: Array of webhook event summary records.
+          items:
+            $ref: '#/components/schemas/WebhookEventListItem'
     WebhookEventListItem:
       type: object
       description: Summary record for a webhook event delivery attempt.
@@ -155,15 +177,16 @@ components:
       - content_library_item_created
       - content_library_item_creation_failed
       example: document_state_changed
-    WebhookEventListResponse:
+    ErrorResponse:
       type: object
-      description: Paginated list of webhook event delivery records.
+      description: Standard error response body.
       properties:
-        items:
-          type: array
-          description: Array of webhook event summary records.
-          items:
-            $ref: '#/components/schemas/WebhookEventListItem'
+        type:
+          type: string
+          description: Error type identifier.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     WebhookEventDetails:
       type: object
       description: Full details of a webhook event delivery including the request and response bodies, signature, and delivery metadata.
@@ -204,29 +227,6 @@ components:
         response_headers:
           type: string
           description: Response headers received from the subscriber endpoint.
-    ErrorResponse:
-      type: object
-      description: Standard error response body.
-      properties:
-        type:
-          type: string
-          description: Error type identifier.
-        detail:
-          type: string
-          description: Human-readable description of the error.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded. Retry after the indicated delay.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKey:
       type: apiKey
