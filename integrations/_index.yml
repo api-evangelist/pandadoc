@@ -126,7 +126,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: pandadoc-fivetran
   label: Fivetran
@@ -152,7 +152,7 @@
     - connectors/applications/pandadoc
     vendor_link: https://www.pandadoc.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: pandadoc-google-workspace-own
   label: Google Workspace (own)
