@@ -25,118 +25,11 @@ checked:
 - https://ecosystem.hubspot.com/marketplace/apps
 - https://ecosystem.hubspot.com/marketplace/explore?eco_PRODUCT_TYPE=APP&eco_CERTIFIED=true
 - https://ecosystem.hubspot.com/marketplace/solutions
+- pipedrive/integrations/pipedrive-integration-edges.yml
 source:
 - greenhouse/integrations/greenhouse-integration-edges.yml
 - okta/integrations/okta-integration-edges.yml
 edges:
-- partner_name: Greenhouse (own)
-  partner: greenhouse
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://integrations.greenhouse.com/partners/pandadoc
-  mirror_of: greenhouse/integrations/greenhouse-integration-edges.yml
-  apps:
-  - PandaDoc
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-- partner_name: Okta (own)
-  partner: okta
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.okta.com/integrations/pandadoc/
-  mirror_of: okta/integrations/okta-integration-edges.yml
-  apps:
-  - PandaDoc
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Single Sign-On
-  badges:
-  - OKTA_VERIFIED
-  features:
-  - SAML
-  - SWA
-- partner_name: Google Workspace (own)
-  partner: google-workspace
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://workspace.google.com/marketplace/app/pandadoc_for_google_docs/463622177030
-  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
-  apps:
-  - PandaDoc for Google Docs
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Google Workspace app
-- partner_name: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200002927
-  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
-  apps:
-  - PandaDoc for Teams
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Microsoft Teams app
-  publisher_verified:
-  - Microsoft 365 Certified
-- partner_name: Monday.com (own)
-  partner: monday-com
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://monday.com/marketplace/listing/115
-  mirror_of: monday-com/integrations/monday-com-integration-edges.yml
-  apps:
-  - 'PandaDoc '
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: monday.com app
-- partner_name: Slack (own)
-  partner: slack
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://slack.com/marketplace/A026RJR7UF3-pandadoc
-  mirror_of: slack/integrations/slack-integration-edges.yml
-  apps:
-  - PandaDoc
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Slack app
 - partner_name: MCP Registry
   partner: mcp
   partner_match: register
@@ -345,3 +238,128 @@ edges:
     detected: '2026-10-21'
   detected_by: sweep-hubspot-app-marketplace.py
   first_seen: '2026-10-21'
+- partner_name: Greenhouse (own)
+  partner: greenhouse
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://integrations.greenhouse.com/partners/pandadoc
+  mirror_of: greenhouse/integrations/greenhouse-integration-edges.yml
+  apps:
+  - PandaDoc
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/pandadoc/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - PandaDoc
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - SAML
+  - SWA
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/pandadoc_for_google_docs/463622177030
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - PandaDoc for Google Docs
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
+- partner_name: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200002927
+  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+  apps:
+  - PandaDoc for Teams
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Microsoft Teams app
+  publisher_verified:
+  - Microsoft 365 Certified
+- partner_name: Monday.com (own)
+  partner: monday-com
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://monday.com/marketplace/listing/115
+  mirror_of: monday-com/integrations/monday-com-integration-edges.yml
+  apps:
+  - 'PandaDoc '
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: monday.com app
+- partner_name: Slack (own)
+  partner: slack
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://slack.com/marketplace/A026RJR7UF3-pandadoc
+  mirror_of: slack/integrations/slack-integration-edges.yml
+  apps:
+  - PandaDoc
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Slack app
+- partner_name: Pipedrive (own)
+  partner: pipedrive
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.pipedrive.com/en/marketplace/app/panda-doc-proposals-e-signatures-and-cpq/bde8d47250a2302c
+  mirror_of: pipedrive/integrations/pipedrive-integration-edges.yml
+  apps:
+  - PandaDoc - Proposals, e-signatures, and CPQ
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Manage contracts
