@@ -1,4 +1,4 @@
-# PandaDoc (pandadoc)
+# PandaDoc
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,154 +66,245 @@
 
 PandaDoc is a document automation platform that enables businesses to create, send, track, and e-sign documents programmatically. Their developer platform provides REST APIs and embedded tools for integrating document generation, e-signature collection, and workflow automation directly into third-party applications.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/pandadoc/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/pandadoc/refs/heads/main/apis.yml)
+**Areas:** Document Automation · E-Signature · Document Management · Document Generation · Webhook
 
-## Scope
+## PandaDoc on APIs.io
 
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for PandaDoc is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pandadoc/](https://apis.io/providers/pandadoc/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (15)
 
-- Document Automation
-- E-Signature
-- Document Management
-- Document Generation
-- Webhooks
+- [PandaDoc API Logs API](https://apis.io/apis/pandadoc/pandadoc-api-logs-api/) — Operations for retrieving API request logs useful for debugging and auditing integration activity.
+- [PandaDoc Contacts API](https://apis.io/apis/pandadoc/pandadoc-contacts-api/) — Operations for managing the PandaDoc contacts directory, including creating, reading, updating, and deleting contact records.
+- [PandaDoc Document Attachments API](https://apis.io/apis/pandadoc/pandadoc-document-attachments-api/) — Operations for managing file attachments associated with a document, including uploading and downloading attachment files.
+- [PandaDoc Document Fields API](https://apis.io/apis/pandadoc/pandadoc-document-fields-api/) — Operations for retrieving and updating field values within a document, such as text fields, checkboxes, signatures, and date fields.
+- [PandaDoc Document Link to CRM API](https://apis.io/apis/pandadoc/pandadoc-document-link-to-crm-api/) — Operations for managing links between PandaDoc documents and external CRM entities such as contacts, deals, or accounts.
+- [PandaDoc Document Recipients API](https://apis.io/apis/pandadoc/pandadoc-document-recipients-api/) — Operations for managing recipients within documents, including adding, editing, reassigning, and deleting recipients.
+- [PandaDoc Document Reminders API](https://apis.io/apis/pandadoc/pandadoc-document-reminders-api/) — Operations for configuring automatic reminders sent to document recipients who have not yet completed their actions.
+- [PandaDoc Documents API](https://apis.io/apis/pandadoc/pandadoc-documents-api/) — Operations for creating, retrieving, sending, and managing the full lifecycle of documents including drafting, sending for signature, downloading, and deleting.
+- [PandaDoc Folders API](https://apis.io/apis/pandadoc/pandadoc-folders-api/) — Operations for organizing documents and templates into folders, including creating, renaming, and listing folder contents.
+- [PandaDoc Forms API](https://apis.io/apis/pandadoc/pandadoc-forms-api/) — Operations for retrieving and managing forms, which are publicly shareable document templates that can be filled and signed without a predefined recipient list.
+- [PandaDoc Members API](https://apis.io/apis/pandadoc/pandadoc-members-api/) — Operations for managing and retrieving details about workspace members, including listing members and generating member API tokens.
+- [PandaDoc Templates API](https://apis.io/apis/pandadoc/pandadoc-templates-api/) — Operations for managing document templates, including listing available templates, retrieving template details, creating templates from file upload, and…
+- [PandaDoc Webhook Events API](https://apis.io/apis/pandadoc/pandadoc-webhook-events-api/) — Operations for querying the log of webhook events that have been dispatched, including filtering by type and delivery status.
+- [PandaDoc Webhook Subscriptions API](https://apis.io/apis/pandadoc/pandadoc-webhook-subscriptions-api/) — Operations for managing webhook subscriptions that deliver real-time event notifications for document lifecycle and other platform events.
+- [PandaDoc Workspaces API](https://apis.io/apis/pandadoc/pandadoc-workspaces-api/) — Operations for managing organization workspaces, including listing, creating, and deactivating workspaces.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-21
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### PandaDoc REST API
+Event-driven and webhook contracts.
 
-The PandaDoc REST API provides programmatic access to PandaDoc's document automation platform, enabling developers to create, send, track, and manage documents within their own applications. The API supports the full document lifecycle including generating documents from templates with dynamic data, collecting e-signatures, managing recipients, and tracking document status through webhooks. Authentication is handled via API keys, and a free sandbox environment is available for testing integrations before moving to production. An active Enterprise plan is required to access the production API.
+- [PandaDoc Webhook Events](https://apis.io/asyncapis/pandadoc/pandadoc-webhooks-asyncapi/)
 
-- **Human URL:** [https://developers.pandadoc.com/reference/about](https://developers.pandadoc.com/reference/about)
-- **Base URL:** `https://api.pandadoc.com/public/v1`
+#### Event channels (1)
 
-#### Tags
+Individual events and webhooks the provider emits.
 
-- Document Automation
-- E-Signature
-- Document Management
-- REST
+- [/webhook](https://apis.io/channels/pandadoc/webhook/)
 
-#### Properties
+#### GraphQL (1)
 
-- [Documentation](https://developers.pandadoc.com/reference/about)
-- [OpenAPI](openapi/pandadoc-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/pandadoc-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/pandadoc-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+GraphQL schemas.
 
-### PandaDoc Document Generation API
+- [PandaDoc GraphQL Schema](https://apis.io/graphqls/pandadoc/pandadoc-graphql/)
 
-The PandaDoc Document Generation API allows developers to programmatically create documents from templates by injecting dynamic data pulled from CRM systems, databases, or other external sources. It supports branded document creation with content placeholders, conditional sections, pricing tables, and custom fields that are populated at runtime. Documents can be generated from existing PandaDoc templates or uploaded PDFs, enabling consistent and automated document production at scale. The API is commonly used in sales, legal, and HR workflows to eliminate manual document preparation.
+#### MCP servers (1)
 
-- **Human URL:** [https://developers.pandadoc.com/docs/getting-started](https://developers.pandadoc.com/docs/getting-started)
-- **Base URL:** `https://api.pandadoc.com/public/v1`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [Moved to /providers/pandadoc/](https://apis.io/servers/pandadoc/pandadoc/)
 
-- Document Generation
-- Templates
-- Document Automation
-- CRM Integration
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://developers.pandadoc.com/docs/getting-started)
-- [OpenAPI](openapi/pandadoc-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/pandadoc-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/pandadoc-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Pandadoc Agentic Access](https://apis.io/agentic-access/pandadoc/pandadoc-agentic-access/)
 
-### PandaDoc E-Signature API
+#### JSON Schema (52)
 
-The PandaDoc E-Signature API enables developers to embed legally binding e-signature workflows directly within their applications using a white-label signing experience. It supports sending signature requests via email or SMS, configuring multiple recipients with defined roles and signing order, and collecting signatures without signers needing a PandaDoc account. The API provides real-time status tracking and generates audit trails and signed PDF copies upon completion. It is designed for use cases in contract management, sales, finance, and any workflow requiring legally compliant electronic signatures.
+The data models the API reads and writes.
 
-- **Human URL:** [https://www.pandadoc.com/api/](https://www.pandadoc.com/api/)
-- **Base URL:** `https://api.pandadoc.com/public/v1`
+- [ApiLogListResponse](https://apis.io/schemas/pandadoc/pandadoc-apiloglistresponse/)
+- [Contact](https://apis.io/schemas/pandadoc/pandadoc-contact/)
+- [ContactCreateRequest](https://apis.io/schemas/pandadoc/pandadoc-contactcreaterequest/)
+- [ContactListResponse](https://apis.io/schemas/pandadoc/pandadoc-contactlistresponse/)
+- [ContactUpdateRequest](https://apis.io/schemas/pandadoc/pandadoc-contactupdaterequest/)
+- [PandaDoc Document](https://apis.io/schemas/pandadoc/pandadoc-document/)
+- [DocumentAttachment](https://apis.io/schemas/pandadoc/pandadoc-documentattachment/)
+- [DocumentAttachmentsResponse](https://apis.io/schemas/pandadoc/pandadoc-documentattachmentsresponse/)
+- [DocumentAutoReminderResponse](https://apis.io/schemas/pandadoc/pandadoc-documentautoreminderresponse/)
+- [DocumentCreateRequest](https://apis.io/schemas/pandadoc/pandadoc-documentcreaterequest/)
+- [DocumentCreateResponse](https://apis.io/schemas/pandadoc/pandadoc-documentcreateresponse/)
+- [DocumentDetailsResponse](https://apis.io/schemas/pandadoc/pandadoc-documentdetailsresponse/)
+- [DocumentField](https://apis.io/schemas/pandadoc/pandadoc-documentfield/)
+- [DocumentFieldsResponse](https://apis.io/schemas/pandadoc/pandadoc-documentfieldsresponse/)
+- [DocumentFieldsUpdateRequest](https://apis.io/schemas/pandadoc/pandadoc-documentfieldsupdaterequest/)
+- [DocumentListItem](https://apis.io/schemas/pandadoc/pandadoc-documentlistitem/)
+- [DocumentListResponse](https://apis.io/schemas/pandadoc/pandadoc-documentlistresponse/)
+- [DocumentRecipient](https://apis.io/schemas/pandadoc/pandadoc-documentrecipient/)
+- [DocumentRecipientCreateRequest](https://apis.io/schemas/pandadoc/pandadoc-documentrecipientcreaterequest/)
+- [DocumentRecipientsResponse](https://apis.io/schemas/pandadoc/pandadoc-documentrecipientsresponse/)
+- [DocumentRecipientUpdateRequest](https://apis.io/schemas/pandadoc/pandadoc-documentrecipientupdaterequest/)
+- [DocumentSendRequest](https://apis.io/schemas/pandadoc/pandadoc-documentsendrequest/)
+- [DocumentSendResponse](https://apis.io/schemas/pandadoc/pandadoc-documentsendresponse/)
+- [DocumentSessionCreateRequest](https://apis.io/schemas/pandadoc/pandadoc-documentsessioncreaterequest/)
+- [DocumentSessionCreateResponse](https://apis.io/schemas/pandadoc/pandadoc-documentsessioncreateresponse/)
+- …and 27 more published on APIs.io
 
-#### Tags
+#### JSON Structure (1)
 
-- E-Signature
-- Electronic Signatures
-- Document Signing
-- Compliance
+Data models expressed in JSON Structure.
 
-#### Properties
+- [Pandadoc Structure](https://apis.io/json-structure/pandadoc/pandadoc-structure/)
 
-- [Documentation](https://www.pandadoc.com/api/)
-- [OpenAPI](openapi/pandadoc-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/pandadoc-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/pandadoc-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-### PandaDoc Embedded Editing API
+Linked-data contexts for the provider's vocabulary.
 
-The PandaDoc Embedded Editing API allows developers to embed PandaDoc's document editor directly within their own platform, enabling end users to prepare, customize, and finalize documents without leaving the host application. Users can upload PDFs or select templates, place signature and form fields, adjust content, and assign recipients through a drag-and-drop interface embedded via token-based sessions. Once editing is complete, documents can be sent for e-signature collection and the resulting signed PDFs and audit trails can be retrieved via API. This enables a seamless, branded document experience without requiring users to have separate PandaDoc accounts.
+- [Pandadoc Context](https://apis.io/jsonld/pandadoc/pandadoc-context/)
 
-- **Human URL:** [https://www.pandadoc.com/api/embedded-editing/](https://www.pandadoc.com/api/embedded-editing/)
-- **Base URL:** `https://api.pandadoc.com/public/v1`
+#### Vocabulary (1)
 
-#### Tags
+The provider's domain terms, defined.
 
-- Embedded Editing
-- Document Editor
-- White Label
-- Embedded
+- [PandaDoc Domain Vocabulary](https://apis.io/vocabularies/pandadoc/pandadoc-vocabulary/)
 
-#### Properties
+#### Collections (31)
 
-- [Documentation](https://www.pandadoc.com/api/embedded-editing/)
-- [OpenAPI](openapi/pandadoc-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/pandadoc-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/pandadoc-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### PandaDoc Webhooks API
+- [PandaDoc REST API Logs API](https://apis.io/collections/pandadoc/open-pandadoc-api-logs-api/)
+- [PandaDoc REST API Logs Contacts API](https://apis.io/collections/pandadoc/open-pandadoc-contacts-api/)
+- [PandaDoc REST API Logs Document Attachments API](https://apis.io/collections/pandadoc/open-pandadoc-document-attachments-api/)
+- [PandaDoc REST API Logs Document Fields API](https://apis.io/collections/pandadoc/open-pandadoc-document-fields-api/)
+- [PandaDoc REST API Logs Document Link to CRM API](https://apis.io/collections/pandadoc/open-pandadoc-document-link-to-crm-api/)
+- [PandaDoc REST API Logs Document Recipients API](https://apis.io/collections/pandadoc/open-pandadoc-document-recipients-api/)
+- [PandaDoc REST API Logs Document Reminders API](https://apis.io/collections/pandadoc/open-pandadoc-document-reminders-api/)
+- [PandaDoc REST API Logs Documents API](https://apis.io/collections/pandadoc/open-pandadoc-documents-api/)
+- [PandaDoc REST API Logs Folders API](https://apis.io/collections/pandadoc/open-pandadoc-folders-api/)
+- [PandaDoc REST API Logs Forms API](https://apis.io/collections/pandadoc/open-pandadoc-forms-api/)
+- [PandaDoc REST API Logs Members API](https://apis.io/collections/pandadoc/open-pandadoc-members-api/)
+- [PandaDoc REST API](https://apis.io/collections/pandadoc/open-pandadoc-rest-api/)
+- [PandaDoc REST API Logs Templates API](https://apis.io/collections/pandadoc/open-pandadoc-templates-api/)
+- [PandaDoc REST API Logs Webhook Events API](https://apis.io/collections/pandadoc/open-pandadoc-webhook-events-api/)
+- [PandaDoc REST API Logs Webhook Subscriptions API](https://apis.io/collections/pandadoc/open-pandadoc-webhook-subscriptions-api/)
+- [PandaDoc REST API Logs Workspaces API](https://apis.io/collections/pandadoc/open-pandadoc-workspaces-api/)
+- [PandaDoc REST API Logs API](https://apis.io/collections/pandadoc/postman-pandadoc-api-logs-api/)
+- [PandaDoc REST API Logs Contacts API](https://apis.io/collections/pandadoc/postman-pandadoc-contacts-api/)
+- [PandaDoc REST API Logs Document Attachments API](https://apis.io/collections/pandadoc/postman-pandadoc-document-attachments-api/)
+- [PandaDoc REST API Logs Document Fields API](https://apis.io/collections/pandadoc/postman-pandadoc-document-fields-api/)
+- [PandaDoc REST API Logs Document Link to CRM API](https://apis.io/collections/pandadoc/postman-pandadoc-document-link-to-crm-api/)
+- [PandaDoc REST API Logs Document Recipients API](https://apis.io/collections/pandadoc/postman-pandadoc-document-recipients-api/)
+- [PandaDoc REST API Logs Document Reminders API](https://apis.io/collections/pandadoc/postman-pandadoc-document-reminders-api/)
+- [PandaDoc REST API Logs Documents API](https://apis.io/collections/pandadoc/postman-pandadoc-documents-api/)
+- [PandaDoc REST API Logs Folders API](https://apis.io/collections/pandadoc/postman-pandadoc-folders-api/)
+- …and 6 more published on APIs.io
 
-The PandaDoc Webhooks API enables developers to subscribe to real-time event notifications for document lifecycle events such as document sent, viewed, signed, approved, declined, and completed. Webhooks can be configured to trigger events both within PandaDoc and in connected external systems, enabling automated workflows across a technology stack. Each event payload includes document metadata and status information for processing downstream actions like CRM updates, storage routing, or approval notifications. Webhooks are configured through the PandaDoc dashboard and are available to accounts with API access.
+#### Governance rules (2)
 
-- **Human URL:** [https://developers.pandadoc.com/docs/webhooks-concepts](https://developers.pandadoc.com/docs/webhooks-concepts)
-- **Base URL:** `https://api.pandadoc.com/public/v1`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [PandaDoc — asyncapi rules](https://apis.io/rules/pandadoc/pandadoc-asyncapi-spectral-rules/)
+- [PandaDoc — jsonschema rules](https://apis.io/rules/pandadoc/pandadoc-jsonschema-spectral-rules/)
 
-- Webhooks
-- Events
-- Notifications
-- Integration
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://developers.pandadoc.com/docs/webhooks-concepts)
-- [OpenAPI](openapi/pandadoc-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/pandadoc-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/pandadoc-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi/pandadoc-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [Pandadoc Authentication](https://apis.io/security/pandadoc/pandadoc-authentication/)
+- [Pandadoc Domain Security](https://apis.io/security/pandadoc/pandadoc-domain-security/)
 
-## Common Properties
+#### OAuth scopes (1)
 
-- [GitHub Organization](https://github.com/PandaDoc)
-- [LinkedIn](https://www.linkedin.com/company/pandadoc)
-- [Portal](https://developers.pandadoc.com/)
-- [Documentation](https://developers.pandadoc.com/docs/getting-started)
+The permissions the API asks for.
+
+- [Pandadoc Scopes](https://apis.io/scopes/pandadoc/pandadoc-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pandadoc Plans Pricing](https://apis.io/plans/pandadoc/pandadoc-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pandadoc Rate Limits](https://apis.io/rate-limits/pandadoc/pandadoc-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Pandadoc Finops](https://apis.io/finops/pandadoc/pandadoc-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.pandadoc.com/)
-- [Blog](https://www.pandadoc.com/blog/)
-- [Login](https://app.pandadoc.com/login/)
-- [Privacy Policy](https://www.pandadoc.com/privacy-notice/)
-- [Terms of Service](https://www.pandadoc.com/terms-of-use/)
+- [Documentation](https://developers.pandadoc.com/docs/getting-started)
 - [Support](https://support.pandadoc.com/)
-- [JSON-LD](json-ld/pandadoc-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/pandadoc-document-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/pandadoc-webhook-event-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Features](undefined)
-- [Integrations](https://www.pandadoc.com/integrations/)
-- [L L Ms Txt](https://developers.pandadoc.com/llms.txt)
+- [Blog](https://www.pandadoc.com/blog/)
+- [Terms of service](https://www.pandadoc.com/terms-of-use/)
+- [Privacy policy](https://www.pandadoc.com/privacy-notice/)
+- [GitHub](https://github.com/PandaDoc)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** API Evangelist
-**Email:** info@apievangelist.com
+**Kin Score 41.4** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 68.1 |
+| Contract governance | 13.6 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 25.0 |
+
+**Agent readiness 31.9** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pandadoc/](https://apis.io/providers/pandadoc/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PandaDoc: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pandadoc/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
